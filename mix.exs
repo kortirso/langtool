@@ -1,16 +1,24 @@
 defmodule Langtool.Mixfile do
   use Mix.Project
 
+  @description """
+    Phoenix web application for auto-translation
+  """
+
   def project do
     [
       app: :langtool,
       version: "0.0.1",
-      elixir: "~> 1.4",
+      elixir: "~> 1.7",
+      name: "Langtool",
+      description: @description,
+      source_url: "https://github.com/kortirso/langtool",
       elixirc_paths: elixirc_paths(Mix.env),
       compilers: [:phoenix, :gettext] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      package: package()
     ]
   end
 
@@ -56,6 +64,14 @@ defmodule Langtool.Mixfile do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate", "test"]
+    ]
+  end
+
+  defp package do
+    [
+      maintainers: ["Anton Bogdanov"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/kortirso/langtool"}
     ]
   end
 end
