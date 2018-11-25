@@ -1,0 +1,15 @@
+doctype html
+html lang="en" 
+  head
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+    meta content="width=device-width, initial-scale=1" name="viewport"
+    meta content="" name="description"
+    meta content="" name="author"
+    title Hello Langtool!
+    link rel="stylesheet" href=static_path(@conn, "/css/app.css")
+  body
+    = render LangtoolWeb.SharedView, "navigation.html"
+    = render @view_module, @view_template, assigns
+    = render LangtoolWeb.SharedView, "footer.html"
+    script src=static_path(@conn,"/js/app.js")
