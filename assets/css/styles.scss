@@ -11,12 +11,76 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  font-size: 1.1rem;
+  font-weight: 300;
 
   main {
     flex-grow: 1;
 
     .welcome {
       padding: 100px 15px;
+
+      .intro {
+        background: none;
+
+        h1 {
+          font-size: 4rem;
+          margin-bottom: 20px;
+        }
+
+        p {
+          margin-bottom: 10px;
+        }
+      }
+    }
+
+    .workarea {
+      padding: 5rem 0;
+      background: #f8f9fa;
+      border: 1px solid #fff;
+
+      h2 {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+      }
+
+      .with_table {
+        h2 {
+          margin-bottom: 0;
+        }
+
+        .table {
+          font-size: 0.8rem;
+
+          thead {
+            th {
+              font-weight: 400;
+              border-top: none;
+              border-width: 1px;
+            }
+          }
+        }
+      }
+    }
+
+    .block {
+      padding: 5rem;
+      background: #f8f9fa;
+      border: 1px solid #fff;
+
+      h3 {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      h5 {
+        margin: 20px 0;
+      }
+
+      @media(max-width: 767px) {
+        padding: 4rem;
+      }
     }
   }
 
@@ -24,9 +88,26 @@ body {
     flex-shrink: 0;
     background: #f7f7f7;
     padding: 3rem;
+    position: relative;
+
+    .images {
+      img {
+        height: 25px;
+      }
+
+      @media(max-width: 767px) {
+        margin-top: 20px;
+      }
+
+      @media(min-width: 768px) {
+        text-align: right;
+      }
+    }
   }
 
   nav.navbar {
+    display: block;
+
     &.alert-primary {
       a {
         color: #155724;
