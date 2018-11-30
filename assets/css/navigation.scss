@@ -1,0 +1,11 @@
+@import "variables";
+
+nav.navbar {
+  display: block;
+  background: $white;
+  border-bottom: 1px solid $grey-light;
+
+  a {
+    color: $dark;
+  }
+}

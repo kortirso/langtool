@@ -1,55 +1,29 @@
-html, body {
-  height: 100%;
-
-  p {
-    margin: 0;
-  }
-}
+@import "variables";
 
 body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  font-size: 1.1rem;
-  font-weight: 300;
-
   main {
     flex-grow: 1;
 
     .welcome {
-      padding: 100px 15px;
+      padding: 6.25rem 1rem;
 
       .intro {
         background: none;
+        margin-bottom: 0;
 
         h1 {
           font-size: 4rem;
-          margin-bottom: 20px;
+          margin-bottom: 1.25rem;
         }
 
         p {
-          margin-bottom: 10px;
+          margin-bottom: 0.6rem;
         }
       }
     }
 
     .workarea {
-      padding: 5rem 0;
-      background: #f8f9fa;
-      border: 1px solid #fff;
-
-      h2 {
-        padding-bottom: 20px;
-        border-bottom: 1px solid #ccc;
-        margin-bottom: 20px;
-      }
-
       .with_table {
-        h2 {
-          margin-bottom: 0;
-        }
-
         .table {
           font-size: 0.8rem;
 
@@ -64,53 +38,40 @@ body {
       }
     }
 
+    .description {
+      padding: 1.25rem;
+    }
+
     .block {
-      padding: 5rem;
-      background: #f8f9fa;
-      border: 1px solid #fff;
+      background: $white;
+      border: 1px solid $blue-light;
+      border-radius: 0.25rem;
+      padding: 0;
+      height: 100%;
 
-      h3 {
-        padding-bottom: 20px;
-        border-bottom: 1px solid #ccc;
+      .head {
+        background: $blue-light;
+
+        h2, h3 {
+          padding: 1.25rem;
+          margin: 0;
+        }
       }
 
-      h5 {
-        margin: 20px 0;
+      .inner {
+        padding: 3rem;
       }
 
-      @media(max-width: 767px) {
-        padding: 4rem;
-      }
-    }
-  }
+      h4 {
+        margin: 1.25rem 0;
 
-  footer {
-    flex-shrink: 0;
-    background: #f7f7f7;
-    padding: 3rem;
-    position: relative;
-
-    .images {
-      img {
-        height: 25px;
+        &:nth-of-type(1) {
+          margin-top: 0;
+        }
       }
 
       @media(max-width: 767px) {
-        margin-top: 20px;
-      }
-
-      @media(min-width: 768px) {
-        text-align: right;
-      }
-    }
-  }
-
-  nav.navbar {
-    display: block;
-
-    &.alert-primary {
-      a {
-        color: #155724;
+        padding: 2rem;
       }
     }
   }

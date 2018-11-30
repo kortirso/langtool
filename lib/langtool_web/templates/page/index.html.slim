@@ -7,71 +7,92 @@ main#content
         br
         | for automatic localization of your applications.
       p.lead
-        | This is really easy to translate your applications now.
+        | This is really easy to translate your applications.
         br
         | Simplify and accelerate translation of mobile and web applications.
+      p.lead
+        | You can start work with LangTool right now
+        br 
+        | without any registration.
   .workarea
-    .container
-      .row
-        .col-md-6
-          h2 Get started now
-          form
-            .form-group
-              label for="select_framework" Select framework
-              select.form-control#select_framework
-                option disabled="" selected="" value="" Select your option
-                option value="ruby_on_rails" Ruby on Rails
-            .form-group
-              label for="localization_file" Upload the file for localization
-              input type="file" class="form-control-file" id="localization_file"
-            .row
-              .form-group.col-md-6
-                label for="original_language" Original language
-                select.form-control#original_language
-                  option disabled="" selected="" value="" Select your option
-                  option value="english" English
-                  option value="danish" Danish
-                  option value="russian" Russian
-              .form-group.col-md-6
-                label for="translation_language" Language of translation
-                select.form-control#translation_language
-                  option disabled="" selected="" value="" Select your option
-                  option value="english" English
-                  option value="danish" Danish
-                  option value="russian" Russian
-            button.btn.btn-primary type="button" Start now
-        .col-md-6.with_table
-          h2 Tasks
-          table.table.table-striped.table-hover
-            thead
-              tr
-                th scope="col" #
-                th scope="col" File name
-                th scope="col" Direction
-                th scope="col" Status
-                th scope="col" Result
-            tbody
-              tr
-                td colspan="5" No data yet
-  .row
-    .col-md.block
-      h3 The basic features of the system
-      h5 Automatic translation of localization files
-      p Our automatic system will translate your file right after uploading
-      h5 No restrictions on the amount of the translation
-      p There are no limits for size of translated files
-      h5 Viewing and editing files
-      p View and edit your translations if you would like
-      h5 Connection with real translators
-      p Professional translators can translate your app into the most popular languages
-    .col-md.block
-      h3 Work process
-      h5 Create a task
-      p Select the framework you want, upload the file, choose the translation direction
-      h5 Automatic translation
-      p Wait for the automatic translation
-      h5 Download the result
-      p Download the generated localization file
-    .col-md.block
-      h3 All popular file formats
-      p Import internationalization files like YAML (.yml, .yaml), Android (.xml), Apple (.strings), JSON (.json).
+    .container-fluid
+      .row.justify-content-center
+        .col-md-5
+          .block
+            .head
+              h2 Get started now
+            .inner
+              form
+                .form-group
+                  label for="select_framework" Select framework
+                  select.form-control#select_framework
+                    option disabled="" selected="" value="" Select your option
+                    option value="ruby_on_rails" Ruby on Rails
+                .form-group
+                  label for="localization_file" Upload the file for localization
+                  input type="file" class="form-control-file" id="localization_file"
+                .row
+                  .form-group.col-md-6
+                    label for="original_language" Original language
+                    select.form-control#original_language
+                      option disabled="" selected="" value="" Select your option
+                      option value="english" English
+                      option value="danish" Danish
+                      option value="russian" Russian
+                  .form-group.col-md-6
+                    label for="translation_language" Language of translation
+                    select.form-control#translation_language
+                      option disabled="" selected="" value="" Select your option
+                      option value="english" English
+                      option value="danish" Danish
+                      option value="russian" Russian
+                button.btn.btn-primary type="button" Start now
+        .col-md-5.with_table
+          .block
+            .head
+              h2 Tasks
+            .inner
+              table.table.table-striped.table-hover
+                thead
+                  tr
+                    th scope="col" #
+                    th scope="col" File name
+                    th scope="col" Direction
+                    th scope="col" Status
+                    th scope="col" Result
+                tbody
+                  tr
+                    td colspan="5" No data yet
+  .description
+    .container-fluid
+    .row
+      .col-md
+        .block
+          .head
+            h3 The features of the system
+          .inner
+            h4 Automatic translation of localization files
+            p Our automatic system will translate your file right after uploading
+            h4 No restrictions on the amount of the translation
+            p There are no limits for size of translated files
+            h4 Viewing and editing files
+            p View and edit your translations if you would like
+            h4 Connection with real translators
+            p Professional translators can translate your app into the most popular languages
+      .col-md
+        .block
+          .head
+            h3 Work process
+          .inner
+            h4 Create a task
+            p Select the framework you want, upload the file, choose the translation direction
+            h4 Automatic translation
+            p Wait for the automatic translation
+            h4 Download the result
+            p Download the generated localization file
+      .col-md
+        .block
+          .head
+            h3 All popular file formats
+          .inner
+            p Import internationalization files like YAML (.yml, .yaml), Android (.xml), Apple (.strings), JSON (.json).
