@@ -37,7 +37,7 @@ config :langtool, LangtoolWeb.Endpoint,
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
       ~r{lib/langtool_web/views/.*(ex)$},
-      ~r{lib/langtool_web/templates/.*(eex|slim|slime)$}
+      ~r{lib/langtool_web/templates/.*(eex)$}
     ]
   ]
 

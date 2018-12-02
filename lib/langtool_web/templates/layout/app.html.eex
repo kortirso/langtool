@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="LangTool - computer-assisted translation web app">
+    <meta name="keywords" content="translator, localization, development, internationalization, i18n, l10n, translation tool, ruby on rails, android, react, .NET, yml, xml, json, resx, strings">
+    <title>LangTool - Easy localizations for developers</title>
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+  </head>
+  <body>
+    <%= render LangtoolWeb.SharedView, "navigation.html" %>
+    <%= render @view_module, @view_template, assigns %>
+    <%= render LangtoolWeb.SharedView, "footer.html" %>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  </body>
+</html>

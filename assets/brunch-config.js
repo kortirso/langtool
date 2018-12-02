@@ -67,11 +67,13 @@ exports.config = {
 
   npm: {
     enabled: true,
+    whitelist: ["phoenix", "phoenix_html", "vue"],
     globals: {
       $: 'jquery',
       jQuery: 'jquery',
       Popper: 'popper.js',
-      bootstrap: 'bootstrap'
+      bootstrap: 'bootstrap',
+      Vue: "vue/dist/vue.common.js"
     }
   }
 };

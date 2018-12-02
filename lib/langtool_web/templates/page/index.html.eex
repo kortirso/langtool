@@ -1,0 +1,131 @@
+<main id="content">
+  <div class="welcome container" role="main">
+    <div class="jumbotron intro">
+      <h1><%= gettext "%{name}!", name: "LangTool" %></h1>
+      <p class="lead">A free web service on Phoenix<br />for automatic localization of your applications.</p>
+      <p class="lead">This is really easy to translate your applications.<br />Simplify and accelerate translation of mobile and web applications.</p>
+      <p class="lead">You can start work with LangTool right now<br />without any registration.</p>
+    </div>
+  </div>
+  <div class="workarea">
+    <div class="row justify-content-center">
+      <div class="col-md-5">
+        <div class="block">
+          <div class="head">
+            <h2>Get started now</h2>
+          </div>
+          <div class="inner">
+            <form>
+              <div class="form-group">
+                <label for="select_framework">Select framework</label>
+                <select class="form-control" id="select_framework">
+                  <option disabled="" selected="" value="">Select your option</option>
+                  <option value="ruby_on_rails">Ruby on Rails</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="localization_file">Upload the file for localization</label>
+                <input type="file" class="form-control-file" id="localization_file" />
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                  <label for="original_language">Original language</label>
+                  <select class="form-control" id="original_language">
+                    <option disabled="" selected="" value="">Select your option</option>
+                    <option value="english">English</option>
+                    <option value="danish">Danish</option>
+                    <option value="russian">Russian</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="translation_language">Language of translation</label>
+                  <select class="form-control" id="translation_language">
+                    <option disabled="" selected="" value="">Select your option</option>
+                    <option value="english">English</option>
+                    <option value="danish">Danish</option>
+                    <option value="russian">Russian</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary" type="button">Start now</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5 with_table">
+        <div class="block">
+          <div class="head">
+            <h2>Tasks</h2>
+          </div>
+          <div class="inner">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">File name</th>
+                  <th scope="col">Direction</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="5">No data yet</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="description">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md">
+          <div class="block">
+            <div class="head">
+              <h3>The features of the system</h3>
+            </div>
+            <div class="inner">
+              <h4>Automatic translation of localization files</h4>
+              <p>Our automatic system will translate your file right after uploading</p>
+              <h4>No restrictions on the amount of the translation</h4>
+              <p>There are no limits for size of translated files</p>
+              <h4>Viewing and editing files</h4>
+              <p>View and edit your translations if you would like</p>
+              <h4>Connection with real translators</h4>
+              <p>Professional translators can translate your app into the most popular languages</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="block">
+            <div class="head">
+              <h3>Work process</h3>
+            </div>
+            <div class="inner">
+              <h4>Create a task</h4>
+              <p>Select the framework you want, upload the file, choose the translation direction</p>
+              <h4>Automatic translation</h4>
+              <p>Wait for the automatic translation</p>
+              <h4>Download the result</h4>
+              <p>Download the generated localization file</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="block">
+            <div class="head">
+              <h3>All popular file formats</h3>
+            </div>
+            <div class="inner">
+              <p>Import internationalization files like YAML (.yml, .yaml), Android (.xml), Apple (.strings), JSON (.json).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
