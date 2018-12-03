@@ -49,7 +49,8 @@ defmodule Langtool.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:plug_cowboy, "~> 1.0"}
+      {:plug_cowboy, "~> 1.0"},
+      {:arc_ecto, "~> 0.11.1"}
     ]
   end
 
