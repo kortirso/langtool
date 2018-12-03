@@ -1,9 +1,12 @@
 defmodule Langtool.Task do
   use Ecto.Schema
+  use Arc.Ecto.Schema
   import Ecto.Changeset
 
+  alias Langtool.Task
+
   schema "tasks" do
-    field :file, :string
+    field :file, Langtool.File.Type
     field :from, :string
     field :status, :string
     field :to, :string
@@ -13,7 +16,7 @@ defmodule Langtool.Task do
   end
 
   @doc false
-  def changeset(task, attrs) do
+  def changeset(%Task{} = task, attrs) do
     task
     |> cast(attrs, [:file, :user_session_id, :from, :to, :status])
     |> validate_required([:file, :user_session_id, :from, :to, :status])

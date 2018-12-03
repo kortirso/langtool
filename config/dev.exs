@@ -56,3 +56,5 @@ config :langtool, Langtool.Repo,
   database: "langtool_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :arc, storage: Arc.Storage.Local
