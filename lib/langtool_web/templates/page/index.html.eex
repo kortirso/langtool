@@ -46,7 +46,7 @@
                     <option value="ru">Russian</option>
                   </select>
                 </div>
-                <button class="btn btn-primary" type="button" v-bind:class="{ disable: from === '' && to === '' }">
+                <button class="btn btn-primary" type="button" v-bind:class="{ disable: from === '' && to === '' }" v-on:click.prevent="createTask()">
                   Start now
                 </button>
               </div>
