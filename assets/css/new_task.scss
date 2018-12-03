@@ -1,0 +1,37 @@
+#new_task {
+  .disable {
+    pointer-events: none;
+  }
+
+  .current {
+    label {
+      font-weight: 500;
+    }
+  }
+
+  select {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .file_uploader {
+    display: block;
+    padding: 5px;
+    background: #eee;
+    margin-bottom: 0;
+    border-radius: 4px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  button {
+    margin-left: 15px;
+  }
+}
