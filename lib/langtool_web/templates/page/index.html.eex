@@ -16,6 +16,7 @@
           </div>
           <div class="inner">
             <form id="new_task">
+              <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
               <div class="form-group" v-bind:class="{ current: framework === '' }">
                 <label for="select_framework">Select framework</label>
                 <select class="form-control" id="select_framework" v-bind:change="changeFramework()" v-model="framework">

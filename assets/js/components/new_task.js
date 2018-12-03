@@ -26,7 +26,11 @@ new Vue({
       data.append('task[file]', this.file)
       data.append('task[from]', this.from)
       data.append('task[to]', this.to)
+      data.append('_csrf_token', $('#_csrf_token').val())
+      data.append('user_session_id', '')
+      data.append('status', 'created')
       const config = { header : { 'Content-Type' : 'multipart/form-data' } }
+      console.log(config)
       this.$http.post('http://localhost:4000/tasks', data, config).then(function(data) {
         console.log(data)
       })
