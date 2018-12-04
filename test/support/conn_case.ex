@@ -29,9 +29,15 @@ defmodule LangtoolWeb.ConnCase do
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Langtool.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Langtool.Repo, {:shared, self()})
     end
+
+    on_exit fn ->
+      LangtoolWeb.FileCase.remove_test_files
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 

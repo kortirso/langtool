@@ -32,6 +32,10 @@ defmodule Langtool.DataCase do
       Ecto.Adapters.SQL.Sandbox.mode(Langtool.Repo, {:shared, self()})
     end
 
+    on_exit fn ->
+      LangtoolWeb.FileCase.remove_test_files
+    end
+
     :ok
   end
 

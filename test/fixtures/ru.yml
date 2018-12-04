@@ -1,0 +1,16 @@
+ru:
+  buttons:
+    logout: Выход
+    login: Вход
+    signup: Регистрация
+    menu: Меню
+  modals:
+    auth: Авторизация
+    reg: Регистрация
+    pass: Пароль
+    username: Никнейм
+    confirm: Подтверждение пароля
+    enter: Вход
+    minimal: Минимальная длина пароля - 6 символов
+  user:
+    welcome: Добро пожаловать

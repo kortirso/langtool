@@ -2,9 +2,10 @@ defmodule LangtoolWeb.PageController do
   use LangtoolWeb, :controller
 
   def index(conn, _params) do
-    conn = check_user_session_id(conn)
-
-    render conn, "index.html"
+    conn
+    |> check_user_session_id()
+    |> assign(:user_session_id, get_session(conn, :user_session_id))
+    |> render("index.html")
   end
 
   defp check_user_session_id(conn) do

@@ -27,7 +27,7 @@ new Vue({
       data.append('task[from]', this.from)
       data.append('task[to]', this.to)
       data.append('_csrf_token', $('#_csrf_token').val())
-      data.append('user_session_id', '')
+      data.append('user_session_id', $('#user_session_id').val())
       data.append('status', 'created')
       const config = { header : { 'Content-Type' : 'multipart/form-data' } }
       console.log(config)
