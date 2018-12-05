@@ -14,12 +14,18 @@ new Vue({
     to: ''
   },
   methods: {
-    changeFramework: function() {
+    changeFramework: function(event) {
       this.extension = this.extensions[this.framework]
+      this.file = null
+      this.fileName = null
+      this.from = ''
+      this.to = ''
     },
     uploadFile: function(event) {
       this.file = event.target.files[0]
       this.fileName = "Selected: " + event.target.files[0].name
+      this.from = ''
+      this.to = ''
     },
     createTask: function() {
       let data = new FormData()

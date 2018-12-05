@@ -20,7 +20,7 @@
               <input type="hidden" id="user_session_id" value="<%= @user_session_id %>">
               <div class="form-group" v-bind:class="{ current: framework === '' }">
                 <label for="select_framework">Select framework</label>
-                <select class="form-control" id="select_framework" v-bind:change="changeFramework()" v-model="framework">
+                <select class="form-control" id="select_framework" @change="changeFramework()" v-model="framework">
                   <option disabled="" selected="" value="">Select your option</option>
                   <option value="ruby_on_rails">Ruby on Rails</option>
                 </select>
