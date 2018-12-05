@@ -7,7 +7,7 @@
       <p class="lead">You can start work with LangTool right now<br />without any registration.</p>
     </div>
   </div>
-  <div class="workarea">
+  <div class="workarea container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-5">
         <div class="block">
@@ -73,9 +73,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td colspan="5">No data yet</td>
-                </tr>
+                <%= if length(@tasks) != 0 do %>
+                  <%= for task <- @tasks do %>
+                    <%= render(LangtoolWeb.SharedView, "task.html", task: task) %>
+                  <% end %>
+                <% else %>
+                  <tr>
+                    <td colspan="5">No data yet</td>
+                  </tr>
+                <% end %>
               </tbody>
             </table>
           </div>

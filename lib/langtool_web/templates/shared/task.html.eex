@@ -1,0 +1,7 @@
+<tr>
+  <td scope="col"><%= @task.id %></td>
+  <td scope="col"><%= @task.file.file_name %></td>
+  <td scope="col"><%= "#{@task.from}-#{@task.to}" %></td>
+  <td scope="col"><%= @task.status %></td>
+  <td scope="col"></td>
+</tr>
