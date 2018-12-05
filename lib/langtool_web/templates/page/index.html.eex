@@ -18,37 +18,32 @@
             <form id="new_task">
               <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
               <input type="hidden" id="user_session_id" value="<%= @user_session_id %>">
-              <div class="form-group" v-bind:class="{ current: framework === '' }">
+              <div class="form-group" :class="{ current: framework === '' }">
                 <label for="select_framework">Select framework</label>
-                <select class="form-control" id="select_framework" @change="changeFramework()" v-model="framework">
+                <select class="form-control" id="select_framework" v-model="framework">
                   <option disabled="" selected="" value="">Select your option</option>
                   <option value="ruby_on_rails">Ruby on Rails</option>
                 </select>
               </div>
-              <div class="form-group" v-bind:class="{ disable: framework === '', current: framework !== '' && fileName === null }">
+              <div class="form-group" :class="{ disable: framework === '', current: framework !== '' && fileName === null }">
                 <label for="localization_file" class="file_uploader">{{ fileName || "Upload the file for localization" }}</label>
-                <input type="file" class="form-control-file" id="localization_file" v-bind:accept="extension" @change="uploadFile($event)" />
+                <input type="file" class="form-control-file" id="localization_file" :accept="extension" @change="uploadFile($event)" />
               </div>
               <div class="row">
-                <div class="form-group col-md-6" v-bind:class="{ disable: file === null, current: fileName !== null && from === '' }">
+                <div class="form-group col-md-6" :class="{ disable: true }">
                   <label for="original_language">Original language</label>
-                  <select class="form-control" id="original_language" v-model="from">
-                    <option disabled="" selected="" value="">Select your option</option>
-                    <option value="en">English</option>
-                    <option value="da">Danish</option>
-                    <option value="ru">Russian</option>
-                  </select>
+                  <input type="text" id="original_language" :value="original_language" />
                 </div>
-                <div class="form-group col-md-6" v-bind:class="{ disable: file === null, current: fileName !== null && to === '' }">
+                <div class="form-group col-md-6" :class="{ disable: file === null, current: fileName !== null && to === '' }">
                   <label for="translation_language">Language of translation</label>
                   <select class="form-control" id="translation_language" v-model="to">
                     <option disabled="" selected="" value="">Select your option</option>
-                    <option value="en">English</option>
-                    <option value="da">Danish</option>
-                    <option value="ru">Russian</option>
+                    <option value="en" :disabled="from.code === 'en'">English</option>
+                    <option value="da" :disabled="from.code === 'da'">Danish</option>
+                    <option value="ru" :disabled="from.code === 'ru'">Russian</option>
                   </select>
                 </div>
-                <button class="btn btn-primary" type="button" v-bind:class="{ disable: from === '' && to === '' }" v-on:click.prevent="createTask()">
+                <button class="btn btn-primary" type="button" :class="{ disable: from.code === '' && to === '' }" @click.prevent="createTask()">
                   Start now
                 </button>
               </div>

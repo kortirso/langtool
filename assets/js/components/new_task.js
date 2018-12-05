@@ -6,38 +6,55 @@ new Vue({
   el: '#new_task',
   data: {
     extensions: {'ruby_on_rails': '.yml'},
-    extension: '',
     framework: '',
     file: null,
     fileName: null,
-    from: '',
+    from: {code: '', name: ''},
     to: ''
   },
-  methods: {
-    changeFramework: function(event) {
-      this.extension = this.extensions[this.framework]
+  computed: {
+    extension: function() {
+      return this.framework === '' ? '' : this.extensions[this.framework]
+    },
+    original_language: function() {
+      return this.from.name === '' ? 'Autodetection' : this.from.name
+    }
+  },
+  watch: {
+    framework: function() {
       this.file = null
       this.fileName = null
-      this.from = ''
-      this.to = ''
+      this.from = {code: '', name: ''}
     },
+    file: function() {
+      this.to = ''
+    }
+  },
+  methods: {
     uploadFile: function(event) {
+      // update file
       this.file = event.target.files[0]
       this.fileName = "Selected: " + event.target.files[0].name
-      this.from = ''
-      this.to = ''
+      // send file for locale autodetection
+      let data = new FormData()
+      data.append('file', this.file)
+      data.append('_csrf_token', $('#_csrf_token').val())
+      const config = { header : { 'Content-Type' : 'multipart/form-data' } }
+      this.$http.post('http://localhost:4000/tasks/detection', data, config).then(function(data) {
+        this.from = data.body
+      })
     },
     createTask: function() {
       let data = new FormData()
       data.append('task[file]', this.file)
-      data.append('task[from]', this.from)
+      data.append('task[from]', this.from.code)
       data.append('task[to]', this.to)
       data.append('task[user_session_id]', $('#user_session_id').val())
       data.append('task[status]', 'created')
       data.append('_csrf_token', $('#_csrf_token').val())
       const config = { header : { 'Content-Type' : 'multipart/form-data' } }
       this.$http.post('http://localhost:4000/tasks', data, config).then(function(data) {
-        console.log(data)
+        this.framework = ''
       })
     }
   }

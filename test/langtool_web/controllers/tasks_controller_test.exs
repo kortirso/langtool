@@ -32,4 +32,12 @@ defmodule LangtoolWeb.TasksControllerTest do
       assert json_response(conn, 200) == %{"success" => "Task is not created"}
     end
   end
+
+  describe "POST /tasks/detection" do
+    test "Returns code and name of locale", %{conn: conn} do
+      conn = post conn, "/tasks/detection", [file: %Plug.Upload{path: "test/fixtures/ru.yml", filename: "ru.yml"}]
+
+      assert json_response(conn, 200) == %{"code" => "en", "name" => "English"}
+    end
+  end
 end

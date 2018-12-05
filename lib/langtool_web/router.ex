@@ -18,6 +18,7 @@ defmodule LangtoolWeb.Router do
 
     get "/", PageController, :index
     resources "/tasks", TasksController, only: [:create]
+    post "/tasks/detection", TasksController, :detection, as: :detection
   end
 
   # Other scopes may use custom stacks.
