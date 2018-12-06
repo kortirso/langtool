@@ -1,0 +1,10 @@
+.error_page {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .error_message {
+    font-size: 30px;
+  }
+}
