@@ -6,6 +6,7 @@ new Vue({
   el: '#new_task',
   data: {
     extensions: {'ruby_on_rails': '.yml'},
+    locales: {'en': 'English', 'ru': 'Russian', 'da': 'Danish'},
     framework: '',
     file: null,
     fileName: null,
@@ -41,7 +42,11 @@ new Vue({
       data.append('_csrf_token', $('#_csrf_token').val())
       const config = { header : { 'Content-Type' : 'multipart/form-data' } }
       this.$http.post('http://localhost:4000/tasks/detection', data, config).then(function(data) {
-        this.from = data.body
+        if (data.body.code !== undefined) {
+          const locale = this.locales[data.body.code]
+          if (locale !== undefined) this.from = {code: data.body.code, name: locale}
+          else this.from = {code: '', name: 'Locale is not supported'}
+        } else this.from = {code: '', name: data.body.error}
       })
     },
     createTask: function() {

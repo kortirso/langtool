@@ -35,9 +35,17 @@ defmodule LangtoolWeb.TasksControllerTest do
 
   describe "POST /tasks/detection" do
     test "Returns code and name of locale", %{conn: conn} do
-      conn = post conn, "/tasks/detection", [file: %Plug.Upload{path: "test/fixtures/ru.yml", filename: "ru.yml"}]
+      path = File.cwd! |> Path.join("test/fixtures/ru.yml")
+      conn = post conn, "/tasks/detection", [file: %Plug.Upload{path: path, filename: "ru.yml"}]
 
-      assert json_response(conn, 200) == %{"code" => "en", "name" => "English"}
+      assert json_response(conn, 200) == %{"code" => "ru"}
+    end
+
+    test "Returns error message for invalid file", %{conn: conn} do
+      path = File.cwd! |> Path.join("test/fixtures/invalid.yml")
+      conn = post conn, "/tasks/detection", [file: %Plug.Upload{path: path, filename: "invalid.yml"}]
+
+      assert json_response(conn, 200) == %{"error" => "Invalid amount of keys"}
     end
   end
 end

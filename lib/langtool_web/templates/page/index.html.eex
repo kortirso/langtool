@@ -30,9 +30,9 @@
                 <input type="file" class="form-control-file" id="localization_file" :accept="extension" @change="uploadFile($event)" />
               </div>
               <div class="row">
-                <div class="form-group col-md-6" :class="{ disable: true }">
+                <div class="form-group col-md-6 disable">
                   <label for="original_language">Original language</label>
-                  <input type="text" id="original_language" :value="original_language" />
+                  <input type="text" id="original_language" :value="original_language" :class="{ error: from.code === '' && from.name !== '' }" />
                 </div>
                 <div class="form-group col-md-6" :class="{ disable: file === null, current: fileName !== null && to === '' }">
                   <label for="translation_language">Language of translation</label>
@@ -43,7 +43,7 @@
                     <option value="ru" :disabled="from.code === 'ru'">Russian</option>
                   </select>
                 </div>
-                <button class="btn btn-primary" type="button" :class="{ disable: from.code === '' && to === '' }" @click.prevent="createTask()">
+                <button class="btn btn-primary" type="button" :class="{ disable: from.code === '' || to === '' }" @click.prevent="createTask()">
                   Start now
                 </button>
               </div>

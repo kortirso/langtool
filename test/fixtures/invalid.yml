@@ -1,0 +1,6 @@
+enE-US:
+  welcome: Hello
+  buttons:
+    click: Click me!
+ru:
+  welcome: Привет

@@ -50,7 +50,8 @@ defmodule Langtool.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:plug_cowboy, "~> 1.0"},
-      {:arc_ecto, "~> 0.11.1"}
+      {:arc_ecto, "~> 0.11.1"},
+      {:i18n_parser, "~> 0.1.3"}
     ]
   end
 

@@ -1,3 +1,5 @@
+@import "variables";
+
 #new_task {
   .disable {
     pointer-events: none;
@@ -22,7 +24,7 @@
   .file_uploader {
     display: block;
     padding: 5px;
-    background: #eee;
+    background: $grey-semi-light;
     margin-bottom: 0;
     border-radius: 4px;
 
@@ -37,6 +39,10 @@
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
     padding: 5px;
+
+    &.error {
+      border: 1px solid $error;
+    }
   }
 
   button {
