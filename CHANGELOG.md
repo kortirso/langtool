@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - tasks rendering for main page
+- controller action tasks#detection for locale autodetection
 
 ### Modified
 - styles for main page
