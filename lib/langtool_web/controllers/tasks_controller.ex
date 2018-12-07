@@ -1,15 +1,13 @@
 defmodule LangtoolWeb.TasksController do
   use LangtoolWeb, :controller
-  alias Langtool.{Task, Repo}
+  alias Langtool.Tasks
   alias I18nParser.Detection
 
   def create(conn, %{"task" => task_params}) do
-    changeset = Task.changeset(%Task{}, task_params)
-
-    case Repo.insert(changeset) do
-      {:ok, _task} ->
+    case Tasks.create_task(task_params) do
+      {:ok, _} ->
         json(conn, %{success: "Task is created"})
-      {:error, _changeset} ->
+      {:error, _} ->
         json(conn, %{success: "Task is not created"})
     end
   end
