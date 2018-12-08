@@ -25,25 +25,25 @@
                   <option value="ruby_on_rails">Ruby on Rails</option>
                 </select>
               </div>
-              <div class="form-group" :class="{ disable: framework === '', current: framework !== '' && fileName === null }">
-                <label for="localization_file" class="file_uploader">{{ fileName || "Upload the file for localization" }}</label>
+              <div class="form-group" :class="{ disabled: framework === '', current: framework !== '' && fileName === null || fileError }">
+                <label for="localization_file" class="file_uploader" :class="{ error: fileError }">{{ error || fileName || "Upload the file for localization" }}</label>
                 <input type="file" class="form-control-file" id="localization_file" :accept="extension" @change="uploadFile($event)" />
               </div>
               <div class="row">
-                <div class="form-group col-md-6 disable">
+                <div class="form-group col-md-6 disabled">
                   <label for="original_language">Original language</label>
-                  <input type="text" id="original_language" :value="original_language" :class="{ error: from.code === '' && from.name !== '' }" />
+                  <input type="text" id="original_language" :value="originalLanguage" />
                 </div>
-                <div class="form-group col-md-6" :class="{ disable: file === null, current: fileName !== null && to === '' }">
+                <div class="form-group col-md-6" :class="{ disabled: file === null || fileError, current: fileName !== null && to === '' && !fileError }">
                   <label for="translation_language">Language of translation</label>
                   <select class="form-control" id="translation_language" v-model="to">
                     <option disabled="" selected="" value="">Select your option</option>
-                    <option value="en" :disabled="from.code === 'en'">English</option>
-                    <option value="da" :disabled="from.code === 'da'">Danish</option>
-                    <option value="ru" :disabled="from.code === 'ru'">Russian</option>
+                    <option value="en" :disabled="from === 'en'">English</option>
+                    <option value="da" :disabled="from === 'da'">Danish</option>
+                    <option value="ru" :disabled="from === 'ru'">Russian</option>
                   </select>
                 </div>
-                <button class="btn btn-primary" type="button" :class="{ disable: from.code === '' || to === '' }" @click.prevent="createTask()">
+                <button class="btn btn-primary" type="button" :class="{ disabled: from === '' || to === '' }" @click.prevent="createTask()">
                   Start now
                 </button>
               </div>

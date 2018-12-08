@@ -1,13 +1,17 @@
 @import "variables";
 
 #new_task {
-  .disable {
+  .disabled {
     pointer-events: none;
   }
 
   .current {
     label {
       font-weight: 500;
+    }
+
+    select {
+      border-color: $grey-dark;
     }
   }
 
@@ -23,29 +27,35 @@
 
   .file_uploader {
     display: block;
-    padding: 5px;
+    padding: 0.375rem;
     background: $grey-semi-light;
     margin-bottom: 0;
-    border-radius: 4px;
+    border-radius: 0.25rem;
 
     &:hover {
       cursor: pointer;
     }
-  }
-
-  #original_language {
-    height: 38px;
-    width: 100%;
-    border: 1px solid #ced4da;
-    border-radius: 0.25rem;
-    padding: 5px;
 
     &.error {
-      border: 1px solid $error;
+      background: $error;
+      color: $white;
     }
   }
 
+  #original_language {
+    height: 2.375rem;
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 0.375rem;
+  }
+
   button {
-    margin-left: 15px;
+    margin-left: 1rem;
+
+    &.disabled {
+      background: $blue-light;
+      border-color: $blue-light;
+    }
   }
 }
