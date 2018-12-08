@@ -56,17 +56,19 @@ let socket = new Socket("/socket", {params: {userSessionId: userSessionId}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("room:" + userSessionId, {})
+if ($('#page_index_components').length) {
+  let channel = socket.channel("room:" + userSessionId, {})
 
-channel.on("new_task", payload => {
-  const taskItem = `<tr><td scope='col'>${payload.id}</td><td scope='col'>${payload.file.file_name}</td><td scope='col'>${payload.from}-${payload.to}</td><td scope='col'>${payload.status}</td><td scope='col'></td></tr>`
-  $("#tasks tbody").prepend(taskItem)
-  const tasksCount = $("#tasks tbody tr").length
-  if (tasksCount === 2 || tasksCount === 6) $("#tasks tbody tr")[tasksCount - 1].remove()
-})
+  channel.on("new_task", payload => {
+    const taskItem = `<tr><td scope='col'>${payload.id}</td><td scope='col'>${payload.file.file_name}</td><td scope='col'>${payload.from}-${payload.to}</td><td scope='col'>${payload.status}</td><td scope='col'></td></tr>`
+    $("#tasks tbody").prepend(taskItem)
+    const tasksCount = $("#tasks tbody tr").length
+    if (tasksCount === 2 || tasksCount === 6) $("#tasks tbody tr")[tasksCount - 1].remove()
+  })
 
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) })
+  channel.join()
+    .receive("ok", resp => { console.log("Joined successfully", resp) })
+    .receive("error", resp => { console.log("Unable to join", resp) })
+}
 
 export default socket

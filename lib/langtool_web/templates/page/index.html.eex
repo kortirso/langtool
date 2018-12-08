@@ -7,7 +7,7 @@
       <p class="lead">You can start work with LangTool right now<br />without any registration.</p>
     </div>
   </div>
-  <div class="workarea container-fluid">
+  <div class="workarea container-fluid" id="page_index_components">
     <div class="row justify-content-center">
       <div class="col-md-5">
         <div class="block">

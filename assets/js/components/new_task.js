@@ -5,7 +5,7 @@ const locales = {'en': 'English', 'ru': 'Russian', 'da': 'Danish'}
 
 Vue.use(VueResource)
 
-if ($('#new_task').length) {
+if ($('#page_index_components').length) {
   new Vue({
     el: '#new_task',
     data: {
