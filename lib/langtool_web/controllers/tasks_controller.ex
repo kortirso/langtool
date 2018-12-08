@@ -6,8 +6,13 @@ defmodule LangtoolWeb.TasksController do
   def create(conn, %{"task" => task_params}) do
     case Tasks.create_task(task_params) do
       {:ok, task} ->
-        RoomChannel.broadcast_new_task(task)
-        json(conn, %{success: "Task is created"})
+        case Tasks.attach_file(task, task_params) do
+          {:ok, task} ->
+            RoomChannel.broadcast_new_task(task)
+            json(conn, %{success: "Task is created"})
+          _ ->
+            json(conn, %{success: "Task is not created"})
+        end
       {:error, _} ->
         json(conn, %{success: "Task is not created"})
     end

@@ -15,11 +15,24 @@ defmodule Langtool.Tasks.Task do
   end
 
   @doc false
-  def changeset(%Task{} = task, attrs) do
+  def create_changeset(%Task{} = task, attrs) do
     task
-    |> cast(attrs, [:file, :user_session_id, :from, :to, :status])
-    |> validate_required([:file, :user_session_id, :from, :to, :status])
+    |> cast(attrs, [:user_session_id, :from, :to, :status])
+    |> validate_required([:user_session_id, :from, :to, :status])
     |> validate_length(:from, min: 2)
     |> validate_length(:to, min: 2)
+  end
+
+  def avatar_changeset(%Task{} = task, attrs) do
+    task
+    |> cast_attachments(attrs, [:file], [])
+    |> validate_required([:file])
+  end
+
+  defp random_string(length) do
+    length
+    |> :crypto.strong_rand_bytes()
+    |> Base.url_encode64()
+    |> binary_part(0, length)
   end
 end

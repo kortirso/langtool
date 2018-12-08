@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Modified
 - styles for main page
 - controller action page#index
+- file uploading
 
 ### Fixed
 - new task request from vue component

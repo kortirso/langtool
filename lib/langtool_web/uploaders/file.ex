@@ -28,11 +28,11 @@ defmodule Langtool.File do
   # end
 
   # Override the storage directory:
-  def storage_dir(_version, {_, _}) do
+  def storage_dir(_version, {_, task}) do
     if Mix.env == :test do
-      "uploads/test"
+      "uploads/test/#{task.id}"
     else
-      "uploads"
+      "uploads/#{task.id}"
     end
   end
 

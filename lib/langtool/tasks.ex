@@ -36,8 +36,23 @@ defmodule Langtool.Tasks do
   """
   def create_task(task_params \\ %{}) do
     %Task{}
-    |> Task.changeset(task_params)
+    |> Task.create_changeset(task_params)
     |> Repo.insert()
+  end
+
+  @doc """
+  Attach file to task
+
+  ## Examples
+
+      iex> attach_file(task, %{field: value})
+      {:ok, %{code: "en"}}
+
+  """
+  def attach_file(task, task_params \\ %{}) do
+    task
+    |> Task.avatar_changeset(task_params)
+    |> Repo.update()
   end
 
   @doc """
