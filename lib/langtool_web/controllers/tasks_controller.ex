@@ -1,7 +1,6 @@
 defmodule LangtoolWeb.TasksController do
   use LangtoolWeb, :controller
   alias Langtool.Tasks
-  alias I18nParser.Detection
 
   def create(conn, %{"task" => task_params}) do
     case Tasks.create_task(task_params) do
@@ -13,8 +12,7 @@ defmodule LangtoolWeb.TasksController do
   end
 
   def detection(conn, %{"file" => %Plug.Upload{filename: filename, path: path}}) do
-    extension = filename |> String.split(".") |> Enum.at(-1)
-    case Detection.detect(path, extension) do
+    case Tasks.detect_locale(filename, path) do
       {:ok, message} ->
         json(conn, message)
       {:error, message} ->

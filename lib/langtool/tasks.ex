@@ -6,6 +6,7 @@ defmodule Langtool.Tasks do
   import Ecto.Query, warn: false
   alias Langtool.Repo
   alias Langtool.Tasks.Task
+  alias I18nParser.Detection
 
   @doc """
   Returns the list of users
@@ -38,5 +39,25 @@ defmodule Langtool.Tasks do
     %Task{}
     |> Task.changeset(task_params)
     |> Repo.insert()
+  end
+
+  @doc """
+  Detects locale for file
+
+  ## Examples
+
+      iex> detect_locale(filename, path)
+      {:ok, %{code: "en"}}
+
+      iex> detect_locale(filename, path)
+      {:error, ""}
+
+  """
+  def detect_locale(filename, path) do
+    extension =
+      filename
+      |> String.split(".")
+      |> Enum.at(-1)
+    Detection.detect(path, extension)
   end
 end
