@@ -1,6 +1,6 @@
 defmodule LangtoolWeb.PageController do
   use LangtoolWeb, :controller
-  alias Langtool.{Tasks}
+  alias Langtool.Tasks
 
   def index(conn, _params) do
     {conn, user_session_id} = check_user_session_id(conn)

@@ -1,10 +1,12 @@
 defmodule LangtoolWeb.TasksController do
   use LangtoolWeb, :controller
   alias Langtool.Tasks
+  alias LangtoolWeb.RoomChannel
 
   def create(conn, %{"task" => task_params}) do
     case Tasks.create_task(task_params) do
-      {:ok, _} ->
+      {:ok, task} ->
+        RoomChannel.broadcast_new_task(task)
         json(conn, %{success: "Task is created"})
       {:error, _} ->
         json(conn, %{success: "Task is not created"})

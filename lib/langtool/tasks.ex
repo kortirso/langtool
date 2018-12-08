@@ -4,12 +4,11 @@ defmodule Langtool.Tasks do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.Repo
-  alias Langtool.Tasks.Task
+  alias Langtool.{Repo, Tasks.Task}
   alias I18nParser.Detection
 
   @doc """
-  Returns the list of users
+  Returns the list of last 5 tasks
 
   ## Examples
 
@@ -20,7 +19,7 @@ defmodule Langtool.Tasks do
   def last_for_user(user_session_id) do
     Repo.all(from task in Task, where: task.user_session_id == ^user_session_id)
     |> Enum.sort(&(&1.id >= &2.id))
-    |> Enum.take(-5)
+    |> Enum.take(5)
   end
 
   @doc """

@@ -5,7 +5,9 @@
 // and connect at the socket path in "lib/web/endpoint.ex":
 import {Socket} from "phoenix"
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+const userSessionId = $('#user_session_id').val()
+
+let socket = new Socket("/socket", {params: {userSessionId: userSessionId}})
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -54,7 +56,15 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("room:" + userSessionId, {})
+
+channel.on("new_task", payload => {
+  const taskItem = `<tr><td scope='col'>${payload.id}</td><td scope='col'>${payload.file.file_name}</td><td scope='col'>${payload.from}-${payload.to}</td><td scope='col'>${payload.status}</td><td scope='col'></td></tr>`
+  $("#tasks tbody").prepend(taskItem)
+  const tasksCount = $("#tasks tbody tr").length
+  if (tasksCount === 2 || tasksCount === 6) $("#tasks tbody tr")[tasksCount - 1].remove()
+})
+
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })

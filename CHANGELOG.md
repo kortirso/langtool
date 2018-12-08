@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - tasks rendering for main page
 - controller action tasks#detection for locale autodetection
+- custom 404 and 500 pages
+- tasks context
+- RoomChannel for updating tasks
 
 ### Modified
 - styles for main page

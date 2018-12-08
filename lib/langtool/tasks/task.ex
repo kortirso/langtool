@@ -2,7 +2,6 @@ defmodule Langtool.Tasks.Task do
   use Ecto.Schema
   use Arc.Ecto.Schema
   import Ecto.Changeset
-
   alias Langtool.Tasks.Task
 
   schema "tasks" do

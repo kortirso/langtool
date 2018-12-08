@@ -2,7 +2,7 @@ defmodule LangtoolWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", LangtoolWeb.RoomChannel
+  channel "room:*", LangtoolWeb.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -19,7 +19,8 @@ defmodule LangtoolWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
+  def connect(%{"userSessionId" => user_session_id}, socket) do
+    socket = assign(socket, :user_session_id, user_session_id)
     {:ok, socket}
   end
 
