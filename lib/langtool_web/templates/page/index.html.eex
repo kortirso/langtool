@@ -18,6 +18,7 @@
             <form id="new_task">
               <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
               <input type="hidden" id="user_session_id" value="<%= @user_session_id %>">
+              <input type="hidden" id="user_room_token" value="<%= assigns[:user_room_token] %>">
               <div class="form-group" :class="{ current: framework === '' }">
                 <label for="select_framework">Select framework</label>
                 <select class="form-control" id="select_framework" v-model="framework">

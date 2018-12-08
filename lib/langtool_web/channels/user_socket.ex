@@ -19,9 +19,14 @@ defmodule LangtoolWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(%{"userSessionId" => user_session_id}, socket) do
-    socket = assign(socket, :user_session_id, user_session_id)
-    {:ok, socket}
+  def connect(%{"userToken" => token}, socket) do
+    # max_age: 1209600 is equivalent to two weeks in seconds
+    case Phoenix.Token.verify(socket, "user room socket", token, max_age: 1209600) do
+      {:ok, user_session_id} ->
+        {:ok, assign(socket, :user_session_id, user_session_id)}
+      {:error, _} ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

@@ -18,5 +18,5 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
-import room_socket from "./sockets/room_socket"
+import socket from "./sockets/socket"
 import "./components/new_task"
