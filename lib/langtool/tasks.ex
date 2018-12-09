@@ -51,7 +51,7 @@ defmodule Langtool.Tasks do
   """
   def attach_file(task, task_params \\ %{}) do
     task
-    |> Task.avatar_changeset(task_params)
+    |> Task.file_changeset(task_params)
     |> Repo.update()
   end
 

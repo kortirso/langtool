@@ -30,9 +30,9 @@ defmodule Langtool.File do
   # Override the storage directory:
   def storage_dir(_version, {_, task}) do
     if Mix.env == :test do
-      "uploads/test/#{task.id}"
+      "uploads/test/#{task.id}/original/#{task.user_session_id}"
     else
-      "uploads/#{task.id}"
+      "uploads/#{task.id}/original/#{task.user_session_id}"
     end
   end
 
