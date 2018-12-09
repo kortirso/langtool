@@ -8,6 +8,7 @@ defmodule LangtoolWeb.TasksController do
       {:ok, task} ->
         case Tasks.attach_file(task, task_params) do
           {:ok, task} ->
+            Langtool.TaskHandleSupervisor.handle_task_file(task)
             RoomChannel.broadcast_new_task(task)
             json(conn, %{success: "Task is created"})
           _ ->

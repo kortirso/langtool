@@ -28,4 +28,9 @@ defmodule Langtool.Tasks.Task do
     |> cast_attachments(attrs, [:file], [])
     |> validate_required([:file])
   end
+
+  def localizator_changeset(%Task{} = task, attrs) do
+    task
+    |> cast(attrs, [:status])
+  end
 end

@@ -5,6 +5,7 @@ defmodule Langtool.Tasks do
 
   import Ecto.Query, warn: false
   alias Langtool.{Repo, Tasks.Task}
+  alias LangtoolWeb.RoomChannel
   alias I18nParser.Detection
 
   @doc """
@@ -73,5 +74,23 @@ defmodule Langtool.Tasks do
       |> String.split(".")
       |> Enum.at(-1)
     Detection.detect(path, extension)
+  end
+
+  @doc """
+  Localize file
+
+  ## Examples
+
+      iex> handle_task(task)
+
+  """
+  def handle_task(task) do
+    Process.sleep(3000)
+
+    {_, task} =
+      task
+      |> Task.localizator_changeset(%{status: "completed"})
+      |> Repo.update()
+    RoomChannel.broadcast_completed_task(task)
   end
 end

@@ -15,4 +15,12 @@ defmodule LangtoolWeb.RoomChannel do
     }
     LangtoolWeb.Endpoint.broadcast("room:#{task.user_session_id}", "new_task", payload)
   end
+
+  def broadcast_completed_task(task) do
+    payload = %{
+      id: task.id,
+      status: task.status
+    }
+    LangtoolWeb.Endpoint.broadcast("room:#{task.user_session_id}", "complete_task", payload)
+  end
 end
