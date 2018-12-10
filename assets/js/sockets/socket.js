@@ -20,7 +20,8 @@ if ($('#page_index_components').length) {
     const taskItem = `<tr class='task' id='task_${payload.id}'><td scope='col'>${payload.id}</td><td scope='col'>${payload.file.file_name}</td><td scope='col'>${payload.from}-${payload.to}</td><td scope='col' class='status'>${payload.status}</td><td scope='col'></td></tr>`
     $("#tasks tbody").prepend(taskItem)
     const tasksCount = $("#tasks tbody tr.task").length
-    if (tasksCount === 2 || tasksCount === 6) $("#tasks tbody tr")[tasksCount - 1].remove()
+    if (tasksCount === 1) $("#tasks tbody tr.empty")[0].remove()
+    else if (tasksCount === 6) $("#tasks tbody tr.task")[tasksCount - 1].remove()
   })
 
   channel.on("complete_task", payload => {

@@ -74,7 +74,7 @@
                     <%= render(LangtoolWeb.SharedView, "task.html", task: task) %>
                   <% end %>
                 <% else %>
-                  <tr>
+                  <tr class="empty">
                     <td colspan="5">No data yet</td>
                   </tr>
                 <% end %>

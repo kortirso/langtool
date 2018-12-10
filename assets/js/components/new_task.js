@@ -32,6 +32,8 @@ if ($('#page_index_components').length) {
         this.file = null
         this.fileName = null
         this.setError(null)
+        // reset previously selected file
+        $('#localization_file').val('') 
       },
       file: function() {
         this.to = ''
