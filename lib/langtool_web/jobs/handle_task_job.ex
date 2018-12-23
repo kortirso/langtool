@@ -6,7 +6,6 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   import Ecto.Query, warn: false
   alias Langtool.{Repo, Tasks.Task}
   alias LangtoolWeb.RoomChannel
-  alias I18nParser.Converter
 
   @doc """
   Localize file
@@ -26,7 +25,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   end
 
   defp convert_file(task, file, extension) do
-    case Converter.convert(file, "yml") do
+    case I18nParser.convert(file, "yml") do
       {:ok, converted_data, sentences} -> activate_task(task, converted_data, sentences)
       _ -> task_failed(task)
     end

@@ -5,7 +5,6 @@ defmodule Langtool.Tasks do
 
   import Ecto.Query, warn: false
   alias Langtool.{Repo, Tasks.Task}
-  alias I18nParser.Detection
 
   @doc """
   Returns the list of last 5 tasks
@@ -72,6 +71,6 @@ defmodule Langtool.Tasks do
       filename
       |> String.split(".")
       |> Enum.at(-1)
-    Detection.detect(path, extension)
+    I18nParser.detect(path, extension)
   end
 end
