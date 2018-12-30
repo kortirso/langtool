@@ -16,7 +16,7 @@ defmodule Langtool.Position do
   @doc false
   def changeset(position, attrs) do
     position
-    |> cast(attrs, [:task_id, :index, :result])
-    |> validate_required([:task_id, :index])
+    |> cast(attrs, [:task_id, :index, :result, :sentence_id])
+    |> validate_required([:task_id, :index, :sentence_id])
   end
 end
