@@ -11,6 +11,8 @@ defmodule Langtool.Tasks.Task do
     field :to, :string
     field :user_session_id, :string
 
+    has_many :positions, Position
+
     timestamps()
   end
 
