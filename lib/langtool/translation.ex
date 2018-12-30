@@ -6,6 +6,7 @@ defmodule Langtool.Translation do
   schema "translations" do
     field :source, :string
     field :text, :string
+    field :locale, :string
 
     many_to_many :sentences, Sentence, join_through: "examples"
 

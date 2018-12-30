@@ -5,6 +5,7 @@ defmodule Langtool.Sentence do
 
   schema "sentences" do
     field :original, :string
+    field :locale, :string
 
     has_many :positions, Position
 

@@ -4,7 +4,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Tasks.Task}
+  alias Langtool.{Repo, Tasks.Task, Sentence, Translation, Position}
   alias LangtoolWeb.RoomChannel
 
   @doc """
@@ -38,10 +38,37 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   end
 
   defp translate_task(task, sentences) do
-    Process.sleep(2000)
-    IO.inspect task
-    IO.inspect sentences
+    {:ok, %{"iamToken" => iam_token}} = YandexTranslator.get_iam_token()
+    result =
+      Enum.map(sentences, fn {index, original} ->
+        {index, original, find_translation(index, original, task, iam_token)}
+      end)
+    IO.inspect result
+
     complete_task(task)
+  end
+
+  defp find_translation(index, original, %Task{id: task_id, from: from, to: to}, iam_token) do
+    case Repo.get_by(Sentence, original: original, locale: from) do
+      %Sentence{id: id} -> id
+      _ -> create_sentence(index, original, task_id, from, to, iam_token)
+    end
+  end
+
+  defp create_sentence(index, original, task_id, from, to, iam_token) do
+    {:ok, %{"translations" => [%{"text" => text}]}} = YandexTranslator.translate([iam_token: iam_token, text: original, source: from, target: to])
+    Repo.insert %Position{
+      task_id: task_id,
+      index: index,
+      result: text,
+      sentence: %Sentence{
+        original: original,
+        translations: [
+          %Translation{source: "yandex", text: text, locale: to}
+        ]
+      }
+    }
+    text
   end
 
   defp complete_task(task) do
