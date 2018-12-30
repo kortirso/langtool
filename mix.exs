@@ -51,7 +51,8 @@ defmodule Langtool.Mixfile do
       {:cowboy, "~> 1.0"},
       {:plug_cowboy, "~> 1.0"},
       {:arc_ecto, "~> 0.11.1"},
-      {:i18n_parser, "~> 0.1.7"}
+      {:i18n_parser, "~> 0.1.7"},
+      {:yandex_translator, "~> 0.9.3"}
     ]
   end
 

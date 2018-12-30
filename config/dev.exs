@@ -58,3 +58,5 @@ config :langtool, Langtool.Repo,
   pool_size: 10
 
 config :arc, storage: Arc.Storage.Local
+
+import_config "dev.secret.exs"
