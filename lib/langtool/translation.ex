@@ -1,10 +1,13 @@
 defmodule Langtool.Translation do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Langtool.Sentence
 
   schema "translations" do
     field :source, :string
     field :text, :string
+
+    many_to_many :sentences, Sentence, join_through: "examples"
 
     timestamps()
   end

@@ -1,12 +1,14 @@
 defmodule Langtool.Sentence do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Langtool.Position
+  alias Langtool.{Position, Translation}
 
   schema "sentences" do
     field :original, :string
 
     has_many :positions, Position
+
+    many_to_many :translations, Translation, join_through: "examples"
 
     timestamps()
   end
