@@ -4,18 +4,18 @@ defmodule Langtool.Examples do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Sentences.Sentence, Translations.Translation, Examples.Example}
+  alias Langtool.{Repo, Translations.Translation, Examples.Example}
 
   @doc """
   Create new translation example
 
   ## Examples
 
-      iex> create_example(sentence, text, to)
+      iex> create_example(sentence_id, text, to)
       {:ok, %Position{}}
 
   """
-  def create_example(%Sentence{id: sentence_id}, text, to) do
+  def create_example(sentence_id, text, to) do
     Repo.insert %Example{
       sentence_id: sentence_id,
       translation: %Translation{

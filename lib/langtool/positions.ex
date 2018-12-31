@@ -4,42 +4,18 @@ defmodule Langtool.Positions do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Positions.Position, Sentences.Sentence, Translations.Translation, Tasks.Task}
+  alias Langtool.{Repo, Positions.Position}
 
   @doc """
   Create new position
 
   ## Examples
 
-      iex> create_full_position(task, index, original, text)
+      iex> create_position(task_id, index, text, sentence_id)
       {:ok, %Position{}}
 
   """
-  def create_full_position(%Task{id: task_id, from: from, to: to}, index, original, text) do
-    Repo.insert %Position{
-      task_id: task_id,
-      index: index,
-      result: text,
-      sentence: %Sentence{
-        original: original,
-        locale: from,
-        translations: [
-          %Translation{source: "yandex", text: text, locale: to}
-        ]
-      }
-    }
-  end
-
-  @doc """
-  Create new position
-
-  ## Examples
-
-      iex> create_position_with_translation(task, index, original, text, sentence)
-      {:ok, %Position{}}
-
-  """
-  def create_position(%Task{id: task_id}, index, text, %Sentence{id: sentence_id}) do
+  def create_position(task_id, index, text, sentence_id) do
     Repo.insert %Position{
       task_id: task_id,
       index: index,

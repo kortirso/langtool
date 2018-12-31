@@ -4,7 +4,7 @@ defmodule Langtool.Sentences do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Sentences.Sentence, Translations.Translation, Tasks.Task}
+  alias Langtool.{Repo, Sentences.Sentence, Translations.Translation}
 
   @doc """
   Create new sentence
@@ -15,7 +15,7 @@ defmodule Langtool.Sentences do
       {:ok, %Sentence{}}
 
   """
-  def create_sentence(%Task{from: from, to: to}, original, text) do
+  def create_sentence(from, original, to, text) do
     Repo.insert %Sentence{
       original: text,
       locale: to,
@@ -23,5 +23,20 @@ defmodule Langtool.Sentences do
         %Translation{source: "yandex", text: original, locale: from}
       ]
     }
+  end
+
+  @doc """
+  Find sentence
+
+  ## Examples
+
+      iex> find_sentence(original, locale)
+      {:ok, %Sentence{}}
+
+  """
+  def find_sentence(original, locale) do
+    Sentence
+    |> Repo.get_by(original: original, locale: locale)
+    |> Repo.preload(:translations)
   end
 end
