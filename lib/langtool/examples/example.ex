@@ -1,4 +1,4 @@
-defmodule Langtool.Example do
+defmodule Langtool.Examples.Example do
   use Ecto.Schema
   import Ecto.Changeset
   alias Langtool.{Sentences.Sentence, Translations.Translation}

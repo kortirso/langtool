@@ -11,11 +11,11 @@ defmodule Langtool.Positions do
 
   ## Examples
 
-      iex> create_position(task, index, original, text)
+      iex> create_full_position(task, index, original, text)
       {:ok, %Position{}}
 
   """
-  def create_position(%Task{id: task_id, from: from, to: to}, index, original, text) do
+  def create_full_position(%Task{id: task_id, from: from, to: to}, index, original, text) do
     Repo.insert %Position{
       task_id: task_id,
       index: index,
@@ -27,6 +27,24 @@ defmodule Langtool.Positions do
           %Translation{source: "yandex", text: text, locale: to}
         ]
       }
+    }
+  end
+
+  @doc """
+  Create new position
+
+  ## Examples
+
+      iex> create_position_with_translation(task, index, original, text, sentence)
+      {:ok, %Position{}}
+
+  """
+  def create_position(%Task{id: task_id}, index, text, %Sentence{id: sentence_id}) do
+    Repo.insert %Position{
+      task_id: task_id,
+      index: index,
+      result: text,
+      sentence_id: sentence_id
     }
   end
 end

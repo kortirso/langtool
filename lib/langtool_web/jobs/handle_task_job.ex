@@ -4,7 +4,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Tasks.Task, Sentences, Positions}
+  alias Langtool.{Repo, Tasks.Task, Sentences, Positions, Examples, Translations.Translation}
   alias LangtoolWeb.RoomChannel
 
   @doc """
@@ -41,20 +41,18 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
     {:ok, %{"iamToken" => iam_token}} = YandexTranslator.get_iam_token()
     result =
       Enum.map(sentences, fn {index, original} ->
-        {index, original, find_translation(index, original, task, iam_token)}
+        {index, original, find_sentence(index, original, task, iam_token)}
       end)
     complete_task(task)
   end
 
-  defp find_translation(index, original, task, iam_token) do
-    case Repo.get_by(Sentences.Sentence, original: original, locale: task.from) do
-      # if sentence exists then find translation for it
-      %Sentences.Sentence{id: id} ->
-        id
-
+  defp find_sentence(index, original, task, iam_token) do
+    sentence = Sentences.Sentence |> Repo.get_by(original: original, locale: task.from) |> Repo.preload(:translations)
+    case sentence do
       # if sentence does not exist then create it
-      _ ->
-        create_sentence(index, original, task, iam_token)
+      nil -> create_sentence(index, original, task, iam_token)
+      # if sentence exists then find translation for it
+      _ -> find_translation(sentence, task, index, iam_token, original)
     end
   end
 
@@ -62,9 +60,37 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   defp create_sentence(index, original, task, iam_token) do
     {:ok, %{"translations" => [%{"text" => text}]}} = YandexTranslator.translate([iam_token: iam_token, text: original, source: task.from, target: task.to])
     # create translation
-    Positions.create_position(task, index, original, text)
+    Positions.create_full_position(task, index, original, text)
     # create reverse translation
     Sentences.create_sentence(task, original, text)
+    text
+  end
+
+  # find translation for sentence
+  defp find_translation(sentence, task, index, iam_token, original) do
+    available_translation = filter_translations(sentence, task.to)
+    case available_translation do
+      nil ->
+        create_translation(task, index, sentence, iam_token, original)
+
+      _ ->
+        Positions.create_position(task, index, available_translation.text, sentence)
+        available_translation.text
+    end
+  end
+
+  defp filter_translations(sentence, to) do
+    sentence.translations
+    |> Enum.filter(fn %Translation{locale: locale} ->
+      locale == to
+    end)
+    |> Enum.at(0)
+  end
+
+  defp create_translation(task, index, sentence, iam_token, original) do
+    {:ok, %{"translations" => [%{"text" => text}]}} = YandexTranslator.translate([iam_token: iam_token, text: original, source: task.from, target: task.to])
+    Positions.create_position(task, index, text, sentence)
+    Examples.create_example(sentence, text, task.to)
     text
   end
 
