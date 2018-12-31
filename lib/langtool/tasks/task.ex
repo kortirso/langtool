@@ -2,7 +2,7 @@ defmodule Langtool.Tasks.Task do
   use Ecto.Schema
   use Arc.Ecto.Schema
   import Ecto.Changeset
-  alias Langtool.{Tasks.Task, Position}
+  alias Langtool.{Tasks.Task, Positions.Position}
 
   schema "tasks" do
     field :file, Langtool.File.Type

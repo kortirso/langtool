@@ -4,7 +4,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Tasks.Task, Sentence, Translation, Position}
+  alias Langtool.{Repo, Tasks.Task, Sentences, Positions}
   alias LangtoolWeb.RoomChannel
 
   @doc """
@@ -43,31 +43,28 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
       Enum.map(sentences, fn {index, original} ->
         {index, original, find_translation(index, original, task, iam_token)}
       end)
-    IO.inspect result
-
     complete_task(task)
   end
 
-  defp find_translation(index, original, %Task{id: task_id, from: from, to: to}, iam_token) do
-    case Repo.get_by(Sentence, original: original, locale: from) do
-      %Sentence{id: id} -> id
-      _ -> create_sentence(index, original, task_id, from, to, iam_token)
+  defp find_translation(index, original, task, iam_token) do
+    case Repo.get_by(Sentences.Sentence, original: original, locale: task.from) do
+      # if sentence exists then find translation for it
+      %Sentences.Sentence{id: id} ->
+        id
+
+      # if sentence does not exist then create it
+      _ ->
+        create_sentence(index, original, task, iam_token)
     end
   end
 
-  defp create_sentence(index, original, task_id, from, to, iam_token) do
-    {:ok, %{"translations" => [%{"text" => text}]}} = YandexTranslator.translate([iam_token: iam_token, text: original, source: from, target: to])
-    Repo.insert %Position{
-      task_id: task_id,
-      index: index,
-      result: text,
-      sentence: %Sentence{
-        original: original,
-        translations: [
-          %Translation{source: "yandex", text: text, locale: to}
-        ]
-      }
-    }
+  # create sentence with translation and reverse translation
+  defp create_sentence(index, original, task, iam_token) do
+    {:ok, %{"translations" => [%{"text" => text}]}} = YandexTranslator.translate([iam_token: iam_token, text: original, source: task.from, target: task.to])
+    # create translation
+    Positions.create_position(task, index, original, text)
+    # create reverse translation
+    Sentences.create_sentence(task, original, text)
     text
   end
 

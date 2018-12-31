@@ -1,7 +1,7 @@
-defmodule Langtool.Position do
+defmodule Langtool.Positions.Position do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Langtool.{Tasks.Task, Sentence}
+  alias Langtool.{Tasks.Task, Sentences.Sentence}
 
   schema "positions" do
     field :index, :integer

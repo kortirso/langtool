@@ -1,7 +1,7 @@
-defmodule Langtool.Sentence do
+defmodule Langtool.Sentences.Sentence do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Langtool.{Position, Translation}
+  alias Langtool.{Positions.Position, Translations.Translation}
 
   schema "sentences" do
     field :original, :string

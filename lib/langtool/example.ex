@@ -1,7 +1,7 @@
 defmodule Langtool.Example do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Langtool.{Sentence, Translation}
+  alias Langtool.{Sentences.Sentence, Translations.Translation}
 
   schema "examples" do
     belongs_to :sentence, Sentence
