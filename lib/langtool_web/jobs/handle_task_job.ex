@@ -24,17 +24,23 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
     end
   end
 
-  defp convert_file(task, file, extension) do
+  defp convert_file(task, file, _extension) do
     case I18nParser.convert(file, "yml") do
-      {:ok, converted_data, sentences} -> activate_task(task, converted_data, sentences)
+      {:ok, converted_data, sentences} -> activate_task(task, file, converted_data, sentences)
       _ -> task_failed(task)
     end
   end
 
-  defp activate_task(task, _converted_data, sentences) do
+  defp activate_task(task, file, converted_data, sentences) do
     {_, task} = task |> Task.localizator_changeset(%{status: "active"}) |> Repo.update()
+    save_converted_file(task, file, converted_data)
     RoomChannel.broadcast_completed_task(task)
     translate_task(task, sentences)
+  end
+
+  defp save_converted_file(task, file, converted_data) do
+    {:ok, result} = Yml.write_to_string(%{task.from => converted_data})
+    File.write(file, result)
   end
 
   defp translate_task(task, sentences) do
