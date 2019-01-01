@@ -3,5 +3,7 @@
   <td scope="col"><%= @task.file.file_name %></td>
   <td scope="col"><%= "#{@task.from}-#{@task.to}" %></td>
   <td scope="col" class="status"><%= @task.status %></td>
-  <td scope="col"></td>
+  <td scope="col" class="result">
+    <a download href="<%= Langtool.ResultFile.url({@task.result_file, @task}, signed: true) %>">Download</a>
+  </td>
 </tr>

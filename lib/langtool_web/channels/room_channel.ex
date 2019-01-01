@@ -11,7 +11,7 @@ defmodule LangtoolWeb.RoomChannel do
       from: task.from,
       to: task.to,
       status: task.status,
-      file: task.file
+      file_name: task.file.file_name
     }
     LangtoolWeb.Endpoint.broadcast("room:#{task.user_session_id}", "new_task", payload)
   end
@@ -19,7 +19,8 @@ defmodule LangtoolWeb.RoomChannel do
   def broadcast_completed_task(task) do
     payload = %{
       id: task.id,
-      status: task.status
+      status: task.status,
+      result: Langtool.ResultFile.url({task.result_file, task}, signed: true)
     }
     LangtoolWeb.Endpoint.broadcast("room:#{task.user_session_id}", "complete_task", payload)
   end
