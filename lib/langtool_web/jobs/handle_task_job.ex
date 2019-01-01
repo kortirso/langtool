@@ -33,17 +33,18 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
 
   defp activate_task(task, file, converted_data, sentences) do
     {_, task} = task |> Task.localizator_changeset(%{status: "active"}) |> Repo.update()
-    save_converted_file(task, file, converted_data)
+    temp_data = save_converted_file(task, file, converted_data)
     RoomChannel.broadcast_completed_task(task)
-    translate_task(task, sentences)
+    translate_task(task, sentences, temp_data)
   end
 
   defp save_converted_file(task, file, converted_data) do
     {:ok, result} = Yml.write_to_string(%{task.from => converted_data})
     File.write(file, result)
+    result
   end
 
-  defp translate_task(task, sentences) do
+  defp translate_task(task, sentences, temp_data) do
     {:ok, %{"iamToken" => iam_token}} = YandexTranslator.get_iam_token()
     result =
       Enum.map(sentences, fn {index, original} ->
@@ -51,6 +52,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
         Positions.create_position(task.id, index, text, sentence.id)
         {index, original, text}
       end)
+    result_file_content = generate_result_file(task, temp_data, result)
     complete_task(task)
   end
 
@@ -105,6 +107,12 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   defp translation_requets(task, original, iam_token) do
     {:ok, %{"translations" => [%{"text" => text}]}} = YandexTranslator.translate([iam_token: iam_token, text: original, source: task.from, target: task.to])
     text
+  end
+
+  defp generate_result_file(task, temp_data, result) do
+    Enum.reduce(result, temp_data, fn {index, _, translation}, acc ->
+      String.replace(acc, "###{index}##", translation)
+    end)
   end
 
   defp complete_task(task) do
