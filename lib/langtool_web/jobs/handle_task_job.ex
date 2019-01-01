@@ -4,7 +4,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Tasks.Task, Sentences, Positions, Examples, Translations.Translation}
+  alias Langtool.{Tasks, Tasks.Task, Sentences, Positions, Examples, Translations.Translation}
   alias LangtoolWeb.RoomChannel
 
   @doc """
@@ -15,45 +15,56 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
       iex> LangtoolWeb.Jobs.HandleTaskJob.perform(task)
 
   """
-  def perform(task) do
+  def perform(%Task{} = task) do
     url = Langtool.File.url({task.file, task}, signed: true)
     file = File.cwd! |> Path.join(url)
     case File.read(file) do
+      # if file is available then start converting
       {:ok, _} -> convert_file(task, file, "yml")
+      # if not then failed task
       _ -> task_failed(task)
     end
   end
 
-  defp convert_file(task, file, _extension) do
+  defp convert_file(task, file, _) do
     case I18nParser.convert(file, "yml") do
+      # if file is converted then activate task
       {:ok, converted_data, sentences} -> activate_task(task, file, converted_data, sentences)
+      # if not then failed task
       _ -> task_failed(task)
     end
   end
 
   defp activate_task(task, file, converted_data, sentences) do
-    {_, task} = task |> Task.localizator_changeset(%{status: "active"}) |> Repo.update()
-    temp_data = save_converted_file(task, file, converted_data)
-    RoomChannel.broadcast_completed_task(task)
-    translate_task(task, sentences, temp_data)
-  end
+    case Tasks.update_task_status(task, "active") do
+      # if task is activated
+      {:ok, task} ->
+        Tasks.update_file(task, file, converted_data)
+        RoomChannel.broadcast_completed_task(task)
+        {:ok, result} = Yml.write_to_string(%{task.to => converted_data})
+        translate_task(task, sentences, result)
 
-  defp save_converted_file(task, file, converted_data) do
-    {:ok, result} = Yml.write_to_string(%{task.from => converted_data})
-    File.write(file, result)
-    result
+      # for failed activation of task
+      _ ->
+        task_failed(task)
+    end
   end
 
   defp translate_task(task, sentences, temp_data) do
+    result = do_translate(task, sentences)
+    case generate_result_file(task, temp_data, result) do
+      {:ok, task} -> complete_task(task)
+      _ -> task_failed(task)
+    end
+  end
+
+  defp do_translate(task, sentences) do
     {:ok, %{"iamToken" => iam_token}} = YandexTranslator.get_iam_token()
-    result =
-      Enum.map(sentences, fn {index, original} ->
-        {text, sentence} = find_sentence(task, original, iam_token)
-        Positions.create_position(task.id, index, text, sentence.id)
-        {index, original, text}
-      end)
-    result_file_content = generate_result_file(task, temp_data, result)
-    complete_task(task)
+    Enum.map(sentences, fn {index, original} ->
+      {text, sentence} = find_sentence(task, original, iam_token)
+      Positions.create_position(task.id, index, text, sentence.id)
+      {index, original, text}
+    end)
   end
 
   # attempt to find sentence with translation
@@ -99,7 +110,10 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
 
   defp create_translation(task, original, iam_token, sentence) do
     text = translation_requets(task, original, iam_token)
+    # create translation for existed sentence
     Examples.create_example(sentence.id, text, task.to)
+    # create reverse translation
+    Sentences.create_sentence(task.to, text, task.from, original)
     {text, sentence}
   end
 
@@ -113,15 +127,16 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
     Enum.reduce(result, temp_data, fn {index, _, translation}, acc ->
       String.replace(acc, "###{index}##", translation)
     end)
+    |> Tasks.save_result_file(task)
   end
 
   defp complete_task(task) do
-    {_, task} = task |> Task.localizator_changeset(%{status: "completed"}) |> Repo.update()
+    {_, task} = Tasks.update_task_status(task, "completed")
     RoomChannel.broadcast_completed_task(task)
   end
 
   defp task_failed(task) do
-    {_, task} = task |> Task.localizator_changeset(%{status: "failed"}) |> Repo.update()
+    {_, task} = Tasks.update_task_status(task, "failed")
     RoomChannel.broadcast_completed_task(task)
   end
 end

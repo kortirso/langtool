@@ -6,6 +6,7 @@ defmodule Langtool.Tasks.Task do
 
   schema "tasks" do
     field :file, Langtool.File.Type
+    field :result_file, Langtool.ResultFile.Type
     field :from, :string
     field :status, :string
     field :to, :string
@@ -29,6 +30,12 @@ defmodule Langtool.Tasks.Task do
     task
     |> cast_attachments(attrs, [:file], [])
     |> validate_required([:file])
+  end
+
+  def result_file_changeset(%Task{} = task, attrs) do
+    task
+    |> cast_attachments(attrs, [:result_file], [])
+    |> validate_required([:result_file])
   end
 
   def localizator_changeset(%Task{} = task, attrs) do
