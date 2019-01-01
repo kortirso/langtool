@@ -1,8 +1,8 @@
 <footer>
   <div class="row">
     <div class="col-md">
-      <p>Currently v0.0.3.</p>
-      <p>Builded with <a href="https://translate.yandex.ru">Yandex.Translator</a> and <a href="https://phoenixframework.org/">Phoenix Framework</a></p>
+      <p>Currently v0.1.0.</p>
+      <p>Builded with <a href="https://translate.yandex.ru">Yandex.Translate</a> and <a href="https://phoenixframework.org/">Phoenix Framework</a></p>
     </div>
     <div class="col-md">
       <div class="images">

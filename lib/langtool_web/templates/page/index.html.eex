@@ -126,7 +126,7 @@
               <h3>All popular file formats</h3>
             </div>
             <div class="inner">
-              <p>Import internationalization files like YAML (.yml, .yaml), Android (.xml), Apple (.strings), JSON (.json).</p>
+              <p>Import internationalization files like YAML (.yml, .yaml).</p>
             </div>
           </div>
         </div>
