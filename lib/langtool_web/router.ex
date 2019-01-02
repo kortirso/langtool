@@ -19,8 +19,12 @@ defmodule LangtoolWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    # tasks resources
     resources "/tasks", TasksController, only: [:create]
     post "/tasks/detection", TasksController, :detection, as: :detection
+    # users resources
+    resources "/registrations", UserController, only: [:new, :create]
+    get "/registrations/complete", UserController, :complete, as: :complete
   end
 
   # Other scopes may use custom stacks.

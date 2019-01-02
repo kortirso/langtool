@@ -1,0 +1,35 @@
+<main id="content">
+  <div id="new_user" class="welcome container-fluid" role="main">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="header">
+          <h1>Join LangTool</h1>
+          <p>The best way to localize your applications.</p>
+        </div>
+        <form>
+          <h2>Create your personal account</h2>
+          <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
+          <div class="form-group">
+            <label for="email" class="control-label">Email *</label>
+            <input type="email" name="email" class="form-control" v-model="email" />
+            <p class="warning error">{{ emailError }}</p>
+          </div>
+          <div class="form-group">
+            <label for="password" class="control-label">Password *</label>
+            <input type="password" name="password" class="form-control" v-model="password" />
+            <p class="warning">Password must be at least 10 characters</p>
+          </div>
+          <div class="form-group">
+            <label for="password_confirmation" class="control-label">Password confirmation *</label>
+            <input type="password" name="password_confirmation" class="form-control" v-model="passwordConfirmation" />
+          </div>
+          <button class="btn btn-primary" type="button" :class="{ disabled: !(validEmail && validPassword && equalPasswords) }" @click.prevent="createUser()">
+            Create an account
+          </button>
+        </form>
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,5 +1,13 @@
 <nav class="navbar navbar-expand-lg">
   <div class="container">
     <a class="navbar-brand" href="/">LangTool</a>
+    <form class="form-inline auth">
+      <%= if signed_in?(@conn) do %>
+        <%= link "Account", to: "" %>
+        <%= link "Sign out", to: "" %>
+      <% else %>
+        <a href="<%= user_path(@conn, :new) %>">Sign Up</a>
+      <% end %>
+    </form>
   </div>
 </nav>

@@ -52,7 +52,9 @@ defmodule Langtool.Mixfile do
       {:plug_cowboy, "~> 1.0"},
       {:arc_ecto, "~> 0.11.1"},
       {:i18n_parser, "~> 0.1.7"},
-      {:yandex_translator, "0.9.4"}
+      {:yandex_translator, "0.9.4"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"}
     ]
   end
 

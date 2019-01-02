@@ -1,0 +1,28 @@
+@import "variables";
+
+#new_user {
+  .disabled {
+    pointer-events: none;
+  }
+
+  .warning {
+    margin-top: 3px;
+    font-size: 0.8rem;
+
+    &.error {
+      color: $error;
+    }
+  }
+
+  .header {
+    p {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  form {
+    h2 {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

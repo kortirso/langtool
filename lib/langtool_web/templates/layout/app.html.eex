@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
   <body>
-    <%= render LangtoolWeb.SharedView, "navigation.html" %>
+    <%= render LangtoolWeb.SharedView, "navigation.html", conn: @conn %>
     <%= render @view_module, @view_template, assigns %>
     <%= render LangtoolWeb.SharedView, "footer.html" %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
