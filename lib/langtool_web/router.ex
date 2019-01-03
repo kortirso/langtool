@@ -1,6 +1,11 @@
 defmodule LangtoolWeb.Router do
   use LangtoolWeb, :router
 
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+    get "/preview_emails/:name/:type", LangtoolWeb.PreviewEmailController, :show
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session

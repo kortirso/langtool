@@ -59,6 +59,15 @@ config :logger, level: :info
 #     config :langtool, LangtoolWeb.Endpoint, server: true
 #
 
+# Configure mailer
+config :langtool, Langtool.Mailer,
+  adapter: Bamboo.MailgunAdapter,
+  server: "smtp.domain",
+  port: 1025,
+  tls: :if_available,
+  ssl: false,
+  retries: 1
+
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"

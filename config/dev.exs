@@ -59,4 +59,8 @@ config :langtool, Langtool.Repo,
 
 config :arc, storage: Arc.Storage.Local
 
+# Configure mailer
+config :langtool, Langtool.Mailer,
+  adapter: Bamboo.LocalAdapter
+
 import_config "dev.secret.exs"
