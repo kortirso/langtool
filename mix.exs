@@ -54,7 +54,10 @@ defmodule Langtool.Mixfile do
       {:i18n_parser, "~> 0.1.7"},
       {:yandex_translator, "0.9.4"},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:bamboo, "~> 1.1.0"},
+      {:bamboo_smtp, "~> 1.6.0"},
+      {:premailex, "~> 0.3.0"}
     ]
   end
 
