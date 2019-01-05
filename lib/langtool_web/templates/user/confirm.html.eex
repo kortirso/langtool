@@ -1,2 +1,9 @@
 <main id="content">
+  <div class="welcome container" role="main">
+    <h1>Email confirmation page</h1>
+    <br />
+    <%= Enum.map(get_flash(@conn), fn {key, value} -> %>
+      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+    <% end) %>
+  </div>
 </main>

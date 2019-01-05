@@ -30,7 +30,17 @@ defmodule LangtoolWeb.UserController do
     |> render("complete.html")
   end
 
-  def confirm(conn, _) do
-    render conn, "confirm.html"
+  def confirm(conn, %{"email" => email, "confirmation_token" => confirmation_token}) do
+    case Accounts.confirm_user(email, confirmation_token) do
+      {:ok, _} ->
+        conn
+        |> put_flash(:success, "Email confirmed successfully.")
+        |> render("confirm.html")
+
+      {:error, message} ->
+        conn
+        |> put_flash(:danger, message)
+        |> render("confirm.html")
+    end
   end
 end

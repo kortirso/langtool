@@ -15,9 +15,7 @@ defmodule Langtool.Accounts do
       [%User{}, ...]
 
   """
-  def list_users do
-    Repo.all(User)
-  end
+  def list_users, do: Repo.all(User)
 
   @doc """
   Gets a single user.
@@ -34,6 +32,17 @@ defmodule Langtool.Accounts do
 
   """
   def get_user!(id), do: Repo.get!(User, id)
+
+  @doc """
+  Gets a single user by email.
+
+  ## Examples
+
+      iex> get_by_email(email)
+      %User{}
+
+  """
+  def get_by_email(email) when is_binary(email), do: Repo.get_by(User, email: email)
 
   @doc """
   Creates a user.
@@ -83,9 +92,7 @@ defmodule Langtool.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_user(%User{} = user) do
-    Repo.delete(user)
-  end
+  def delete_user(%User{} = user), do: Repo.delete(user)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
@@ -96,7 +103,35 @@ defmodule Langtool.Accounts do
       %Ecto.Changeset{source: %User{}}
 
   """
-  def change_user(%User{} = user) do
-    User.changeset(user, %{})
+  def change_user(%User{} = user), do: User.changeset(user, %{})
+
+  @doc """
+  Confirms user's email
+
+  ## Examples
+
+      iex> confirm_user(email, confirmation_token)
+
+  """
+  def confirm_user(email, confirmation_token) when is_binary(email) and is_binary(confirmation_token) do
+    case get_by_email(email) do
+      %User{} = user -> do_confirm_user(user, confirmation_token)
+      _ -> {:error, "User is not found for confirmation"}
+    end
+  end
+
+  defp do_confirm_user(user, confirmation_token) do
+    cond do
+      user.confirmation_token != confirmation_token -> {:error, "Confirmation token is invalid"}
+      user.confirmed_at != nil -> {:error, "Email is already confirmed"}
+      true -> do_confirm_user(user)
+    end
+  end
+
+  defp do_confirm_user(user) do
+    case update_user(user, confirmed_at: DateTime.utc_now) do
+      {:ok, user} -> {:ok, user}
+      {:error, _} -> {:error, "Email confirmation error"}
+    end
   end
 end
