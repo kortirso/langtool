@@ -26,7 +26,7 @@ defmodule LangtoolWeb.UserController do
 
   def complete(conn, _) do
     conn
-    |> put_flash(:info, "User created successfully.")
+    |> put_flash(:success, "User created successfully.")
     |> render("complete.html")
   end
 

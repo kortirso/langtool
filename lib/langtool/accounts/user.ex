@@ -18,10 +18,11 @@ defmodule Langtool.Accounts.User do
     |> cast(attrs, [:email, :encrypted_password, :confirmed_at, :confirmation_token])
     |> validate_required([:email, :encrypted_password])
     |> validate_length(:encrypted_password, min: 10)
+    |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email)
     |> update_change(:encrypted_password, &Bcrypt.hashpwsalt/1)
-    |> update_change(:confirmed_at, nil)
-    |> update_change(:confirmation_token, random_string(24))
+    |> put_change(:confirmed_at, nil)
+    |> put_change(:confirmation_token, random_string(24))
   end
 
   @doc false

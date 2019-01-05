@@ -1,7 +1,10 @@
 <main id="content">
   <div class="welcome container" role="main">
-    <div class="alert alert-success" role="alert"><%= get_flash(@conn, :info) %></div>
     <h1>Thank you for registration</h1>
+    <br />
+    <%= Enum.map(get_flash(@conn), fn {key, value} -> %>
+      <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+    <% end) %>
     <p>We sent message to your box for email confirmation</p>
   </div>
 </main>

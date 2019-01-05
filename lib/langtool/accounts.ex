@@ -124,12 +124,12 @@ defmodule Langtool.Accounts do
     cond do
       user.confirmation_token != confirmation_token -> {:error, "Confirmation token is invalid"}
       user.confirmed_at != nil -> {:error, "Email is already confirmed"}
-      true -> do_confirm_user(user)
+      true -> update_confirm_user(user)
     end
   end
 
-  defp do_confirm_user(user) do
-    case update_user(user, confirmed_at: DateTime.utc_now) do
+  defp update_confirm_user(user) do
+    case update_user(user, %{confirmed_at: DateTime.utc_now}) do
       {:ok, user} -> {:ok, user}
       {:error, _} -> {:error, "Email confirmation error"}
     end
