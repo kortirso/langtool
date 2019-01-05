@@ -3,10 +3,11 @@
     <a class="navbar-brand" href="/">LangTool</a>
     <form class="form-inline auth">
       <%= if signed_in?(@conn) do %>
-        <%= link "Account", to: "" %>
-        <%= link "Sign out", to: "" %>
+        <%= link "Dashboard", to: "" %>
+        <%= link "Sign Out", to: session_path(@conn, :delete), method: :delete %>
       <% else %>
-        <a href="<%= user_path(@conn, :new) %>">Sign Up</a>
+        <%= link "Sign In", to: "" %>
+        <%= link "Sign Up", to: user_path(@conn, :new) %>
       <% end %>
     </form>
   </div>

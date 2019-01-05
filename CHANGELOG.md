@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - user creation by sign in
 - user mailer with confirmation email
+- confirmation process
+- alerts block
+- signout process
 
 ## [0.1.0] - 2019-01-01
 ### Added
