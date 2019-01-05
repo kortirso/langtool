@@ -6,6 +6,18 @@ nav.navbar {
   border-bottom: 1px solid $grey-light;
 
   a {
+    font-size: 1.2rem;
     color: $dark;
+    padding: 0.5rem 0;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .auth {
+    a {
+      margin-left: 25px;
+    }
   }
 }

@@ -1,0 +1,6 @@
+<main id="content">
+  <div class="welcome container" role="main">
+    <h1>Thank you for registration</h1>
+    <p>We sent message to your box for email confirmation</p>
+  </div>
+</main>

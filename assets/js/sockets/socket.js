@@ -10,10 +10,10 @@ const userSessionId = $('#user_session_id').val()
 
 let socket = new Socket("/socket", {params: {userToken: userToken}})
 
-socket.connect()
-
 // Now that you are connected, you can join channels with a topic:
 if ($('#page_index_components').length) {
+  socket.connect()
+
   let channel = socket.channel("room:" + userSessionId, {})
 
   channel.on("new_task", payload => {

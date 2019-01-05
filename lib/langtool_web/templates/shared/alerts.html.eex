@@ -1,0 +1,5 @@
+<div class="alerts container">
+  <%= Enum.map(get_flash(@conn), fn {key, value} -> %>
+    <div class="alert alert-<%= key %>" role="alert"><%= value %></div>
+  <% end) %>
+</div>

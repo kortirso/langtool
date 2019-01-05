@@ -25,7 +25,7 @@ defmodule LangtoolWeb.TasksController do
         json(conn, message)
       {:error, message} ->
         json(conn, %{error: message})
-      true ->
+      _ ->
         json(conn, %{error: "Unknown error"})
     end
   end

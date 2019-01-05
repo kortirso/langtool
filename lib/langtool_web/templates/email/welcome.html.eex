@@ -1,0 +1,9 @@
+<div class="block">
+  <div class="head">
+    <h1>Thank you for joining LangTool</h2>
+  </div>
+  <div class="inner">
+    <p>To confirm your email you need visit <a href="/registrations/confirm?email=<%= @user.email %>&confirmation_token=<%= @user.confirmation_token %>">confirmation page</a>.</p>
+    <p>After confirmation you could use your personal page and edit translations.</p>
+  </div>
+</div>

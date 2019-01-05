@@ -1,6 +1,11 @@
 defmodule LangtoolWeb.Router do
   use LangtoolWeb, :router
 
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+    get "/preview_emails/:name/:type", LangtoolWeb.PreviewEmailController, :show
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -15,12 +20,33 @@ defmodule LangtoolWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :dashboard_layout do
+    plug :put_layout, {LangtoolWeb.LayoutView, :dashboard}
+  end
+
   scope "/", LangtoolWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/", PageController, :index, as: :page
+    # tasks resources
     resources "/tasks", TasksController, only: [:create]
     post "/tasks/detection", TasksController, :detection, as: :detection
+    # users resources
+    resources "/registrations", UserController, only: [:create]
+    get "/registrations", UserController, :new, as: :registration
+    get "/registrations/complete", UserController, :complete, as: :complete
+    get "/registrations/confirm", UserController, :confirm, as: :confirm
+    # sessions resources
+    get "/signin", SessionController, :new
+    post "/signin", SessionController, :create
+    delete "/signout", SessionController, :delete
+  end
+
+  # dashboard resources
+  scope "/dashboard", LangtoolWeb do
+    pipe_through [:browser, :dashboard_layout]
+
+    get "/", DashboardController, :index, as: :dashboard
   end
 
   # Other scopes may use custom stacks.

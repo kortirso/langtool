@@ -8,7 +8,7 @@ defmodule Langtool.Mixfile do
   def project do
     [
       app: :langtool,
-      version: "0.1.0",
+      version: "0.2.0",
       elixir: "~> 1.7",
       name: "Langtool",
       description: @description,
@@ -28,13 +28,13 @@ defmodule Langtool.Mixfile do
   def application do
     [
       mod: {Langtool.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :bamboo]
     ]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
@@ -52,7 +52,12 @@ defmodule Langtool.Mixfile do
       {:plug_cowboy, "~> 1.0"},
       {:arc_ecto, "~> 0.11.1"},
       {:i18n_parser, "~> 0.1.7"},
-      {:yandex_translator, "0.9.4"}
+      {:yandex_translator, "0.9.4"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:bamboo, "~> 1.1.0"},
+      {:bamboo_smtp, "~> 1.6.0"},
+      {:premailex, "~> 0.3.0"}
     ]
   end
 
