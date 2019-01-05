@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - signin process
 - presenter for validation errors
 - dashboard page with auth check for access
+- authorization policies system with dashboard policy
 
 ## [0.1.0] - 2019-01-01
 ### Added

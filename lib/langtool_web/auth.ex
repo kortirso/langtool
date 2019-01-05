@@ -18,6 +18,28 @@ defmodule LangtoolWeb.Auth do
           |> halt()
         end
       end
+
+      defp authorize(conn, policy, action, object) do
+        current_user = conn.assigns.current_user
+        if do_authorize(current_user, policy, action, object) do
+          conn
+        else
+          conn
+          |> put_flash(:danger, "Forbidden.")
+          |> redirect(to: page_path(conn, :index))
+          |> halt()
+        end
+      end
+
+      defp do_authorize(current_user, policy, action, object) do
+        policy
+        |> define_policy_action()
+        |> apply(action, [current_user, object])
+      end
+
+      defp define_policy_action(policy) do
+        :"Elixir.LangtoolWeb.#{String.capitalize(to_string(policy))}Policy"
+      end
     end
   end
 end
