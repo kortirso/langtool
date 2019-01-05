@@ -32,6 +32,7 @@ defmodule LangtoolWeb.Router do
     get "/registrations/complete", UserController, :complete, as: :complete
     get "/registrations/confirm", UserController, :confirm, as: :confirm
     # sessions resources
+    get "/signin", SessionController, :new
     delete "/signout", SessionController, :delete
   end
 

@@ -4,10 +4,10 @@
     <form class="form-inline auth">
       <%= if signed_in?(@conn) do %>
         <%= link "Dashboard", to: "" %>
-        <%= link "Sign Out", to: session_path(@conn, :delete), method: :delete %>
+        <%= link "SignOut", to: session_path(@conn, :delete), method: :delete %>
       <% else %>
-        <%= link "Sign In", to: "" %>
-        <%= link "Sign Up", to: user_path(@conn, :new) %>
+        <%= link "SignIn", to: session_path(@conn, :new) %>
+        <%= link "SignUp", to: user_path(@conn, :new) %>
       <% end %>
     </form>
   </div>

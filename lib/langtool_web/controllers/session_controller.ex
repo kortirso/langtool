@@ -2,6 +2,10 @@ defmodule LangtoolWeb.SessionController do
   use LangtoolWeb, :controller
   alias Langtool.Accounts
 
+  def new(conn, _) do
+    render(conn, "new.html")
+  end
+
   def delete(conn, _) do
     conn
     |> delete_session(:current_user_id)

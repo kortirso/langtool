@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - confirmation process
 - alerts block
 - signout process
+- signin process
 
 ## [0.1.0] - 2019-01-01
 ### Added
