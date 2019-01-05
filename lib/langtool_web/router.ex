@@ -20,6 +20,10 @@ defmodule LangtoolWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :dashboard_layout do
+    plug :put_layout, {LangtoolWeb.LayoutView, :dashboard}
+  end
+
   scope "/", LangtoolWeb do
     pipe_through :browser # Use the default browser stack
 
@@ -36,6 +40,13 @@ defmodule LangtoolWeb.Router do
     get "/signin", SessionController, :new
     post "/signin", SessionController, :create
     delete "/signout", SessionController, :delete
+  end
+
+  # dashboard resources
+  scope "/dashboard", LangtoolWeb do
+    pipe_through [:browser, :dashboard_layout]
+
+    get "/", DashboardController, :index, as: :dashboard
   end
 
   # Other scopes may use custom stacks.
