@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - user creation by sign in
+- user mailer with confirmation email
 
 ## [0.1.0] - 2019-01-01
 ### Added

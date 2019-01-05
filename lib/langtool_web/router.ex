@@ -30,6 +30,7 @@ defmodule LangtoolWeb.Router do
     # users resources
     resources "/registrations", UserController, only: [:new, :create]
     get "/registrations/complete", UserController, :complete, as: :complete
+    get "/registrations/confirm", UserController, :confirm, as: :confirm
   end
 
   # Other scopes may use custom stacks.
