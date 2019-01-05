@@ -6,27 +6,25 @@
           <h1>Join LangTool</h1>
           <p>The best way to localize your applications.</p>
         </div>
-        <form>
+        <%= form_for @conn, user_path(@conn, :create), [as: :user], fn f -> %>
+          <%= f.errors %>
           <h2>Create your personal account</h2>
           <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
           <div class="form-group">
-            <label for="email" class="control-label">Email *</label>
-            <input type="email" name="email" class="form-control" v-model="email" />
-            <p class="warning error">{{ emailError }}</p>
+            <%= label f, :email, "Email *", class: "control-label" %>
+            <%= email_input f, :email, class: "form-control", required: true %>
           </div>
           <div class="form-group">
-            <label for="password" class="control-label">Password *</label>
-            <input type="password" name="password" class="form-control" v-model="password" />
+            <%= label f, :encrypted_password, "Password *", class: "control-label" %>
+            <%= password_input f, :encrypted_password, class: "form-control", required: true %>
             <p class="warning">Password must be at least 10 characters</p>
           </div>
           <div class="form-group">
-            <label for="password_confirmation" class="control-label">Password confirmation *</label>
-            <input type="password" name="password_confirmation" class="form-control" v-model="passwordConfirmation" />
+            <%= label f, :password_confirmation, "Password confirmation *", class: "control-label" %>
+            <%= password_input f, :password_confirmation, class: "form-control", required: true %>
           </div>
-          <button class="btn btn-primary" type="button" :class="{ disabled: !(validEmail && validPassword && equalPasswords) }" @click.prevent="createUser()">
-            Create an account
-          </button>
-        </form>
+          <%= submit "Create an account", class: "btn btn-primary" %>
+        <% end %>
       </div>
     </div>
   </div>

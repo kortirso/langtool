@@ -23,6 +23,7 @@ defmodule LangtoolWeb do
       import Plug.Conn
       import LangtoolWeb.Router.Helpers
       import LangtoolWeb.Gettext
+      import LangtoolWeb.Errors
     end
   end
 

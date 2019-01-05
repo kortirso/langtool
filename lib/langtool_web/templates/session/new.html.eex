@@ -6,7 +6,7 @@
           <h1>Welcome back!</h1>
           <p>SignIn to your personal account</p>
         </div>
-        <%= form_for @conn, session_path(@conn, :new), [as: :session], fn f -> %>
+        <%= form_for @conn, session_path(@conn, :create), [as: :session], fn f -> %>
           <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
           <div class="form-group">
             <%= label f, :email, "Email *", class: "control-label" %>

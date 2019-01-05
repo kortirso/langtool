@@ -6,12 +6,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 ### Added
-- user creation by sign in
+- user creation by signup
 - user mailer with confirmation email
 - confirmation process
 - alerts block
 - signout process
 - signin process
+- presenter for validation errors
 
 ## [0.1.0] - 2019-01-01
 ### Added

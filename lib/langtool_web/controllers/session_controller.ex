@@ -18,7 +18,7 @@ defmodule LangtoolWeb.SessionController do
       # signin error
       _ ->
         conn
-        |> put_flash(:danger, "Invalid credentials")
+        |> put_flash(:danger, "Invalid credentials.")
         |> render("new.html")
     end
   end

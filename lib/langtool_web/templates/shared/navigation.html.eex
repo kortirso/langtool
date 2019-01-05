@@ -7,7 +7,7 @@
         <%= link "SignOut", to: session_path(@conn, :delete), method: :delete %>
       <% else %>
         <%= link "SignIn", to: session_path(@conn, :new) %>
-        <%= link "SignUp", to: user_path(@conn, :new) %>
+        <%= link "SignUp", to: registration_path(@conn, :new) %>
       <% end %>
     </form>
   </div>

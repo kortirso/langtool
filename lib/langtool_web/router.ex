@@ -28,7 +28,8 @@ defmodule LangtoolWeb.Router do
     resources "/tasks", TasksController, only: [:create]
     post "/tasks/detection", TasksController, :detection, as: :detection
     # users resources
-    resources "/registrations", UserController, only: [:new, :create]
+    resources "/registrations", UserController, only: [:create]
+    get "/registrations", UserController, :new, as: :registration
     get "/registrations/complete", UserController, :complete, as: :complete
     get "/registrations/confirm", UserController, :confirm, as: :confirm
     # sessions resources
