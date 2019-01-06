@@ -2,10 +2,12 @@
   <div class="head link_block">
     <a href="/">LangTool</a>
   </div>
+  <%= if LangtoolWeb.UserPolicy.index?(@conn.assigns.current_user, nil) do %>
+    <div class="link link_block">
+      <%= link "Users", to: users_path(@conn, :index) %>
+    </div>
+  <% end %>
   <div class="link link_block">
-    <a href="/">Users</a>
-  </div>
-  <div class="link link_block">
-    <a href="/">Tasks</a>
+    <%= link "Tasks", to: tasks_path(@conn, :index) %>
   </div>
 </nav>

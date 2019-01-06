@@ -48,6 +48,8 @@ defmodule LangtoolWeb.Router do
     pipe_through [:browser, :dashboard_layout]
 
     get "/", DashboardController, :index, as: :dashboard
+    resources "/tasks", TasksController, only: [:index]
+    resources "/users", UsersController, only: [:index]
   end
 
   # Other scopes may use custom stacks.

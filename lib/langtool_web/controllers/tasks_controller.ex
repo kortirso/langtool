@@ -3,6 +3,12 @@ defmodule LangtoolWeb.TasksController do
   alias Langtool.Tasks
   alias LangtoolWeb.RoomChannel
 
+  plug :check_auth when action in [:index]
+
+  def index(conn, _) do
+    render conn, "index.html"
+  end
+
   def create(conn, %{"task" => task_params}) do
     case Tasks.create_task(task_params) do
       {:ok, task} ->
