@@ -10,7 +10,8 @@
     <title>LangTool - Easy localizations for developers</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
-  <body>
+  <body class="dashboard">
+    <%= render LangtoolWeb.SharedView, "panel.html", conn: @conn %>
     <%= render @view_module, @view_template, assigns %>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>

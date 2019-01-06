@@ -1,0 +1,36 @@
+@import "variables";
+
+body.dashboard {
+  .panel {
+    width: 250px;
+    background: $blue-light;
+    border-right: 1px solid $grey-light;
+
+    .link_block {
+      border-bottom: 1px solid $blue-semi-light;
+
+      &.head {
+        a {
+          padding: 20px;
+          font-weight: 500;
+          font-size: 1.25rem;
+        }
+      }
+
+      a {
+        display: block;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: $dark;
+      }
+
+      &:hover {
+        background: $blue-semi-dark;
+      }
+    }
+  }
+
+  .inside {
+    flex: 1;
+  }
+}

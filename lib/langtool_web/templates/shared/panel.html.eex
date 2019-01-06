@@ -1,0 +1,11 @@
+<nav class="panel">
+  <div class="head link_block">
+    <a href="/">LangTool</a>
+  </div>
+  <div class="link link_block">
+    <a href="/">Users</a>
+  </div>
+  <div class="link link_block">
+    <a href="/">Tasks</a>
+  </div>
+</nav>
