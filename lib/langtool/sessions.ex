@@ -80,4 +80,19 @@ defmodule Langtool.Sessions do
     |> Session.changeset(session_params)
     |> Repo.update()
   end
+
+  @doc """
+  Attaches a session to user.
+
+  ## Examples
+
+      iex> attach_user(session, %{field: new_value})
+      {:ok, %User{}}
+
+  """
+  def attach_user(session_id, user_id) do
+    session_id
+    |> get_session!()
+    |> update_session(%{user_id: user_id})
+  end
 end

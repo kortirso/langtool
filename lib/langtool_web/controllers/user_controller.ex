@@ -28,7 +28,7 @@ defmodule LangtoolWeb.UserController do
         # send confirmation email
         user |> UserMailer.welcome_email() |> Mailer.deliver_later()
         # attach session to user
-        conn |> get_session(:session_id) |> Sessions.get_session!() |> Sessions.update_session(%{user_id: user.id})
+        conn |> get_session(:session_id) |> Sessions.attach_user(user.id)
         conn
         |> put_session(:current_user_id, user.id)
         |> put_flash(:success, "User created successfully.")
