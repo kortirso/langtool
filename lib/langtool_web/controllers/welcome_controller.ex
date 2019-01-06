@@ -1,4 +1,4 @@
-defmodule LangtoolWeb.PageController do
+defmodule LangtoolWeb.WelcomeController do
   use LangtoolWeb, :controller
   alias Langtool.{Sessions}
 

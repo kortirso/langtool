@@ -1,4 +1,4 @@
-defmodule LangtoolWeb.SessionController do
+defmodule LangtoolWeb.SessionsController do
   use LangtoolWeb, :controller
   alias Langtool.{Accounts, Sessions}
 
@@ -16,7 +16,7 @@ defmodule LangtoolWeb.SessionController do
         conn
         |> put_session(:current_user_id, user.id)
         |> put_flash(:success, "Signed in successfully.")
-        |> redirect(to: page_path(conn, :index))
+        |> redirect(to: welcome_path(conn, :index))
       # signin error
       _ ->
         conn
@@ -29,6 +29,6 @@ defmodule LangtoolWeb.SessionController do
     conn
     |> delete_session(:current_user_id)
     |> put_flash(:success, "Signed out successfully.")
-    |> redirect(to: page_path(conn, :index))
+    |> redirect(to: welcome_path(conn, :index))
   end
 end

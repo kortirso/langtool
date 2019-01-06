@@ -1,4 +1,4 @@
-defmodule LangtoolWeb.UserController do
+defmodule LangtoolWeb.RegistrationsController do
   use LangtoolWeb, :controller
   alias Langtool.{Accounts, Accounts.User, Mailer, Sessions}
   alias LangtoolWeb.{UserMailer}

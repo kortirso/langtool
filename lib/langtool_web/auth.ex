@@ -14,7 +14,7 @@ defmodule LangtoolWeb.Auth do
         else
           conn
           |> put_flash(:danger, "You need to be signed in to access that page.")
-          |> redirect(to: page_path(conn, :index))
+          |> redirect(to: welcome_path(conn, :index))
           |> halt()
         end
       end
@@ -26,7 +26,7 @@ defmodule LangtoolWeb.Auth do
         else
           conn
           |> put_flash(:danger, "Forbidden.")
-          |> redirect(to: page_path(conn, :index))
+          |> redirect(to: welcome_path(conn, :index))
           |> halt()
         end
       end

@@ -1,4 +1,4 @@
-defmodule LangtoolWeb.PageControllerTest do
+defmodule LangtoolWeb.WelcomeControllerTest do
   use LangtoolWeb.ConnCase
 
   test "GET /", %{conn: conn} do

@@ -28,19 +28,19 @@ defmodule LangtoolWeb.Router do
   scope "/", LangtoolWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index, as: :page
+    get "/", WelcomeController, :index, as: :welcome
     # tasks resources
     resources "/tasks", TasksController, only: [:create]
     post "/tasks/detection", TasksController, :detection, as: :detection
     # users resources
-    resources "/registrations", UserController, only: [:create]
-    get "/registrations", UserController, :new, as: :registration
-    get "/registrations/complete", UserController, :complete, as: :complete
-    get "/registrations/confirm", UserController, :confirm, as: :confirm
+    resources "/registrations", RegistrationsController, only: [:create]
+    get "/registrations", RegistrationsController, :new, as: :registration
+    get "/registrations/complete", RegistrationsController, :complete, as: :complete
+    get "/registrations/confirm", RegistrationsController, :confirm, as: :confirm
     # sessions resources
-    get "/signin", SessionController, :new
-    post "/signin", SessionController, :create
-    delete "/signout", SessionController, :delete
+    get "/signin", SessionsController, :new
+    post "/signin", SessionsController, :create
+    delete "/signout", SessionsController, :delete
   end
 
   # dashboard resources

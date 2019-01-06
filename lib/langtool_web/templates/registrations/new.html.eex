@@ -6,7 +6,7 @@
           <h1>Join LangTool</h1>
           <p>The best way to localize your applications.</p>
         </div>
-        <%= form_for @conn, user_path(@conn, :create), [as: :user], fn f -> %>
+        <%= form_for @conn, registrations_path(@conn, :create), [as: :user], fn f -> %>
           <%= f.errors %>
           <h2>Create your personal account</h2>
           <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
