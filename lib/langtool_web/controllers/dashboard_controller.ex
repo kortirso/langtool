@@ -1,6 +1,5 @@
 defmodule LangtoolWeb.DashboardController do
   use LangtoolWeb, :controller
-  alias LangtoolWeb.{DashboardPolicy}
 
   plug :check_auth when action in [:index]
 

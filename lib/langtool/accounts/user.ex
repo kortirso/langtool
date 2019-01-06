@@ -2,12 +2,16 @@ defmodule Langtool.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Comeonin.Bcrypt
+  alias Langtool.{Sessions.Session}
 
   schema "users" do
     field :confirmation_token, :string
     field :confirmed_at, :naive_datetime
     field :email, :string
     field :encrypted_password, :string
+
+    has_many :sessions, Session, on_delete: :delete_all
+    has_many :tasks, through: [:sessions, :tasks]
 
     timestamps()
   end

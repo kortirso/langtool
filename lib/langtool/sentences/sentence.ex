@@ -7,9 +7,9 @@ defmodule Langtool.Sentences.Sentence do
     field :original, :string
     field :locale, :string
 
-    has_many :positions, Position
+    has_many :positions, Position, on_delete: :delete_all
 
-    many_to_many :translations, Translation, join_through: "examples"
+    many_to_many :translations, Translation, join_through: "examples", on_delete: :delete_all
 
     timestamps()
   end

@@ -2,7 +2,7 @@ defmodule Langtool.Tasks.Task do
   use Ecto.Schema
   use Arc.Ecto.Schema
   import Ecto.Changeset
-  alias Langtool.{Tasks.Task, Positions.Position}
+  alias Langtool.{Tasks.Task, Positions.Position, Sessions.Session}
 
   schema "tasks" do
     field :file, Langtool.File.Type
@@ -10,9 +10,10 @@ defmodule Langtool.Tasks.Task do
     field :from, :string
     field :status, :string
     field :to, :string
-    field :user_session_id, :string
 
-    has_many :positions, Position
+    belongs_to :session, Session
+
+    has_many :positions, Position, on_delete: :delete_all
 
     timestamps()
   end
@@ -20,8 +21,8 @@ defmodule Langtool.Tasks.Task do
   @doc false
   def create_changeset(%Task{} = task, attrs) do
     task
-    |> cast(attrs, [:user_session_id, :from, :to, :status])
-    |> validate_required([:user_session_id, :from, :to, :status])
+    |> cast(attrs, [:session_id, :from, :to, :status])
+    |> validate_required([:session_id, :from, :to, :status])
     |> validate_length(:from, min: 2)
     |> validate_length(:to, min: 2)
   end

@@ -8,7 +8,7 @@ defmodule Langtool.Translations.Translation do
     field :text, :string
     field :locale, :string
 
-    many_to_many :sentences, Sentence, join_through: "examples"
+    many_to_many :sentences, Sentence, join_through: "examples", on_delete: :delete_all
 
     timestamps()
   end
