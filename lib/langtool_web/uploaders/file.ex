@@ -6,9 +6,9 @@ defmodule Langtool.File do
 
   def storage_dir(_version, {_, task}) do
     if Mix.env == :test do
-      "uploads/test/#{task.id}/original/#{task.user_session_id}"
+      "uploads/test/#{task.id}/original/#{task.session_id}"
     else
-      "uploads/#{task.id}/original/#{task.user_session_id}"
+      "uploads/#{task.id}/original/#{task.session_id}"
     end
   end
 

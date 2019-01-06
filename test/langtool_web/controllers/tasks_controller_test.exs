@@ -1,6 +1,6 @@
 defmodule LangtoolWeb.TasksControllerTest do
   use LangtoolWeb.ConnCase
-  alias Langtool.{Sessions.Session}
+  alias Langtool.{Sessions}
 
   @task_params %{
     file: %Plug.Upload{path: "test/fixtures/ru.yml", filename: "ru.yml"},
@@ -19,14 +19,16 @@ defmodule LangtoolWeb.TasksControllerTest do
   }
 
   describe "POST /tasks" do
-    test "Creates task for valid params", %{conn: conn} do
-      conn = post conn, "/tasks", [task: @task_params]
+    setup [:create_session]
+
+    test "Creates task for valid params", %{conn: conn, session: session} do
+      conn = post conn, "/tasks", [task: Map.merge(@task_params, %{session_id: session.id})]
 
       assert json_response(conn, 200) == %{"success" => "Task is created"}
     end
 
-    test "Does not create task for invalid params", %{conn: conn} do
-      conn = post conn, "/tasks", [task: @invalid_task_params]
+    test "Does not create task for invalid params", %{conn: conn, session: session} do
+      conn = post conn, "/tasks", [task: Map.merge(@invalid_task_params, %{session_id: session.id})]
 
       assert json_response(conn, 200) == %{"success" => "Task is not created"}
     end
@@ -46,5 +48,10 @@ defmodule LangtoolWeb.TasksControllerTest do
 
       assert json_response(conn, 200) == %{"error" => "Invalid amount of keys"}
     end
+  end
+
+  defp create_session(_) do
+    {:ok, session} = Sessions.create_session()
+    {:ok, session: session}
   end
 end

@@ -14,6 +14,7 @@ defmodule Langtool.Examples.Example do
   def changeset(example, attrs) do
     example
     |> cast(attrs, [:sentence_id, :translation_id])
-    |> validate_required([:sentence_id, :translation_id])
+    |> assoc_constraint(:sentence)
+    |> assoc_constraint(:translation)
   end
 end

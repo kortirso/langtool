@@ -7,17 +7,17 @@ defmodule Langtool.Sessions do
   alias Langtool.{Repo, Sessions.Session}
 
   @doc """
-  Gets a single session by user_session_id.
+  Gets a single session by id.
 
   ## Examples
 
-      iex> get_by_session_id(user_session_id)
+      iex> get_session!(id)
       %Session{}
 
   """
-  def get_by_session_id(user_session_id) when is_binary(user_session_id) do
+  def get_session!(id) when is_integer(id) do
     Session
-    |> Repo.get_by(user_session_id: user_session_id)
+    |> Repo.get!(id)
     |> Repo.preload(:user)
   end
 
@@ -30,16 +30,16 @@ defmodule Langtool.Sessions do
       [%Task{}, ...]
 
   """
-  def load_tasks(user_session_id) do
-    object = define_tasks_owner(user_session_id)
+  def load_tasks(session_id) do
+    object = define_tasks_owner(session_id)
     object.tasks
     |> Enum.sort(&(&1.id >= &2.id))
     |> Enum.take(5)
   end
 
-  defp define_tasks_owner(user_session_id) do
-    user_session_id
-    |> get_by_session_id()
+  defp define_tasks_owner(session_id) do
+    session_id
+    |> get_session!()
     |> tasks_owner()
     |> Repo.preload(:tasks)
   end

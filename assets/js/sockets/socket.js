@@ -6,7 +6,7 @@
 import {Socket} from "phoenix"
 
 const userToken = $('#user_room_token').val()
-const userSessionId = $('#user_session_id').val()
+const sessionId = $('#session_id').val()
 
 let socket = new Socket("/socket", {params: {userToken: userToken}})
 
@@ -14,7 +14,7 @@ let socket = new Socket("/socket", {params: {userToken: userToken}})
 if ($('#page_index_components').length) {
   socket.connect()
 
-  let channel = socket.channel("room:" + userSessionId, {})
+  let channel = socket.channel("room:" + sessionId, {})
 
   channel.on("new_task", payload => {
     const taskItem = `<tr class='task' id='task_${payload.id}'><td scope='col'>${payload.id}</td><td scope='col'>${payload.file_name}</td><td scope='col'>${payload.from}-${payload.to}</td><td scope='col' class='status'>${payload.status}</td><td scope='col' class='result'></td></tr>`

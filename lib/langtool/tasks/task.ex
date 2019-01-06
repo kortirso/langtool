@@ -22,7 +22,8 @@ defmodule Langtool.Tasks.Task do
   def create_changeset(%Task{} = task, attrs) do
     task
     |> cast(attrs, [:session_id, :from, :to, :status])
-    |> validate_required([:session_id, :from, :to, :status])
+    |> assoc_constraint(:session)
+    |> validate_required([:from, :to, :status])
     |> validate_length(:from, min: 2)
     |> validate_length(:to, min: 2)
   end

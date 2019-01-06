@@ -56,26 +56,26 @@ defmodule LangtoolWeb.Router do
   # end
 
   defp put_user_session_id(conn, _) do
-    {conn, user_session_id} =
+    {conn, session_id} =
       conn
-      |> get_session(:user_session_id)
-      |> define_user_session_id(conn)
-    assign(conn, :user_session_id, user_session_id)
+      |> get_session(:session_id)
+      |> define_session_id(conn)
+    assign(conn, :session_id, session_id)
   end
 
-  defp define_user_session_id(nil, conn) do
+  defp define_session_id(nil, conn) do
     {:ok, session} = Sessions.create_session()
-    conn = put_session(conn, :user_session_id, session.user_session_id)
-    {conn, session.user_session_id}
+    conn = put_session(conn, :session_id, session.id)
+    {conn, session.id}
   end
 
-  defp define_user_session_id(user_session_id, conn) do
-    {conn, user_session_id}
+  defp define_session_id(session_id, conn) do
+    {conn, session_id}
   end
 
   defp put_user_token(conn, _) do
-    if user_session_id = conn.assigns[:user_session_id] do
-      token = Phoenix.Token.sign(conn, "user room socket", user_session_id)
+    if session_id = conn.assigns[:session_id] do
+      token = Phoenix.Token.sign(conn, "user room socket", session_id)
       assign(conn, :user_room_token, token)
     else
       conn

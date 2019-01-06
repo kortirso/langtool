@@ -17,6 +17,8 @@ defmodule Langtool.Positions.Position do
   def changeset(position, attrs) do
     position
     |> cast(attrs, [:task_id, :index, :result, :sentence_id])
-    |> validate_required([:task_id, :index, :sentence_id])
+    |> validate_required([:index])
+    |> assoc_constraint(:task)
+    |> assoc_constraint(:sentence)
   end
 end

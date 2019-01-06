@@ -3,9 +3,9 @@ defmodule LangtoolWeb.PageController do
   alias Langtool.{Sessions}
 
   def index(conn, _) do
-    user_session_id = get_session(conn, :user_session_id)
+    session_id = get_session(conn, :session_id)
     conn
-    |> assign(:tasks, Sessions.load_tasks(user_session_id))
+    |> assign(:tasks, Sessions.load_tasks(session_id))
     |> render("index.html")
   end
 end

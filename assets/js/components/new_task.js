@@ -68,7 +68,7 @@ if ($('#page_index_components').length) {
         data.append('task[file]', this.file)
         data.append('task[from]', this.from)
         data.append('task[to]', this.to)
-        data.append('task[user_session_id]', $('#user_session_id').val())
+        data.append('task[session_id]', $('#session_id').val())
         data.append('task[status]', 'created')
         data.append('_csrf_token', $('#_csrf_token').val())
         const config = { header : { 'Content-Type' : 'multipart/form-data' } }
