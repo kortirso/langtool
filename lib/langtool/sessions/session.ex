@@ -9,14 +9,19 @@ defmodule Langtool.Sessions.Session do
     belongs_to :user, User
 
     has_many :tasks, Task, on_delete: :delete_all
-
-    timestamps()
   end
 
   @doc false
   def changeset(%Session{} = session, attrs) do
     session
     |> cast(attrs, [:user_session_id, :user_id])
-    |> validate_required([:user_session_id])
+    |> put_change(:user_session_id, random_string(24))
+  end
+
+  defp random_string(length) do
+    length
+    |> :crypto.strong_rand_bytes()
+    |> Base.url_encode64()
+    |> binary_part(0, length)
   end
 end

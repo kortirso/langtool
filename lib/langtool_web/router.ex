@@ -1,5 +1,6 @@
 defmodule LangtoolWeb.Router do
   use LangtoolWeb, :router
+  alias Langtool.{Sessions}
 
   if Mix.env == :dev do
     forward "/sent_emails", Bamboo.SentEmailViewerPlug
@@ -63,20 +64,13 @@ defmodule LangtoolWeb.Router do
   end
 
   defp define_user_session_id(nil, conn) do
-    user_session_id = random_string(24)
-    conn = put_session(conn, :user_session_id, user_session_id)
-    {conn, user_session_id}
+    {:ok, session} = Sessions.create_session()
+    conn = put_session(conn, :user_session_id, session.user_session_id)
+    {conn, session.user_session_id}
   end
 
   defp define_user_session_id(user_session_id, conn) do
     {conn, user_session_id}
-  end
-
-  defp random_string(length) do
-    length
-    |> :crypto.strong_rand_bytes()
-    |> Base.url_encode64()
-    |> binary_part(0, length)
   end
 
   defp put_user_token(conn, _) do
