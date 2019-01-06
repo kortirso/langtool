@@ -1,6 +1,6 @@
 defmodule LangtoolWeb.UserController do
   use LangtoolWeb, :controller
-  alias Langtool.{Accounts, Accounts.User, Mailer}
+  alias Langtool.{Accounts, Accounts.User, Mailer, Sessions}
   alias LangtoolWeb.{UserMailer}
 
   def new(conn, _) do
@@ -25,7 +25,10 @@ defmodule LangtoolWeb.UserController do
     case Accounts.create_user(user_params) do
       # user is created
       {:ok, user} ->
+        # send confirmation email
         user |> UserMailer.welcome_email() |> Mailer.deliver_later()
+        # attach session to user
+        conn |> get_session(:session_id) |> Sessions.get_session!() |> Sessions.update_session(%{user_id: user.id})
         conn
         |> put_session(:current_user_id, user.id)
         |> put_flash(:success, "User created successfully.")

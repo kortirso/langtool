@@ -1,6 +1,6 @@
 defmodule LangtoolWeb.SessionController do
   use LangtoolWeb, :controller
-  alias Langtool.Accounts
+  alias Langtool.{Accounts, Sessions}
 
   def new(conn, _) do
     render conn, "new.html"
@@ -11,6 +11,8 @@ defmodule LangtoolWeb.SessionController do
     case Comeonin.Bcrypt.check_pass(user, session["password"]) do
       # successful signin
       {:ok, user} ->
+        # attach session to user
+        conn |> get_session(:session_id) |> Sessions.get_session!() |> Sessions.update_session(%{user_id: user.id})
         conn
         |> put_session(:current_user_id, user.id)
         |> put_flash(:success, "Signed in successfully.")

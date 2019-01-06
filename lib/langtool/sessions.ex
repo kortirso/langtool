@@ -65,4 +65,19 @@ defmodule Langtool.Sessions do
     |> Session.changeset(session_params)
     |> Repo.insert()
   end
+
+  @doc """
+  Updates a session.
+
+  ## Examples
+
+      iex> update_session(session, %{field: new_value})
+      {:ok, %User{}}
+
+  """
+  def update_session(%Session{} = session, session_params) do
+    session
+    |> Session.changeset(session_params)
+    |> Repo.update()
+  end
 end
