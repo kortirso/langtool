@@ -7,21 +7,6 @@ defmodule Langtool.Tasks do
   alias Langtool.{Repo, Tasks.Task}
 
   @doc """
-  Returns the list of last 5 tasks
-
-  ## Examples
-
-      iex> last_for_user(user_session_id)
-      [%Task{}, ...]
-
-  """
-  def last_for_user(user_session_id) when is_binary(user_session_id) do
-    Repo.all(from task in Task, where: task.user_session_id == ^user_session_id)
-    |> Enum.sort(&(&1.id >= &2.id))
-    |> Enum.take(5)
-  end
-
-  @doc """
   Creates a task
 
   ## Examples
