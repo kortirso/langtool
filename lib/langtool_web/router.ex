@@ -13,7 +13,7 @@ defmodule LangtoolWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug :put_user_session_id
+    plug :put_session_id
     plug :put_user_token
   end
 
@@ -55,7 +55,7 @@ defmodule LangtoolWeb.Router do
   #   pipe_through :api
   # end
 
-  defp put_user_session_id(conn, _) do
+  defp put_session_id(conn, _) do
     {conn, session_id} =
       conn
       |> get_session(:session_id)

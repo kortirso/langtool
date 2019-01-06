@@ -22,8 +22,8 @@ defmodule LangtoolWeb.UserSocket do
   def connect(%{"userToken" => token}, socket) do
     # max_age: 1209600 is equivalent to two weeks in seconds
     case Phoenix.Token.verify(socket, "user room socket", token, max_age: 1209600) do
-      {:ok, user_session_id} ->
-        {:ok, assign(socket, :user_session_id, user_session_id)}
+      {:ok, session_id} ->
+        {:ok, assign(socket, :session_id, session_id)}
       {:error, _} ->
         :error
     end

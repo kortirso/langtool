@@ -26,7 +26,7 @@ defmodule Langtool.Sessions do
 
   ## Examples
 
-      iex> load_tasks(user_session_id)
+      iex> load_tasks(session_id)
       [%Task{}, ...]
 
   """
