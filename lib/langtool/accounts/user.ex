@@ -9,6 +9,7 @@ defmodule Langtool.Accounts.User do
     field :confirmed_at, :naive_datetime
     field :email, :string
     field :encrypted_password, :string
+    field :role, :string
 
     has_many :sessions, Session, on_delete: :delete_all
     has_many :tasks, through: [:sessions, :tasks]

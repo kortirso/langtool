@@ -1,5 +1,4 @@
 defmodule LangtoolWeb.UserPolicy do
-  def index?(_, _) do
-    true
-  end
+  def index?("admin", _), do: true
+  def index?(_, _), do: true
 end
