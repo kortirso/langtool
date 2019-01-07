@@ -19,6 +19,17 @@ defmodule LangtoolWeb.Auth do
         end
       end
 
+      defp check_confirmation(conn, _) do
+        if conn.assigns.current_user.confirmed_at == nil do
+          conn
+          |> put_flash(:danger, "You need to confirm your email.")
+          |> redirect(to: welcome_path(conn, :index))
+          |> halt()
+        else
+          conn
+        end
+      end
+
       defp authorize(conn, policy, action, object) do
         current_user = conn.assigns.current_user
         if do_authorize(current_user.role, policy, action, object) do

@@ -2,7 +2,8 @@ defmodule LangtoolWeb.UsersController do
   use LangtoolWeb, :controller
   alias Langtool.{Accounts}
 
-  plug :check_auth when action in [:index, :show, :edit, :delete]
+  plug :check_auth
+  plug :check_confirmation
 
   def index(conn, _) do
     conn
