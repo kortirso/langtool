@@ -11,7 +11,6 @@ config :logger, level: :warn
 
 # Configure your database
 config :langtool, Langtool.Repo,
-  adapter: Ecto.Adapters.Postgres,
   username: "kortirso",
   password: "",
   database: "langtool_test",

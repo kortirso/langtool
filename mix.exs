@@ -28,7 +28,7 @@ defmodule Langtool.Mixfile do
   def application do
     [
       mod: {Langtool.Application, []},
-      extra_applications: [:logger, :runtime_tools, :bamboo, :scrivener_ecto, :scrivener_html]
+      extra_applications: [:logger, :runtime_tools, :bamboo]
     ]
   end
 
@@ -43,7 +43,7 @@ defmodule Langtool.Mixfile do
     [
       {:phoenix, "~> 1.4.0"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 4.0"},
+      {:phoenix_ecto, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 2.10"},
       {:phoenix_live_reload, "~> 1.0", only: :dev},

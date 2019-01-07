@@ -1,5 +1,7 @@
 defmodule Langtool.Repo do
-  use Ecto.Repo, otp_app: :langtool
+  use Ecto.Repo,
+    otp_app: :langtool,
+    adapter: Ecto.Adapters.Postgres
 
   @doc """
   Dynamically loads the repository url from the

@@ -50,7 +50,6 @@ config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :langtool, Langtool.Repo,
-  adapter: Ecto.Adapters.Postgres,
   username: "kortirso",
   password: "",
   database: "langtool_dev",
