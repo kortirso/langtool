@@ -20,7 +20,7 @@
             <td>
               <%= link "Show", to: users_path(@conn, :show, user.id), class: "btn btn-outline-primary btn-sm" %>
               <%= link "Edit", to: users_path(@conn, :edit, user.id), class: "btn btn-outline-primary btn-sm" %>
-              <%= link "Delete", to: "", class: "btn btn-outline-danger btn-sm" %>
+              <%= link "Delete", to: users_path(@conn, :delete, user.id), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-outline-danger btn-sm" %>
             </td>
           </tr>
         <% end %>
