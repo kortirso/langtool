@@ -49,7 +49,7 @@ defmodule LangtoolWeb.Router do
 
     get "/", DashboardController, :index, as: :dashboard
     resources "/tasks", TasksController, only: [:index]
-    resources "/users", UsersController, only: [:index]
+    resources "/users", UsersController, only: [:index, :show]
   end
 
   # Other scopes may use custom stacks.
