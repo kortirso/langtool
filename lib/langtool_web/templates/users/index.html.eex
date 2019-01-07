@@ -19,7 +19,7 @@
             <td><%= user.confirmed_at != nil %></td>
             <td>
               <%= link "Show", to: users_path(@conn, :show, user.id), class: "btn btn-outline-primary btn-sm" %>
-              <%= link "Edit", to: "", class: "btn btn-outline-primary btn-sm" %>
+              <%= link "Edit", to: users_path(@conn, :edit, user.id), class: "btn btn-outline-primary btn-sm" %>
               <%= link "Delete", to: "", class: "btn btn-outline-danger btn-sm" %>
             </td>
           </tr>

@@ -4,4 +4,7 @@ defmodule LangtoolWeb.UserPolicy do
 
   def show?("admin", _), do: true
   def show?(_, _), do: true
+
+  def edit?("admin", _), do: true
+  def edit?(_, _), do: true
 end
