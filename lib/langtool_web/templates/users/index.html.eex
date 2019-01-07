@@ -1,0 +1,30 @@
+<div class="inside">
+  <div id="users">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+          <th scope="col">Confirmed?</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for user <- @users do %>
+          <tr>
+            <td scope="row"><%= user.id %></td>
+            <td><%= user.email %></td>
+            <td><%= user.role %></td>
+            <td><%= user.confirmed_at != nil %></td>
+            <td>
+              <%= link "Show", to: "", class: "btn btn-outline-primary btn-sm" %>
+              <%= link "Edit", to: "", class: "btn btn-outline-primary btn-sm" %>
+              <%= link "Delete", to: "", class: "btn btn-outline-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

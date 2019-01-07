@@ -79,4 +79,28 @@ body {
   .form-control, .btn {
     font-size: 1.1rem;
   }
+
+  .btn {
+    &.btn-sm {
+      font-size: 0.8rem;
+    }
+  }
+
+  table {
+    thead {
+      tr {
+        th {
+          font-weight: 500;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
 }
