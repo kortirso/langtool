@@ -48,7 +48,7 @@ defmodule LangtoolWeb.Router do
     pipe_through [:browser, :dashboard_layout]
 
     get "/", DashboardController, :index, as: :dashboard
-    resources "/tasks", TasksController, only: [:index]
+    resources "/tasks", TasksController, only: [:index, :delete]
     resources "/users", UsersController, only: [:index, :show, :edit, :update, :delete]
   end
 

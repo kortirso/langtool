@@ -4,7 +4,7 @@ defmodule Langtool.Tasks do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Tasks.Task, Accounts.User}
+  alias Langtool.{Repo, Tasks.Task}
 
   @doc """
   Get tasks list for user
@@ -20,6 +20,17 @@ defmodule Langtool.Tasks do
     |> order_by(desc: :id)
     |> Repo.all()
   end
+
+  @doc """
+  Gets a single task.
+
+  ## Examples
+
+      iex> get_task!(123)
+      %Task{}
+
+  """
+  def get_task!(id), do: Repo.get!(Task, id)
 
   @doc """
   Creates a task
@@ -129,4 +140,15 @@ defmodule Langtool.Tasks do
       |> Enum.at(-1)
     I18nParser.detect(path, extension)
   end
+
+  @doc """
+  Deletes a task.
+
+  ## Examples
+
+      iex> delete_task(task)
+      {:ok, %Task{}}
+
+  """
+  def delete_task(%Task{} = task), do: Repo.delete(task)
 end

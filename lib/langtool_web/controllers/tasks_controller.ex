@@ -3,8 +3,8 @@ defmodule LangtoolWeb.TasksController do
   alias Langtool.Tasks
   alias LangtoolWeb.RoomChannel
 
-  plug :check_auth when action in [:index]
-  plug :check_confirmation when action in [:index]
+  plug :check_auth when action in [:index, :delete]
+  plug :check_confirmation when action in [:index, :delete]
 
   def index(conn, _) do
     conn
@@ -26,6 +26,15 @@ defmodule LangtoolWeb.TasksController do
       {:error, _} ->
         json(conn, %{success: "Task is not created"})
     end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    task = Tasks.get_task!(id)
+    authorize(conn, :task, :delete?, task)
+    {:ok, _} = Tasks.delete_task(task)
+    conn
+    |> put_flash(:success, "Task deleted successfully.")
+    |> redirect(to: tasks_path(conn, :index))
   end
 
   def detection(conn, %{"file" => %Plug.Upload{filename: filename, path: path}}) do

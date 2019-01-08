@@ -22,7 +22,7 @@
             <a download href="<%= Langtool.ResultFile.url({task.result_file, task}, signed: true) %>">Download</a>
           </td>
           <td>
-            
+            <%= link "Delete", to: tasks_path(@conn, :delete, task.id), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-outline-danger btn-sm" %>
           </td>
         </tr>
       <% end %>
