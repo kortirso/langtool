@@ -22,12 +22,10 @@ defmodule LangtoolWeb.UsersController do
 
   def edit(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    authorize(conn, :user, :edit?, user)
-
-    changeset = User.changeset(user, %{})
     conn
+    |> authorize(:user, :edit?, user)
     |> assign(:user, user)
-    |> assign(:changeset, changeset)
+    |> assign(:changeset, User.changeset(user, %{}))
     |> render("edit.html")
   end
 
@@ -52,7 +50,6 @@ defmodule LangtoolWeb.UsersController do
     user = Accounts.get_user!(id)
     authorize(conn, :user, :delete?, user)
     {:ok, _} = Accounts.delete_user(user)
-
     conn
     |> put_flash(:success, "User deleted successfully.")
     |> redirect(to: users_path(conn, :index))
