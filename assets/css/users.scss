@@ -1,5 +1,7 @@
 #users {
   table {
+    margin-top: 25px;
+
     tr {
       td {
         &:nth-of-type(1) {
@@ -11,6 +13,14 @@
           text-align: center;
         }
       }
+    }
+  }
+}
+
+#user_edit {
+  form {
+    select.form-control {
+      width: 100px;
     }
   }
 }

@@ -3,7 +3,7 @@ defmodule LangtoolWeb.Auth do
   A module providing auth functions
   """
 
-  alias Langtool.{Accounts}
+  alias Langtool.{Accounts, Accounts.User}
 
   defmacro __using__(_opts) do
     quote do
@@ -32,7 +32,7 @@ defmodule LangtoolWeb.Auth do
 
       defp authorize(conn, policy, action, object) do
         current_user = conn.assigns.current_user
-        if do_authorize(current_user.role, policy, action, object) do
+        if do_authorize(current_user, policy, action, object) do
           conn
         else
           conn
@@ -42,10 +42,10 @@ defmodule LangtoolWeb.Auth do
         end
       end
 
-      defp do_authorize(current_user_role, policy, action, object) do
+      defp do_authorize(current_user, policy, action, object) do
         policy
         |> define_policy_action()
-        |> apply(action, [current_user_role, object])
+        |> apply(action, [current_user, object])
       end
 
       defp define_policy_action(policy) do

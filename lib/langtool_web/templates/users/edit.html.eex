@@ -1,0 +1,9 @@
+<div id="user_edit">
+  <%= form_for @changeset, users_path(@conn, :update, @user), fn f -> %>
+    <div class="form-group">
+      <%= label f, :role, "Role", class: "control-label" %>
+      <%= select f, :role, ["user", "editor", "admin"], class: "form-control", required: true %>
+    </div>
+    <%= submit "Submit", class: "btn btn-primary" %>
+  <% end %>
+</div>

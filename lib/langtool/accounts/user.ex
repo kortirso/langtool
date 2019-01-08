@@ -33,7 +33,7 @@ defmodule Langtool.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:confirmed_at])
+    |> cast(attrs, [:confirmed_at, :role])
   end
 
   defp random_string(length) do

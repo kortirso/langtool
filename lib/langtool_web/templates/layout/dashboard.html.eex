@@ -12,7 +12,10 @@
   </head>
   <body class="dashboard">
     <%= render LangtoolWeb.SharedView, "panel.html", conn: @conn %>
-    <%= render @view_module, @view_template, assigns %>
+    <div class="inside">
+      <%= render LangtoolWeb.SharedView, "alerts.html", conn: @conn %>
+      <%= render @view_module, @view_template, assigns %>
+    </div>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

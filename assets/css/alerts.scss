@@ -3,3 +3,10 @@
   top: 85px;
   width: 100%;
 }
+
+.inside {
+  .alerts {
+    position: relative;
+    top: auto;
+  }
+}

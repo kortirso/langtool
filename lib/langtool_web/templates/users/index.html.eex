@@ -1,30 +1,29 @@
-<div class="inside">
-  <div id="users">
-    <table class="table table-hover">
-      <thead>
+<div id="users">
+  <h2>Users</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Confirmed?</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for user <- @users do %>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Email</th>
-          <th scope="col">Role</th>
-          <th scope="col">Confirmed?</th>
-          <th scope="col"></th>
+          <td scope="row"><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td><%= user.role %></td>
+          <td><%= user.confirmed_at != nil %></td>
+          <td>
+            <%= link "Show", to: users_path(@conn, :show, user.id), class: "btn btn-outline-primary btn-sm" %>
+            <%= link "Edit", to: users_path(@conn, :edit, user.id), class: "btn btn-outline-primary btn-sm" %>
+            <%= link "Delete", to: users_path(@conn, :delete, user.id), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-outline-danger btn-sm" %>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <%= for user <- @users do %>
-          <tr>
-            <td scope="row"><%= user.id %></td>
-            <td><%= user.email %></td>
-            <td><%= user.role %></td>
-            <td><%= user.confirmed_at != nil %></td>
-            <td>
-              <%= link "Show", to: users_path(@conn, :show, user.id), class: "btn btn-outline-primary btn-sm" %>
-              <%= link "Edit", to: users_path(@conn, :edit, user.id), class: "btn btn-outline-primary btn-sm" %>
-              <%= link "Delete", to: users_path(@conn, :delete, user.id), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-outline-danger btn-sm" %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
 </div>

@@ -1,13 +1,14 @@
 defmodule LangtoolWeb.UserPolicy do
-  def index?("admin", _), do: true
-  def index?(_, _), do: true
+  alias Langtool.Accounts.User
 
-  def show?("admin", _), do: true
-  def show?(_, _), do: false
+  def index?(%User{role: "admin"}, _), do: true
+  def index?(_, _), do: false
 
-  def edit?("admin", _), do: true
-  def edit?(_, _), do: false
+  def show?(user, object), do: index?(user, object)
 
-  def delete?("admin", _), do: true
-  def delete?(_, _), do: false
+  def edit?(user, object), do: index?(user, object)
+
+  def update?(user, object), do: index?(user, object)
+
+  def delete?(user, object), do: index?(user, object)
 end
