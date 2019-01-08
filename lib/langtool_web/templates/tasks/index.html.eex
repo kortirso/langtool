@@ -1,0 +1,31 @@
+<div id="tasks">
+  <h2>Tasks</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">File name</th>
+        <th scope="col">Direction</th>
+        <th scope="col">Status</th>
+        <th scope="col">Result</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for task <- @tasks do %>
+        <tr>
+          <td scope="col"><%= task.id %></td>
+          <td scope="col"><%= task.file.file_name %></td>
+          <td scope="col"><%= "#{task.from}-#{task.to}" %></td>
+          <td scope="col" class="status"><%= task.status %></td>
+          <td scope="col" class="result">
+            <a download href="<%= Langtool.ResultFile.url({task.result_file, task}, signed: true) %>">Download</a>
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

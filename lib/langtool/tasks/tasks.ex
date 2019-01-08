@@ -4,7 +4,22 @@ defmodule Langtool.Tasks do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Tasks.Task}
+  alias Langtool.{Repo, Tasks.Task, Accounts.User}
+
+  @doc """
+  Get tasks list for user
+
+  ## Examples
+
+      iex> list_tasks_for_user(user)
+
+  """
+  def list_tasks_for_user(current_user) do
+    current_user
+    |> Ecto.assoc(:tasks)
+    |> order_by(desc: :id)
+    |> Repo.all()
+  end
 
   @doc """
   Creates a task
