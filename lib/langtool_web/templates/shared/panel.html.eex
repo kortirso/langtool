@@ -10,4 +10,9 @@
   <div class="link link_block">
     <%= link "Tasks", to: tasks_path(@conn, :index) %>
   </div>
+  <%= if LangtoolWeb.TranslationPolicy.index?(@conn.assigns.current_user, nil) do %>
+    <div class="link link_block">
+      <%= link "Translations", to: translations_path(@conn, :index) %>
+    </div>
+  <% end %>
 </nav>

@@ -1,5 +1,3 @@
 defmodule LangtoolWeb.DashboardPolicy do
-  def index?(_, _) do
-    true
-  end
+  def index?(_, _), do: true
 end
