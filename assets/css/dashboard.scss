@@ -13,7 +13,7 @@ body.dashboard {
 
       &.head {
         a {
-          padding: 20px;
+          padding: 1.25rem;
           font-weight: 500;
           font-size: 1.25rem;
         }
@@ -21,7 +21,7 @@ body.dashboard {
 
       a {
         display: block;
-        padding: 10px 20px;
+        padding: 0.5rem 1.25rem;
         text-decoration: none;
         color: $dark;
       }
@@ -30,11 +30,23 @@ body.dashboard {
         background: $blue-semi-dark;
       }
     }
+
+    .title_block {
+      margin-top: 1.25rem;
+      border-bottom: 1px solid $blue-semi-light;
+
+      p {
+        display: block;
+        padding: 0.5rem 1.25rem;
+        font-weight: 500;
+        color: $dark;
+      }
+    }
   }
 
   .inside {
     flex: 1;
-    padding: 40px;
+    padding: 2.5rem;
     overflow-y: scroll;
   }
 }

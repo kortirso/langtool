@@ -51,6 +51,7 @@ defmodule LangtoolWeb.Router do
     resources "/tasks", TasksController, only: [:index, :delete]
     resources "/users", UsersController, only: [:index, :show, :edit, :update, :delete]
     resources "/translations", TranslationsController, only: [:index]
+    resources "/profile", ProfileController, only: [:index]
   end
 
   # Other scopes may use custom stacks.

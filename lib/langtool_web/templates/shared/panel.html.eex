@@ -2,16 +2,25 @@
   <div class="head link_block">
     <a href="/">LangTool</a>
   </div>
+  <div class="link_block">
+    <%= link "Profile", to: profile_path(@conn, :index) %>
+  </div>
+  <div class="link_block">
+    <%= link "Tasks", to: tasks_path(@conn, :index) %>
+  </div>
   <%= if LangtoolWeb.UserPolicy.index?(@conn.assigns.current_user, nil) do %>
-    <div class="link link_block">
+    <div class="title_block">
+      <p>Administrators block</p>
+    </div>
+    <div class="link_block">
       <%= link "Users", to: users_path(@conn, :index) %>
     </div>
   <% end %>
-  <div class="link link_block">
-    <%= link "Tasks", to: tasks_path(@conn, :index) %>
-  </div>
   <%= if LangtoolWeb.TranslationPolicy.index?(@conn.assigns.current_user, nil) do %>
-    <div class="link link_block">
+    <div class="title_block">
+      <p>Editors block</p>
+    </div>
+    <div class="link_block">
       <%= link "Translations", to: translations_path(@conn, :index) %>
     </div>
   <% end %>
