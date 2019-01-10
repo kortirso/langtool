@@ -1,3 +1,5 @@
+@import "variables";
+
 #translations {
   .filters {
     display: flex;
@@ -34,6 +36,7 @@
           font-weight: 500;
         }
       }
+
       .translations {
         .translation {
           display: flex;
@@ -47,7 +50,38 @@
           }
 
           input {
-            width: 80%;
+            flex: 1;
+          }
+
+          .controls {
+            margin-left: 0.5rem;
+            display: none;
+
+            span {
+              display: inline-block;
+              width: 30px;
+              height: 30px;
+              border-radius: 15px;
+              margin-right: 0.25rem;
+
+              &.accept {
+                background: $blue-semi-dark;
+              }
+
+              &.decline {
+                background: $error;
+              }
+
+              &:hover {
+                cursor: pointer;
+              }
+            }
+
+            &.visible {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+            }
           }
         }
       }

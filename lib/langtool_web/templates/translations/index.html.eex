@@ -31,10 +31,11 @@
         Source text - <span>{{ sentence.original }}</span>
       </div>
       <div class="translations">
-        <div class="translation" v-for="translation in sentence.translations">
-          <img src="/images/yandex.png" />
-          <input type="text" class="form-control" :value="translation.text" />
-        </div>
+        <translation
+          v-for="translation in sentence.translations"
+          :key="translation.id"
+          :translation="translation"
+        ></translation>
       </div>
     </div>
   </div>

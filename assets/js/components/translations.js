@@ -1,7 +1,5 @@
 import VueResource from 'vue-resource'
 
-const locales = {'en': 'English', 'ru': 'Russian', 'da': 'Danish'}
-
 Vue.use(VueResource)
 
 if ($('#translations').length) {
