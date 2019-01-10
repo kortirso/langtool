@@ -25,4 +25,17 @@
       </button>
     </div>
   </div>
+  <div class="sentences">
+    <div class="sentence lt-card" v-for="sentence in sentences">
+      <div class="original">
+        Source text - <span>{{ sentence.original }}</span>
+      </div>
+      <div class="translations">
+        <div class="translation" v-for="translation in sentence.translations">
+          <img src="/images/yandex.png" />
+          <input type="text" class="form-control" :value="translation.text" />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -10,7 +10,6 @@ defmodule LangtoolWeb.SentencesView do
   defp sentence_json(sentence) do
     %{
       id: sentence.id,
-      locale: sentence.locale,
       original: sentence.original,
       translations: Enum.map(sentence.translations, &translation_json/1)
     }
@@ -19,7 +18,6 @@ defmodule LangtoolWeb.SentencesView do
   defp translation_json(translation) do
     %{
       id: translation.id,
-      locale: translation.locale,
       text: translation.text,
       source: translation.source,
     }
