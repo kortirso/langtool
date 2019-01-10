@@ -2,8 +2,7 @@ Vue.component('sentence', {
   props: ['sentence'],
   data: function () {
     return {
-      object: this.sentence,
-      destination: this.to
+      object: this.sentence
     }
   },
   methods: {
@@ -11,12 +10,11 @@ Vue.component('sentence', {
       let data = new FormData()
       data.append('example[sentence_id]', this.object.id)
       data.append('example[text]', value)
-      data.append('example[to]', this.to)
+      data.append('example[to]', $('translation_language').val())
       data.append('_csrf_token', $('#_csrf_token').val())
       const config = { header : { 'Content-Type' : 'application/json' } }
       this.$http.post('http://localhost:4000/dashboard/examples', data, config).then(function(data) {
-        //this.object = data.bosy.sentence
-        console.log(data)
+        this.object = data.body.sentence
       })
     }
   },

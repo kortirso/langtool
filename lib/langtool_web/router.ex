@@ -52,6 +52,7 @@ defmodule LangtoolWeb.Router do
     resources "/users", UsersController, only: [:index, :show, :edit, :update, :delete]
     resources "/translations", TranslationsController, only: [:index, :update]
     resources "/sentences", SentencesController, only: [:index]
+    resources "/examples", ExamplesController, only: [:create]
     resources "/profile", ProfileController, only: [:index]
   end
 

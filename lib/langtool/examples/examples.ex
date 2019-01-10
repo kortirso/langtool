@@ -12,7 +12,7 @@ defmodule Langtool.Examples do
   ## Examples
 
       iex> create_example(sentence_id, text, to)
-      {:ok, %Position{}}
+      {:ok, %Example{}}
 
   """
   def create_example(sentence_id, text, to) do

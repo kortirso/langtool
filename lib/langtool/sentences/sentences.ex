@@ -48,4 +48,24 @@ defmodule Langtool.Sentences do
     |> Repo.get_by(original: original, locale: locale)
     |> Repo.preload(:translations)
   end
+
+  @doc """
+  Load sentence from example
+
+  ## Examples
+
+      iex> get_from_example(example)
+      %Sentence{}
+
+  """
+  def get_from_example(example) do
+    IO.inspect example
+    object = example |> Repo.preload(:sentence)
+    query =
+      from sentence in Sentence,
+      where: sentence.id == ^object.sentence.id,
+      join: translation in assoc(sentence, :translations), on: translation.locale == ^object.translation.locale,
+      preload: [:translations]
+    Repo.one(query)
+  end
 end
