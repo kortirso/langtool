@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Users controller, templates
 - plug to check email confirmation
+- Translations controller, templates
+- render/edit existed translations
 
 ## [0.2.1] - 2019-01-06
 ### Added
