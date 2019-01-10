@@ -1,0 +1,24 @@
+#translations {
+  .filters {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 0;
+
+    .form_line {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-right: 15px;
+
+      label {
+        margin: 0 15px 0 0;
+      }
+
+      select {
+        display: inline-block;
+        margin: 0;
+        width: auto;
+      }
+    }
+  }
+}

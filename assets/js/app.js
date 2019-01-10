@@ -20,3 +20,4 @@ import "phoenix_html"
 
 import socket from "./sockets/socket"
 import "./components/new_task"
+import "./components/translations"

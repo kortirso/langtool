@@ -1,3 +1,28 @@
 <div id="translations">
   <h2>Translations</h2>
+  <div class="filters">
+    <div class="form_line">
+      <label for="source_language">Source</label>
+      <select class="form-control" id="source_language" v-model="from">
+        <option disabled="" selected="" value="">Select your option</option>
+        <option value="en" :disabled="to === 'en'">English</option>
+        <option value="da" :disabled="to === 'da'">Danish</option>
+        <option value="ru" :disabled="to === 'ru'">Russian</option>
+      </select>
+    </div>
+    <div class="form_line">
+      <label for="translation_language">Destination</label>
+      <select class="form-control" id="translation_language" v-model="to">
+        <option disabled="" selected="" value="">Select your option</option>
+        <option value="en" :disabled="from === 'en'">English</option>
+        <option value="da" :disabled="from === 'da'">Danish</option>
+        <option value="ru" :disabled="from === 'ru'">Russian</option>
+      </select>
+    </div>
+    <div class="form_line">
+      <button class="btn btn-primary btn-sm" type="button" :class="{ disabled: from === '' || to === '' }" @click.prevent="createFilter()">
+        Get translations
+      </button>
+    </div>
+  </div>
 </div>
