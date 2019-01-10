@@ -83,8 +83,6 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
     text = translation_requets(task, original, iam_token)
     # create direct translation
     {:ok, sentence} = Sentences.create_sentence(task.from, original, task.to, text)
-    # create reverse translation
-    Sentences.create_sentence(task.to, text, task.from, original)
     {text, sentence}
   end
 
@@ -112,8 +110,6 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
     text = translation_requets(task, original, iam_token)
     # create translation for existed sentence
     Examples.create_example(sentence.id, text, task.to)
-    # create reverse translation
-    Sentences.create_sentence(task.to, text, task.from, original)
     {text, sentence}
   end
 
