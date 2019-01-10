@@ -1,5 +1,6 @@
 <div id="translations">
   <h2>Translations</h2>
+  <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
   <div class="filters">
     <div class="form_line">
       <label for="source_language">Source</label>
@@ -26,18 +27,6 @@
     </div>
   </div>
   <div class="sentences">
-    <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
-    <div class="sentence lt-card" v-for="sentence in sentences">
-      <div class="original">
-        Source text - <span>{{ sentence.original }}</span>
-      </div>
-      <div class="translations">
-        <translation
-          v-for="translation in sentence.translations"
-          :key="translation.id"
-          :translation="translation"
-        ></translation>
-      </div>
-    </div>
+    <sentence v-for="sentence in sentences" :key="sentence.id" :sentence="sentence" :to="to" />
   </div>
 </div>

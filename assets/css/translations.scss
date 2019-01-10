@@ -43,6 +43,7 @@
           flex-direction: row;
           align-items: center;
           margin-top: 0.3rem;
+          margin-bottom: 0.5rem;
 
           img {
             width: 1.25rem;
@@ -52,37 +53,47 @@
           input {
             flex: 1;
           }
+        }
+      }
 
-          .controls {
-            margin-left: 0.5rem;
-            display: none;
+      .new_translation {
+        padding-left: 1.75rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-            span {
-              display: inline-block;
-              width: 30px;
-              height: 30px;
-              border-radius: 15px;
-              margin-right: 0.25rem;
+        input {
+        }
+      }
 
-              &.accept {
-                background: $blue-semi-dark;
-              }
+      .controls {
+        margin-left: 0.5rem;
+        display: none;
 
-              &.decline {
-                background: $error;
-              }
+        span {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          border-radius: 15px;
+          margin-right: 0.25rem;
 
-              &:hover {
-                cursor: pointer;
-              }
-            }
-
-            &.visible {
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-            }
+          &.accept {
+            background: $blue-semi-dark;
           }
+
+          &.decline {
+            background: $error;
+          }
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        &.visible {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
         }
       }
     }
