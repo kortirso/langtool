@@ -9,12 +9,13 @@ if ($('#translations').length) {
     el: '#translations',
     data: {
       from: '',
-      to: ''
+      to: '',
+      sentences: []
     },
     methods: {
       createFilter: function() {
-        this.$http.get('http://localhost:4000/dashboard/sentences').then(function(data) {
-          console.log(data)
+        this.$http.get(`http://localhost:4000/dashboard/sentences?from=${this.from}&to=${this.to}`).then(function(data) {
+          this.sentences = data.body.sentences
         })
       }
     }

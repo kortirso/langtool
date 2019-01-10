@@ -6,6 +6,15 @@ defmodule Langtool.Sentences do
   import Ecto.Query, warn: false
   alias Langtool.{Repo, Sentences.Sentence, Translations.Translation}
 
+  def list_sentences(from, to) do
+    query =
+      from sentence in Sentence,
+      where: sentence.locale == ^from,
+      join: translation in assoc(sentence, :translations), on: translation.locale == ^to,
+      preload: [:translations]
+    Repo.all(query)
+  end
+
   @doc """
   Create new sentence
 
