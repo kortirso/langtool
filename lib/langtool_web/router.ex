@@ -50,7 +50,7 @@ defmodule LangtoolWeb.Router do
     get "/", DashboardController, :index, as: :dashboard
     resources "/tasks", TasksController, only: [:index, :delete]
     resources "/users", UsersController, only: [:index, :show, :edit, :update, :delete]
-    resources "/translations", TranslationsController, only: [:index]
+    resources "/translations", TranslationsController, only: [:index, :update]
     resources "/sentences", SentencesController, only: [:index]
     resources "/profile", ProfileController, only: [:index]
   end

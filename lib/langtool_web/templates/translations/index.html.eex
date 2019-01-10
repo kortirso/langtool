@@ -26,6 +26,7 @@
     </div>
   </div>
   <div class="sentences">
+    <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
     <div class="sentence lt-card" v-for="sentence in sentences">
       <div class="original">
         Source text - <span>{{ sentence.original }}</span>

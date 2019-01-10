@@ -4,4 +4,6 @@ defmodule LangtoolWeb.TranslationPolicy do
   def index?(%User{role: "admin"}, _), do: true
   def index?(%User{role: "editor"}, _), do: true
   def index?(_, _), do: false
+
+  def update?(user, object), do: index?(user, object)
 end

@@ -14,9 +14,13 @@ Vue.component('translation', {
   },
   methods: {
     accept: function() {
+      let data = new FormData()
+      data.append('translation[text]', this.currentValue)
+      data.append('_csrf_token', $('#_csrf_token').val())
       const config = { header : { 'Content-Type' : 'application/json' } }
-      this.$http.patch(`http://localhost:4000/dashboard/translations/${this.object.id}`, { translation: { text: this.currentValue } }, config).then(function(data) {
-        console.log(data)
+      this.$http.patch(`http://localhost:4000/dashboard/translations/${this.object.id}`, data, config).then(function(data) {
+        this.initialValue = data.body.text
+        this.currentValue = data.body.text
       })
     },
     decline: function() {
