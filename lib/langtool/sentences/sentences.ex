@@ -12,7 +12,9 @@ defmodule Langtool.Sentences do
       where: sentence.locale == ^from,
       join: translation in assoc(sentence, :translations), on: translation.locale == ^to,
       preload: [:translations]
+
     Repo.all(query)
+    |> Enum.uniq()
   end
 
   @doc """
