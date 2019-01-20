@@ -7,7 +7,7 @@ defmodule LangtoolWeb.SessionsController do
   end
 
   def create(conn, %{"session" => session}) do
-    user = Accounts.get_by_email(session["email"])
+    user = Accounts.get_user_by(%{email: session["email"]})
     case Comeonin.Bcrypt.check_pass(user, session["password"]) do
       # successful signin
       {:ok, user} ->

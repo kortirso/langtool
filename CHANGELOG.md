@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 ### Added
 - creating reverse translation while editing
+- ExMachina factories
+
+### Modified
+- Accounts context with tests
 
 ## [0.2.2] - 2019-01-20
 ### Added

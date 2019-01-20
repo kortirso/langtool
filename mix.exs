@@ -33,7 +33,7 @@ defmodule Langtool.Mixfile do
   end
 
   # Specifies which paths to compile per environment.
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support", "test/factories"]
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -57,7 +57,8 @@ defmodule Langtool.Mixfile do
       {:bcrypt_elixir, "~> 1.0"},
       {:bamboo, "~> 1.1.0"},
       {:bamboo_smtp, "~> 1.6.0"},
-      {:premailex, "~> 0.3.0"}
+      {:premailex, "~> 0.3.0"},
+      {:ex_machina, "~> 2.2", only: :test}
     ]
   end
 

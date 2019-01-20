@@ -1,51 +1,52 @@
 defmodule Langtool.Accounts do
   @moduledoc """
-  The Accounts context.
+  The Accounts context
   """
 
   import Ecto.Query, warn: false
   alias Langtool.{Repo, Accounts.User}
 
   @doc """
-  Returns the list of users.
+  Returns the list of users
 
   ## Examples
 
-      iex> list_users()
+      iex> get_users()
       [%User{}, ...]
 
   """
-  def list_users, do: Repo.all(User)
+  def get_users, do: Repo.all(User)
 
   @doc """
-  Gets a single user.
-
-  Raises `Ecto.NoResultsError` if the User does not exist.
+  Gets a single user
 
   ## Examples
 
-      iex> get_user!(123)
+      iex> get_user(123)
       %User{}
 
-      iex> get_user!(456)
-      ** (Ecto.NoResultsError)
+      iex> get_user(456)
+      nil
 
   """
-  def get_user!(id), do: Repo.get!(User, id)
+  def get_user(id) when is_integer(id), do: Repo.get(User, id)
 
   @doc """
-  Gets a single user by email.
+  Gets a single user by email
 
   ## Examples
 
-      iex> get_by_email(email)
+      iex> get_user_by(%{email: email})
       %User{}
 
+      iex> get_user_by(%{email: email})
+      nil
+
   """
-  def get_by_email(email) when is_binary(email), do: Repo.get_by(User, email: email)
+  def get_user_by(user_params) when is_map(user_params), do: Repo.get_by(User, user_params)
 
   @doc """
-  Creates a user.
+  Creates a user
 
   ## Examples
 
@@ -56,14 +57,14 @@ defmodule Langtool.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(user_params \\ %{}) do
+  def create_user(user_params \\ %{}) when is_map(user_params) do
     %User{}
     |> User.create_changeset(user_params)
     |> Repo.insert()
   end
 
   @doc """
-  Updates a user.
+  Updates a user
 
   ## Examples
 
@@ -74,22 +75,19 @@ defmodule Langtool.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_user(%User{} = user, user_params) do
+  def update_user(%User{} = user, user_params) when is_map(user_params) do
     user
     |> User.changeset(user_params)
     |> Repo.update()
   end
 
   @doc """
-  Deletes a User.
+  Deletes a User
 
   ## Examples
 
       iex> delete_user(user)
       {:ok, %User{}}
-
-      iex> delete_user(user)
-      {:error, %Ecto.Changeset{}}
 
   """
   def delete_user(%User{} = user), do: Repo.delete(user)
@@ -113,10 +111,10 @@ defmodule Langtool.Accounts do
       iex> confirm_user(email, confirmation_token)
 
   """
-  def confirm_user(email, confirmation_token) when is_binary(email) and is_binary(confirmation_token) do
-    case get_by_email(email) do
-      %User{} = user -> do_confirm_user(user, confirmation_token)
-      _ -> {:error, "User is not found for confirmation"}
+  def confirm_user(email, confirmation_token) when is_binary(email) do
+    case get_user_by(%{email: email}) do
+      nil -> {:error, "User is not found for confirmation"}
+      user -> do_confirm_user(user, confirmation_token)
     end
   end
 
@@ -124,11 +122,11 @@ defmodule Langtool.Accounts do
     cond do
       user.confirmation_token != confirmation_token -> {:error, "Confirmation token is invalid"}
       user.confirmed_at != nil -> {:error, "Email is already confirmed"}
-      true -> update_confirm_user(user)
+      true -> update_user_confirmation(user)
     end
   end
 
-  defp update_confirm_user(user) do
+  defp update_user_confirmation(user) do
     case update_user(user, %{confirmed_at: DateTime.utc_now}) do
       {:ok, user} -> {:ok, user}
       {:error, _} -> {:error, "Email confirmation error"}

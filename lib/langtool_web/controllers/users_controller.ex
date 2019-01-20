@@ -8,12 +8,12 @@ defmodule LangtoolWeb.UsersController do
   def index(conn, _) do
     conn
     |> authorize(:user, :index?, nil)
-    |> assign(:users, Accounts.list_users())
+    |> assign(:users, Accounts.get_users())
     |> render("index.html")
   end
 
   def show(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
+    user = Accounts.get_user(id)
     conn
     |> authorize(:user, :show?, user)
     |> assign(:user, user)
@@ -21,7 +21,7 @@ defmodule LangtoolWeb.UsersController do
   end
 
   def edit(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
+    user = Accounts.get_user(id)
     conn
     |> authorize(:user, :edit?, user)
     |> assign(:user, user)
@@ -30,7 +30,7 @@ defmodule LangtoolWeb.UsersController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Accounts.get_user!(id)
+    user = Accounts.get_user(id)
     authorize(conn, :user, :update?, user)
     case Accounts.update_user(user, user_params) do
       {:ok, _} ->
@@ -47,7 +47,7 @@ defmodule LangtoolWeb.UsersController do
   end
 
   def delete(conn, %{"id" => id}) do
-    user = Accounts.get_user!(id)
+    user = Accounts.get_user(id)
     authorize(conn, :user, :delete?, user)
     {:ok, _} = Accounts.delete_user(user)
     conn

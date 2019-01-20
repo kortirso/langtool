@@ -34,6 +34,7 @@ defmodule Langtool.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:confirmed_at, :role])
+    |> validate_inclusion(:role, ["user", "editor", "admin"])
   end
 
   defp random_string(length) do

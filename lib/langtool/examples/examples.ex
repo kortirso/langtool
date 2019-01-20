@@ -15,7 +15,7 @@ defmodule Langtool.Examples do
       {:ok, %Example{}}
 
   """
-  def create_example(sentence_id, text, to, reverse?) do
+  def create_example(sentence_id, text, to, reverse? \\ false) do
     if reverse?, do: Sentences.create_reverse(sentence_id, text, to)
     existed_translation = Translations.get_by_text_locale(text, to)
 

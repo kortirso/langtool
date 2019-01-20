@@ -9,7 +9,7 @@ defmodule LangtoolWeb.Auth do
     quote do
       defp check_auth(conn, _) do
         if user_id = get_session(conn, :current_user_id) do
-          current_user = Accounts.get_user!(user_id)
+          current_user = Accounts.get_user(user_id)
           assign(conn, :current_user, current_user)
         else
           conn
