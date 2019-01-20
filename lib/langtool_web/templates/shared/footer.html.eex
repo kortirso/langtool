@@ -1,7 +1,7 @@
 <footer>
   <div class="row">
     <div class="col-md">
-      <p>Currently v0.2.1.</p>
+      <p>Currently v0.2.2.</p>
       <p>Builded with <a href="https://translate.yandex.ru">Yandex.Translate</a> and <a href="https://phoenixframework.org/">Phoenix Framework</a></p>
     </div>
     <div class="col-md">
