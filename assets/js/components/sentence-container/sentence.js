@@ -23,10 +23,12 @@ Vue.component('sentence', {
       <div class="original">
         Source text - <span>{{ object.original }}</span>
       </div>
-      <div class="translations">
-        <translation v-for="translation in object.translations" :key="translation.id" :translation="translation" />
+      <div class="options">
+        <div class="translations">
+          <translation v-for="translation in object.translations" :key="translation.id" :translation="translation" />
+        </div>
+        <new-translation v-on:send="sendText" />
       </div>
-      <new-translation v-on:send="sendText" />
     </div>
   `
 })

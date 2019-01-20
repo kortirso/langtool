@@ -27,9 +27,11 @@
   .sentences {
     .sentence {
       margin-bottom: 0.6rem;
+      padding-bottom: 0.5rem;
 
       .original {
         font-size: 0.9rem;
+        margin-bottom: 0.2rem;
 
         span {
           font-size: 1.1rem;
@@ -37,63 +39,77 @@
         }
       }
 
-      .translations {
-        .translation {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          margin-top: 0.3rem;
-          margin-bottom: 0.5rem;
-
-          img {
-            width: 1.25rem;
-            margin-right: 0.5rem;
-          }
-
-          input {
-            flex: 1;
-          }
-        }
-      }
-
-      .new_translation {
-        padding-left: 1.75rem;
+      .options {
         display: flex;
         flex-direction: row;
-        align-items: center;
 
         input {
+          height: 2rem;
+          font-size: 1rem;
+          padding: 0.25rem 0.5rem;
         }
-      }
 
-      .controls {
-        margin-left: 0.5rem;
-        display: none;
+        .translations {
+          flex: 1;
 
-        span {
-          display: inline-block;
-          width: 30px;
-          height: 30px;
-          border-radius: 15px;
-          margin-right: 0.25rem;
+          .translation {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 0.5rem;
 
-          &.accept {
-            background: $blue-semi-dark;
-          }
+            img {
+              width: 1.25rem;
+              margin-right: 0.5rem;
+            }
 
-          &.decline {
-            background: $error;
-          }
-
-          &:hover {
-            cursor: pointer;
+            input {
+              flex: 1;
+            }
           }
         }
 
-        &.visible {
+        .new_translation {
+          flex: 1;
+          padding-left: 1.75rem;
           display: flex;
-          flex-direction: row;
-          align-items: center;
+          flex-direction: column;
+
+          .new_translation_form {
+            display: flex;
+            flex-direction: row;
+          }
+        }
+
+        .controls {
+          margin-left: 0.5rem;
+          display: none;
+
+          span {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            margin-right: 0.25rem;
+
+            &.accept {
+              background: $blue-semi-dark;
+            }
+
+            &.decline {
+              background: $error;
+            }
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+
+          &.visible {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+          }
         }
       }
     }
