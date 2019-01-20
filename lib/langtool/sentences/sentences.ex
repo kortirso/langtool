@@ -16,6 +16,21 @@ defmodule Langtool.Sentences do
   end
 
   @doc """
+  Find sentence by id with translations
+
+  ## Examples
+
+      iex> get_sentence_by_id(original, locale)
+      {:ok, %Sentence{}}
+
+  """
+  def get_sentence_by_id(id) do
+    Sentence
+    |> Repo.get_by(id: id)
+    |> Repo.preload(:translations)
+  end
+
+  @doc """
   Create new sentence
 
   ## Examples
@@ -60,11 +75,7 @@ defmodule Langtool.Sentences do
   """
   def get_from_example(example) do
     object = example |> Repo.preload(:sentence)
-    query =
-      from sentence in Sentence,
-      where: sentence.id == ^object.sentence.id,
-      join: translation in assoc(sentence, :translations), on: translation.locale == ^object.translation.locale,
-      preload: [:translations]
-    Repo.one(query)
+
+    get_sentence_by_id(object.sentence.id)
   end
 end

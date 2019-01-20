@@ -23,12 +23,12 @@ defmodule Langtool.Translations do
   ## Examples
 
       iex> get_by_text_locale(text, locale)
-      %User{}
+      %Translation{}
 
   """
   def get_by_text_locale(text, locale)
     when is_binary(text) and is_binary(locale),
-    do: Repo.get_by(User, text: text, locale: locale)
+    do: Repo.get_by(Translation, text: text, locale: locale)
 
   @doc """
   Updates a translation.
