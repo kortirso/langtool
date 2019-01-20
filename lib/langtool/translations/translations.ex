@@ -18,6 +18,19 @@ defmodule Langtool.Translations do
   def get_translation!(id), do: Repo.get!(Translation, id)
 
   @doc """
+  Gets a single translation by text and locale.
+
+  ## Examples
+
+      iex> get_by_text_locale(text, locale)
+      %User{}
+
+  """
+  def get_by_text_locale(text, locale)
+    when is_binary(text) and is_binary(locale),
+    do: Repo.get_by(User, text: text, locale: locale)
+
+  @doc """
   Updates a translation.
 
   ## Examples

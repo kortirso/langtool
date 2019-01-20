@@ -78,7 +78,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
     end
   end
 
-  # create sentence with translation and reverse translation
+  # create sentence with translation
   defp create_sentence(task, original, iam_token) do
     text = translation_requets(task, original, iam_token)
     # create direct translation

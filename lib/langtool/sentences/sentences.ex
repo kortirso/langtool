@@ -26,10 +26,10 @@ defmodule Langtool.Sentences do
   """
   def create_sentence(from, original, to, text) do
     Repo.insert %Sentence{
-      original: text,
-      locale: to,
+      original: original,
+      locale: from,
       translations: [
-        %Translation{source: "yandex", text: original, locale: from}
+        %Translation{source: "yandex", text: text, locale: to}
       ]
     }
   end

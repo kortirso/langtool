@@ -16,7 +16,7 @@ defmodule Langtool.Translations.Translation do
   @doc false
   def changeset(translation, attrs) do
     translation
-    |> cast(attrs, [:source, :text])
-    |> validate_required([:text])
+    |> cast(attrs, [:source, :text, :locale])
+    |> validate_required([:text, :locale])
   end
 end

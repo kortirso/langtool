@@ -17,7 +17,7 @@ defmodule Langtool.Sentences.Sentence do
   @doc false
   def changeset(sentence, attrs) do
     sentence
-    |> cast(attrs, [:original])
-    |> validate_required([:original])
+    |> cast(attrs, [:original, :locale])
+    |> validate_required([:original, :locale])
   end
 end
