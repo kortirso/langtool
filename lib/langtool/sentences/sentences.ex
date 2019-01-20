@@ -59,7 +59,6 @@ defmodule Langtool.Sentences do
 
   """
   def get_from_example(example) do
-    IO.inspect example
     object = example |> Repo.preload(:sentence)
     query =
       from sentence in Sentence,
