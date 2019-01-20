@@ -6,11 +6,12 @@ Vue.component('sentence', {
     }
   },
   methods: {
-    sendText: function(value) {
+    sendText: function(value, reverse) {
       let data = new FormData()
       data.append('example[sentence_id]', this.object.id)
       data.append('example[text]', value)
       data.append('example[to]', $('#translation_language').val())
+      data.append('reverse', reverse)
       data.append('_csrf_token', $('#_csrf_token').val())
       const config = { header : { 'Content-Type' : 'application/json' } }
       this.$http.post('http://localhost:4000/dashboard/examples', data, config).then(function(data) {

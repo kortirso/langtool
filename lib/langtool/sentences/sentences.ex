@@ -4,7 +4,7 @@ defmodule Langtool.Sentences do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Sentences.Sentence, Translations.Translation}
+  alias Langtool.{Repo, Sentences.Sentence, Translations, Translations.Translation, Examples.Example}
 
   def list_sentences(from, to) do
     query =
@@ -16,6 +16,17 @@ defmodule Langtool.Sentences do
     Repo.all(query)
     |> Enum.uniq()
   end
+
+  @doc """
+  Gets a single sentence.
+
+  ## Examples
+
+      iex> get_sentence!(123)
+      %Sentence{}
+
+  """
+  def get_sentence!(id), do: Repo.get!(Sentence, id)
 
   @doc """
   Find sentence by id with translations
@@ -49,6 +60,57 @@ defmodule Langtool.Sentences do
         %Translation{source: "yandex", text: text, locale: to}
       ]
     }
+  end
+
+  @doc """
+  Create new reverse sentence
+
+  ## Examples
+
+      iex> create_reverse(sentence_id, text, to)
+      {:ok, %Sentence{}}
+
+  """
+  def create_reverse(sentence_id, text, to) do
+    %Sentence{original: original, locale: from} = get_sentence!(sentence_id)
+    reverse_translation = Translations.get_by_text_locale(original, from)
+
+    case Repo.get_by(Sentence, original: text, locale: to) do
+      # no reverse sentence
+      nil ->
+        case reverse_translation do
+          # no reverse translation
+          nil -> create_sentence(to, text, from, original)
+          # reverse translation exists
+          translation ->
+            Repo.insert %Sentence{
+              original: text,
+              locale: to,
+              translations: [translation]
+            }
+        end
+
+      # reverse sentence exists
+      sentence ->
+        case reverse_translation do
+          # no reverse translation
+          nil ->
+            Repo.insert %Example{
+              sentence: sentence,
+              translation: %Translation{
+                source: "manual",
+                text: original,
+                locale: from
+              }
+            }
+          # reverse translation exists
+          translation ->
+            Repo.insert %Example{
+              sentence: sentence,
+              translation: translation
+            }
+        end
+    end
   end
 
   @doc """

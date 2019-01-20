@@ -4,7 +4,7 @@ defmodule Langtool.Examples do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Translations, Translations.Translation, Examples.Example}
+  alias Langtool.{Repo, Translations, Translations.Translation, Examples.Example, Sentences}
 
   @doc """
   Create new translation example
@@ -15,7 +15,8 @@ defmodule Langtool.Examples do
       {:ok, %Example{}}
 
   """
-  def create_example(sentence_id, text, to) do
+  def create_example(sentence_id, text, to, reverse?) do
+    if reverse?, do: Sentences.create_reverse(sentence_id, text, to)
     existed_translation = Translations.get_by_text_locale(text, to)
 
     case existed_translation do
@@ -33,7 +34,7 @@ defmodule Langtool.Examples do
       # translation exists, create only example
       translation ->
         %Example{}
-        |> Example.changeset(%{sentence_id: sentence_id, translation_id: translation.id})
+        |> Example.changeset(%{sentence_id: sentence_id, translation: translation})
         |> Repo.insert()
     end    
   end

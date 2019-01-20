@@ -43,7 +43,7 @@
         display: flex;
         flex-direction: row;
 
-        input {
+        input[type="text"] {
           height: 2rem;
           font-size: 1rem;
           padding: 0.25rem 0.5rem;
@@ -78,6 +78,26 @@
           .new_translation_form {
             display: flex;
             flex-direction: row;
+          }
+        }
+
+        .reverse {
+          display: none;
+          margin-top: 0.5rem;
+
+          input[type="checkbox"] {
+            margin: 0;
+          }
+
+          label {
+            margin: 0 0 0 0.5rem;
+            font-size: 0.9rem;
+            line-height: 1rem;
+          }
+
+          &.visible {
+            display: flex;
+            align-items: center;
           }
         }
 
