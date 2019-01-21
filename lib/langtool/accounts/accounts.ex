@@ -15,7 +15,11 @@ defmodule Langtool.Accounts do
       [%User{}, ...]
 
   """
-  def get_users, do: User |> order_by(asc: :id) |> Repo.all()
+  def get_users do
+    User
+    |> order_by(asc: :id)
+    |> Repo.all()
+  end
 
   @doc """
   Gets a single user

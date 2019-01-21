@@ -24,6 +24,7 @@ defmodule Langtool.Tasks.Task do
     |> cast(attrs, [:session_id, :from, :to, :status])
     |> assoc_constraint(:session)
     |> validate_required([:from, :to, :status])
+    |> validate_inclusion(:status, ["created", "active", "failed", "completed"])
     |> validate_length(:from, min: 2)
     |> validate_length(:to, min: 2)
   end
@@ -43,5 +44,6 @@ defmodule Langtool.Tasks.Task do
   def localizator_changeset(%Task{} = task, attrs) do
     task
     |> cast(attrs, [:status])
+    |> validate_inclusion(:status, ["created", "active", "failed", "completed"])
   end
 end

@@ -11,10 +11,10 @@ defmodule Langtool.Tasks do
 
   ## Examples
 
-      iex> list_tasks_for_user(user)
+      iex> get_tasks_for_user(user)
 
   """
-  def list_tasks_for_user(current_user) do
+  def get_tasks_for_user(current_user) do
     current_user
     |> Ecto.assoc(:tasks)
     |> order_by(desc: :id)
@@ -22,15 +22,18 @@ defmodule Langtool.Tasks do
   end
 
   @doc """
-  Gets a single task.
+  Gets a single task
 
   ## Examples
 
-      iex> get_task!(123)
+      iex> get_task(123)
       %Task{}
 
+      iex> get_task(123)
+      nil
+
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task(id) when is_integer(id), do: Repo.get(Task, id)
 
   @doc """
   Creates a task
@@ -44,7 +47,7 @@ defmodule Langtool.Tasks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_task(task_params \\ %{}) do
+  def create_task(task_params \\ %{}) when is_map(task_params) do
     %Task{}
     |> Task.create_changeset(task_params)
     |> Repo.insert()
@@ -73,7 +76,7 @@ defmodule Langtool.Tasks do
       iex> attach_file(task, %{field: value})
 
   """
-  def attach_file(%Task{} = task, task_params \\ %{}) do
+  def attach_file(%Task{} = task, task_params \\ %{}) when is_map(task_params) do
     task
     |> Task.file_changeset(task_params)
     |> Repo.update()
@@ -97,7 +100,7 @@ defmodule Langtool.Tasks do
 
   ## Examples
 
-      iex> save_result_file(%{}, task)
+      iex> save_result_file("content", task)
 
   """
   def save_result_file(result_file_content, %Task{} = task) when is_binary(result_file_content) do

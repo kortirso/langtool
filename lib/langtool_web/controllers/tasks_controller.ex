@@ -8,7 +8,7 @@ defmodule LangtoolWeb.TasksController do
 
   def index(conn, _) do
     conn
-    |> assign(:tasks, Tasks.list_tasks_for_user(conn.assigns.current_user))
+    |> assign(:tasks, Tasks.get_tasks_for_user(conn.assigns.current_user))
     |> render("index.html")
   end
 
@@ -29,9 +29,10 @@ defmodule LangtoolWeb.TasksController do
   end
 
   def delete(conn, %{"id" => id}) do
-    task = Tasks.get_task!(id)
+    task = Tasks.get_task(id)
     authorize(conn, :task, :delete?, task)
     {:ok, _} = Tasks.delete_task(task)
+
     conn
     |> put_flash(:success, "Task deleted successfully.")
     |> redirect(to: tasks_path(conn, :index))
