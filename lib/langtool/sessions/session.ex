@@ -13,5 +13,6 @@ defmodule Langtool.Sessions.Session do
   def changeset(%Session{} = session, attrs) do
     session
     |> cast(attrs, [:user_id])
+    |> assoc_constraint(:user)
   end
 end

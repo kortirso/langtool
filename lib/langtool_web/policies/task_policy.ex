@@ -4,7 +4,7 @@ defmodule LangtoolWeb.TaskPolicy do
   def delete?(%User{role: "admin"}, _), do: true
 
   def delete?(%User{id: user_id}, %Task{session_id: session_id}) do
-    session = Sessions.get_session!(session_id)
+    session = Sessions.get_session(session_id)
     session.user_id == user_id
   end
 
