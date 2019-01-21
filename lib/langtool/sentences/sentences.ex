@@ -73,7 +73,7 @@ defmodule Langtool.Sentences do
   """
   def create_reverse(sentence_id, text, to) do
     %Sentence{original: original, locale: from} = get_sentence!(sentence_id)
-    reverse_translation = Translations.get_by_text_locale(original, from)
+    reverse_translation = Translations.get_translation_by(%{test: original, locale: from})
 
     case Repo.get_by(Sentence, original: text, locale: to) do
       # no reverse sentence
