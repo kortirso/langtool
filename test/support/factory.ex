@@ -3,4 +3,6 @@ defmodule Langtool.Factory do
   use Langtool.UserFactory
   use Langtool.SessionFactory
   use Langtool.TaskFactory
+  use Langtool.PositionFactory
+  use Langtool.SentenceFactory
 end

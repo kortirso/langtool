@@ -7,20 +7,20 @@ defmodule Langtool.Positions do
   alias Langtool.{Repo, Positions.Position}
 
   @doc """
-  Create new position
+  Creates new position in task for sentence
 
   ## Examples
 
-      iex> create_position(task_id, index, text, sentence_id)
+      iex> create_position(%{field: value})
       {:ok, %Position{}}
 
+      iex> create_position(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
   """
-  def create_position(task_id, index, text, sentence_id) do
-    Repo.insert %Position{
-      task_id: task_id,
-      index: index,
-      result: text,
-      sentence_id: sentence_id
-    }
+  def create_position(position_params \\ %{}) when is_map(position_params) do
+    %Position{}
+    |> Position.changeset(position_params)
+    |> Repo.insert()
   end
 end

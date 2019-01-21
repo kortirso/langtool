@@ -62,7 +62,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
     {:ok, %{"iamToken" => iam_token}} = YandexTranslator.get_iam_token()
     Enum.map(sentences, fn {index, original} ->
       {text, sentence} = find_sentence(task, original, iam_token)
-      Positions.create_position(task.id, index, text, sentence.id)
+      Positions.create_position(%{task_id: task.id, index: index, result: text, sentence_id: sentence.id})
       {index, original, text}
     end)
   end

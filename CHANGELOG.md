@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Accounts context with tests
 - Tasks context with tests
 - Sessions context with tests
+- Positions context with tests
 
 ## [0.2.2] - 2019-01-20
 ### Added
