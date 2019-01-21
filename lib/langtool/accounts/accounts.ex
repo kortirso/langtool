@@ -15,7 +15,7 @@ defmodule Langtool.Accounts do
       [%User{}, ...]
 
   """
-  def get_users, do: Repo.all(User)
+  def get_users, do: User |> order_by(asc: :id) |> Repo.all()
 
   @doc """
   Gets a single user
@@ -32,7 +32,7 @@ defmodule Langtool.Accounts do
   def get_user(id) when is_integer(id), do: Repo.get(User, id)
 
   @doc """
-  Gets a single user by email
+  Gets a single user by params
 
   ## Examples
 
