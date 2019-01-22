@@ -149,8 +149,8 @@ defmodule Langtool.Sentences do
     do_create_reverse_sentence(reverse_sentence, reverse_translation, %{locale: to, original: text}, %{locale: from, text: original})
   end
 
-  defp do_create_reverse_sentence(nil, nil, sentence, translation), do: create_sentence(sentence, translation)
-  defp do_create_reverse_sentence(nil, %Translation{} = translation, sentence, _), do: create_sentence(sentence, translation)
-  defp do_create_reverse_sentence(%Sentence{} = sentence, nil, _, translation), do: Translations.create_translation(translation, sentence)
+  defp do_create_reverse_sentence(nil, nil, sentence_params, translation_params), do: create_sentence(sentence_params, translation_params)
+  defp do_create_reverse_sentence(nil, %Translation{} = translation, sentence_params, _), do: create_sentence(sentence_params, translation)
+  defp do_create_reverse_sentence(%Sentence{} = sentence, nil, _, translation_params), do: Translations.create_translation(translation_params, sentence)
   defp do_create_reverse_sentence(%Sentence{} = sentence, %Translation{} = translation, _, _), do: Examples.create_or_find_example(translation, sentence)
 end

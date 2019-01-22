@@ -19,5 +19,6 @@ defmodule Langtool.Sentences.Sentence do
     sentence
     |> cast(attrs, [:original, :locale])
     |> validate_required([:original, :locale])
+    |> unique_constraint(:original, name: :index_sentences_uniqueness)
   end
 end

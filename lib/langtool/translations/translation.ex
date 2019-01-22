@@ -18,5 +18,6 @@ defmodule Langtool.Translations.Translation do
     translation
     |> cast(attrs, [:source, :text, :locale])
     |> validate_required([:text, :locale])
+    |> unique_constraint(:text, name: :index_translations_uniqueness)
   end
 end

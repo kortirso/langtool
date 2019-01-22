@@ -44,6 +44,9 @@ defmodule Langtool.TranslationsTest do
   describe ".create_translation" do
     test "creates translation for valid params", %{sentence: sentence} do
       assert {:ok, %Translation{}} = Translations.create_translation(@translation_params, sentence)
+
+      # and does not create duplicate translation
+      assert {:error, %Ecto.Changeset{}} = Translations.create_translation(@translation_params, sentence)
     end
 
     test "does not create translation for invalid params", %{sentence: sentence} do
