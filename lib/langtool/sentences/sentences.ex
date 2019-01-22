@@ -16,12 +16,17 @@ defmodule Langtool.Sentences do
 
   """
   def list_sentences(from, to) do
+    translation_query =
+      from translation in Translation,
+      where: translation.locale == ^to
+
     query =
       from sentence in Sentence,
       where: sentence.locale == ^from,
-      join: translation in assoc(sentence, :translations), on: translation.locale == ^to,
-      group_by: sentence.id,
-      preload: [:translations]
+      join: translation in assoc(sentence, :translations),
+      preload: [translations: ^translation_query],
+      group_by: sentence.id
+      
 
     Repo.all(query)
   end
@@ -167,5 +172,5 @@ defmodule Langtool.Sentences do
   defp do_create_reverse_sentence(nil, nil, sentence_params, translation_params), do: create_sentence_with_translation(sentence_params, translation_params)
   defp do_create_reverse_sentence(nil, %Translation{} = translation, sentence_params, _), do: create_sentence_with_translation(sentence_params, translation)
   defp do_create_reverse_sentence(%Sentence{} = sentence, nil, _, translation_params), do: Translations.create_translation_with_sentence(translation_params, sentence)
-  defp do_create_reverse_sentence(%Sentence{} = sentence, %Translation{} = translation, _, _), do: Examples.create_or_find_example_by(translation, sentence)
+  defp do_create_reverse_sentence(%Sentence{} = sentence, %Translation{} = translation, _, _), do: Examples.create_or_find_example_by(%{translation_id: translation.id, sentence_id: sentence.id})
 end

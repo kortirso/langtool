@@ -14,8 +14,8 @@ defmodule Langtool.Examples.Example do
   def changeset(example, attrs) do
     example
     |> cast(attrs, [:sentence_id, :translation_id])
-    |> unique_constraint(:sentence_id, name: :index_examples_uniqueness)
     |> assoc_constraint(:sentence)
     |> assoc_constraint(:translation)
+    |> unique_constraint(:sentence_id, name: :index_examples_uniqueness)
   end
 end

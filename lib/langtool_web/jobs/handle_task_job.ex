@@ -69,7 +69,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
 
   # attempt to find sentence with translation
   defp find_sentence(task, original, iam_token) do
-    sentence = Sentences.get_sentence_by(%{original: original, locale: task.from})
+    sentence = Sentences.get_sentence_with_translations_by(%{original: original, locale: task.from})
     case sentence do
       # if sentence does not exist then create it
       nil -> create_sentence(task, original, iam_token)

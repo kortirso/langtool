@@ -4,7 +4,7 @@ defmodule Langtool.Examples do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Translations, Translations.Translation, Examples.Example, Sentences, Sentences.Sentence}
+  alias Langtool.{Repo, Translations, Examples.Example, Sentences}
 
   @doc """
   Gets a single example by params
@@ -18,7 +18,7 @@ defmodule Langtool.Examples do
       nil
 
   """
-  def get_example_by(params) when is_map(params), do: Repo.get_by(Translation, params)
+  def get_example_by(params) when is_map(params), do: Repo.get_by(Example, params)
 
   @doc """
   Creates new example
@@ -50,9 +50,7 @@ defmodule Langtool.Examples do
       nil
 
   """
-  def create_or_find_example_by(%Translation{} = translation, %Sentence{} = sentence) do
-    params = %{translation: translation, sentence: sentence}
-
+  def create_or_find_example_by(params) do
     case create_example(params) do
       {:ok, example} -> example
       {:error, _} -> get_example_by(params)
@@ -65,7 +63,16 @@ defmodule Langtool.Examples do
   ## Examples
 
       iex> create_example_for_sentence(sentence_id, text, to)
-      {:ok, %Example{}}
+      {:ok, %Translation{}}
+
+      iex> create_example_for_sentence(sentence_id, text, to)
+      {:error, _}
+
+      iex> create_example_for_sentence(sentence_id, text, to)
+      %Example{}
+
+      iex> create_example_for_sentence(sentence_id, text, to)
+      nil
 
   """
   def create_example_for_sentence(sentence_id, text, to, reverse? \\ false) do
@@ -76,7 +83,7 @@ defmodule Langtool.Examples do
       # translation does not exist
       nil -> Translations.create_translation_with_sentence(%{source: "yandex", text: text, locale: to}, sentence)
       # translation exists, create only example
-      translation -> create_or_find_example_by(translation, sentence)
+      translation -> create_or_find_example_by(%{translation_id: translation.id, sentence_id: sentence.id})
     end    
   end
 end

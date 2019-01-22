@@ -6,4 +6,5 @@ defmodule Langtool.Factory do
   use Langtool.PositionFactory
   use Langtool.SentenceFactory
   use Langtool.TranslationFactory
+  use Langtool.ExampleFactory
 end
