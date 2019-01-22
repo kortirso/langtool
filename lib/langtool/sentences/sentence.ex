@@ -1,7 +1,7 @@
 defmodule Langtool.Sentences.Sentence do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Langtool.{Positions.Position, Translations.Translation}
+  alias Langtool.{Positions.Position, Translations.Translation, Examples.Example}
 
   schema "sentences" do
     field :original, :string
@@ -9,7 +9,7 @@ defmodule Langtool.Sentences.Sentence do
 
     has_many :positions, Position, on_delete: :delete_all
 
-    many_to_many :translations, Translation, join_through: "examples", on_delete: :delete_all
+    many_to_many :translations, Translation, join_through: Example, on_delete: :delete_all
 
     timestamps()
   end

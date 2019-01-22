@@ -8,9 +8,9 @@ defmodule LangtoolWeb.ExamplesController do
   def create(conn, %{"example" => %{"sentence_id" => sentence_id, "text" => text, "to" => to}, "reverse" => reverse}) do
     authorize(conn, :translation, :update?, nil)
 
-    case Examples.create_example(String.to_integer(sentence_id), text, to, reverse == "true") do
-      {:ok, example} ->
-        render(conn, "create.json", sentence: Sentences.get_from_example(example))
+    case Examples.create_example_for_sentence(String.to_integer(sentence_id), text, to, reverse == "true") do
+      {:ok, _} ->
+        render(conn, "create.json", sentence: Sentences.get_sentence_with_translations(sentence_id))
       {:error, _} ->
         json(conn, %{error: "Creating error"})
     end

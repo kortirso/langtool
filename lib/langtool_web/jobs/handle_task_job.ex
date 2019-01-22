@@ -69,7 +69,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
 
   # attempt to find sentence with translation
   defp find_sentence(task, original, iam_token) do
-    sentence = Sentences.find_sentence(original, task.from)
+    sentence = Sentences.get_sentence_by(%{original: original, locale: task.from})
     case sentence do
       # if sentence does not exist then create it
       nil -> create_sentence(task, original, iam_token)
@@ -82,7 +82,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   defp create_sentence(task, original, iam_token) do
     text = translation_requets(task, original, iam_token)
     # create direct translation
-    {:ok, sentence} = Sentences.create_sentence(task.from, original, task.to, text)
+    {:ok, sentence} = Sentences.create_sentence(%{locale: task.from, original: original}, %{locale: task.to, text: text})
     {text, sentence}
   end
 
@@ -109,7 +109,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   defp create_translation(task, original, iam_token, sentence) do
     text = translation_requets(task, original, iam_token)
     # create translation for existed sentence
-    Examples.create_example(sentence.id, text, task.to)
+    Examples.create_example_for_sentence(sentence.id, text, task.to)
     {text, sentence}
   end
 

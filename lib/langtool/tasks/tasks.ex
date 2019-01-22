@@ -47,9 +47,9 @@ defmodule Langtool.Tasks do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_task(task_params \\ %{}) when is_map(task_params) do
+  def create_task(params) when is_map(params) do
     %Task{}
-    |> Task.create_changeset(task_params)
+    |> Task.create_changeset(params)
     |> Repo.insert()
   end
 
@@ -76,9 +76,9 @@ defmodule Langtool.Tasks do
       iex> attach_file(task, %{field: value})
 
   """
-  def attach_file(%Task{} = task, task_params \\ %{}) when is_map(task_params) do
+  def attach_file(%Task{} = task, params) when is_map(params) do
     task
-    |> Task.file_changeset(task_params)
+    |> Task.file_changeset(params)
     |> Repo.update()
   end
 
@@ -118,9 +118,9 @@ defmodule Langtool.Tasks do
     save_result
   end
 
-  defp attach_result_file(%Task{} = task, task_params) do
+  defp attach_result_file(%Task{} = task, params) do
     task
-    |> Task.result_file_changeset(task_params)
+    |> Task.result_file_changeset(params)
     |> Repo.update()
   end
 

@@ -86,9 +86,9 @@ defmodule Langtool.Sessions do
       {:ok, %Session{}}
 
   """
-  def create_session(session_params \\ %{}) when is_map(session_params) do
+  def create_session() do
     %Session{}
-    |> Session.changeset(session_params)
+    |> Session.changeset(%{})
     |> Repo.insert()
   end
 
@@ -101,9 +101,9 @@ defmodule Langtool.Sessions do
       {:ok, %Session{}}
 
   """
-  def update_session(%Session{} = session, session_params) when is_map(session_params) do
+  def update_session(%Session{} = session, params) when is_map(params) do
     session
-    |> Session.changeset(session_params)
+    |> Session.changeset(params)
     |> Repo.update()
   end
 
@@ -119,7 +119,7 @@ defmodule Langtool.Sessions do
       nil
 
   """
-  def attach_user(session_id, %User{} = user) do
+  def attach_user(session_id, %User{} = user) when is_integer(session_id) do
     case get_session(session_id) do
       nil -> nil
       session -> update_session(session, %{user_id: user.id})

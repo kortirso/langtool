@@ -4,7 +4,7 @@ defmodule Langtool.Translations do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Translations.Translation}
+  alias Langtool.{Repo, Translations.Translation, Sentences.Sentence}
 
   @doc """
   Gets a single translation
@@ -32,7 +32,34 @@ defmodule Langtool.Translations do
       nil
 
   """
-  def get_translation_by(params \\ %{}) when is_map(params), do: Repo.get_by(Translation, params)
+  def get_translation_by(params) when is_map(params), do: Repo.get_by(Translation, params)
+
+  @doc """
+  Builds a translation
+
+  ## Examples
+
+      iex> build_translation(%{field: value})
+      %Translation{}
+
+  """
+  def build_translation(params) when is_map(params), do: Translation.changeset(%Translation{}, params)
+
+  @doc """
+  Creates new translation
+
+  ## Examples
+
+      iex> create_translation(translation_params, sentence)
+      %Translation{}
+
+  """
+  def create_translation(params, %Sentence{} = sentence) when is_map(params) do
+    params
+    |> build_translation()
+    |> Ecto.Changeset.put_assoc(:sentences, [sentence])
+    |> Repo.insert()
+  end
 
   @doc """
   Updates a translation
@@ -46,7 +73,7 @@ defmodule Langtool.Translations do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_translation(%Translation{} = translation, params \\ %{}) when is_map(params) do
+  def update_translation(%Translation{} = translation, params) when is_map(params) do
     translation
     |> Translation.changeset(params)
     |> Repo.update()

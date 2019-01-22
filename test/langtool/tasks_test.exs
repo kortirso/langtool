@@ -47,7 +47,7 @@ defmodule Langtool.TasksTest do
 
   describe ".create_task" do
     test "creates task for valid params", %{session: session} do
-      assert {:ok, %Task{}} = Tasks.create_task(Map.merge(@task_params, %{session_id: session.id}))
+      assert {:ok, %Task{}} = @task_params |> Map.merge(%{session_id: session.id}) |> Tasks.create_task()
     end
 
     test "does not create task for invalid params" do

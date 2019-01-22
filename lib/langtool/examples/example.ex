@@ -6,6 +6,8 @@ defmodule Langtool.Examples.Example do
   schema "examples" do
     belongs_to :sentence, Sentence
     belongs_to :translation, Translation
+
+    timestamps()
   end
 
   @doc false

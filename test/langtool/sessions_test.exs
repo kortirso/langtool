@@ -32,10 +32,6 @@ defmodule Langtool.SessionsTest do
     test "creates session for valid params" do
       assert {:ok, %Session{}} = Sessions.create_session()
     end
-
-    test "does not create session for invalid params" do
-      assert {:error, %Ecto.Changeset{}} = Sessions.create_session(%{user_id: 999})
-    end
   end
 
   describe ".update_session" do

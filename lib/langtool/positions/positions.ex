@@ -18,9 +18,9 @@ defmodule Langtool.Positions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_position(position_params \\ %{}) when is_map(position_params) do
+  def create_position(params) when is_map(params) do
     %Position{}
-    |> Position.changeset(position_params)
+    |> Position.changeset(params)
     |> Repo.insert()
   end
 end

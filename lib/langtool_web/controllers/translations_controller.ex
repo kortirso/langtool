@@ -12,7 +12,7 @@ defmodule LangtoolWeb.TranslationsController do
   end
 
   def update(conn, %{"id" => id, "translation" => translation_params}) do
-    translation = Translations.get_translation!(id)
+    translation = Translations.get_translation(id)
     authorize(conn, :translation, :update?, translation)
     case Translations.update_translation(translation, translation_params) do
       {:ok, translation} -> render(conn, "update.json", translation: translation)

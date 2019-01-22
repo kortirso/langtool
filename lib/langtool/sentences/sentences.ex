@@ -4,62 +4,134 @@ defmodule Langtool.Sentences do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Sentences.Sentence, Translations, Translations.Translation, Examples.Example}
+  alias Langtool.{Repo, Sentences.Sentence, Translations, Translations.Translation, Examples}
 
+  @doc """
+  Gets a sentences with translations from to
+
+  ## Examples
+
+      iex> list_sentences(from, to)
+      [%Sentence{}, ...]
+
+  """
   def list_sentences(from, to) do
     query =
       from sentence in Sentence,
       where: sentence.locale == ^from,
       join: translation in assoc(sentence, :translations), on: translation.locale == ^to,
+      group_by: sentence.id,
       preload: [:translations]
 
     Repo.all(query)
-    |> Enum.uniq()
   end
 
   @doc """
-  Gets a single sentence.
+  Gets a single sentence
 
   ## Examples
 
-      iex> get_sentence!(123)
+      iex> get_sentence(123)
+      %Sentence{}
+
+      iex> get_sentence(234)
+      nil
+
+  """
+  def get_sentence(id), do: Repo.get(Sentence, id)
+
+  @doc """
+  Gets a single sentence with translations
+
+  ## Examples
+
+      iex> get_sentence_with_translations(123)
+      %Sentence{}
+
+      iex> get_sentence_with_translations(234)
+      nil
+
+  """
+  def get_sentence_with_translations(id) do
+    case get_sentence(id) do
+      nil -> nil
+      sentence -> Repo.preload(sentence, :translations)
+    end
+  end
+
+  @doc """
+  Gets a single sentence by params
+
+  ## Examples
+
+      iex> get_sentence_by(params)
+      %Sentence{}
+
+      iex> get_sentence_by(params)
+      nil
+
+  """
+  def get_sentence_by(params) when is_map(params), do: Repo.get_by(Sentence, params)
+
+  @doc """
+  Gets a single sentence by params with translations
+
+  ## Examples
+
+      iex> get_sentence_by(params)
+      %Sentence{}
+
+      iex> get_sentence_by(params)
+      nil
+
+  """
+  def get_sentence_with_translations_by(params) when is_map(params) do
+    case get_sentence_by(params) do
+      nil -> nil
+      sentence -> Repo.preload(sentence, :translations)
+    end
+  end
+
+  @doc """
+  Builds a sentence
+
+  ## Examples
+
+      iex> build_sentence(%{field: value})
       %Sentence{}
 
   """
-  def get_sentence!(id), do: Repo.get!(Sentence, id)
+  def build_sentence(params) when is_map(params), do: Sentence.changeset(%Sentence{}, params)
 
   @doc """
-  Find sentence by id with translations
+  Creates new sentence
 
   ## Examples
 
-      iex> get_sentence_by_id(original, locale)
-      {:ok, %Sentence{}}
+      iex> create_sentence(sentence_params, translation_params)
+      %Sentence{}
 
   """
-  def get_sentence_by_id(id) do
-    Sentence
-    |> Repo.get_by(id: id)
-    |> Repo.preload(:translations)
+  def create_sentence(sentence_params, translation_params) when is_map(sentence_params) and is_map(translation_params) do
+    translation = translation_params |> Map.merge(%{source: "yandex"}) |> Translations.build_translation()
+
+    create_sentence(sentence_params, translation)
   end
 
   @doc """
-  Create new sentence
+  Creates new sentence
 
   ## Examples
 
-      iex> create_sentence(task, original, text)
-      {:ok, %Sentence{}}
+      iex> create_sentence(sentence_params, translation)
+      %Sentence{}
 
   """
-  def create_sentence(from, original, to, text) do
-    Repo.insert %Sentence{
-      original: original,
-      locale: from,
-      translations: [
-        %Translation{source: "yandex", text: text, locale: to}
-      ]
-    }
+  def create_sentence(params, %Translation{} = translation) when is_map(params) do
+    params
+    |> build_sentence()
+    |> Ecto.Changeset.put_assoc(:translations, [translation])
+    |> Repo.insert()
   end
 
   @doc """
@@ -67,79 +139,18 @@ defmodule Langtool.Sentences do
 
   ## Examples
 
-      iex> create_reverse(sentence_id, text, to)
-      {:ok, %Sentence{}}
+      iex> create_reverse_sentence(sentence, text, to)
 
   """
-  def create_reverse(sentence_id, text, to) do
-    %Sentence{original: original, locale: from} = get_sentence!(sentence_id)
-    reverse_translation = Translations.get_translation_by(%{test: original, locale: from})
+  def create_reverse_sentence(%Sentence{original: original, locale: from}, text, to) do
+    reverse_translation = Translations.get_translation_by(%{text: original, locale: from})
+    reverse_sentence = get_sentence_by(%{original: text, locale: to})
 
-    case Repo.get_by(Sentence, original: text, locale: to) do
-      # no reverse sentence
-      nil ->
-        case reverse_translation do
-          # no reverse translation
-          nil -> create_sentence(to, text, from, original)
-          # reverse translation exists
-          translation ->
-            Repo.insert %Sentence{
-              original: text,
-              locale: to,
-              translations: [translation]
-            }
-        end
-
-      # reverse sentence exists
-      sentence ->
-        case reverse_translation do
-          # no reverse translation
-          nil ->
-            Repo.insert %Example{
-              sentence: sentence,
-              translation: %Translation{
-                source: "manual",
-                text: original,
-                locale: from
-              }
-            }
-          # reverse translation exists
-          translation ->
-            Repo.insert %Example{
-              sentence: sentence,
-              translation: translation
-            }
-        end
-    end
+    do_create_reverse_sentence(reverse_sentence, reverse_translation, %{locale: to, original: text}, %{locale: from, text: original})
   end
 
-  @doc """
-  Find sentence
-
-  ## Examples
-
-      iex> find_sentence(original, locale)
-      {:ok, %Sentence{}}
-
-  """
-  def find_sentence(original, locale) do
-    Sentence
-    |> Repo.get_by(original: original, locale: locale)
-    |> Repo.preload(:translations)
-  end
-
-  @doc """
-  Load sentence from example
-
-  ## Examples
-
-      iex> get_from_example(example)
-      %Sentence{}
-
-  """
-  def get_from_example(example) do
-    object = example |> Repo.preload(:sentence)
-
-    get_sentence_by_id(object.sentence.id)
-  end
+  defp do_create_reverse_sentence(nil, nil, sentence, translation), do: create_sentence(sentence, translation)
+  defp do_create_reverse_sentence(nil, %Translation{} = translation, sentence, _), do: create_sentence(sentence, translation)
+  defp do_create_reverse_sentence(%Sentence{} = sentence, nil, _, translation), do: Translations.create_translation(translation, sentence)
+  defp do_create_reverse_sentence(%Sentence{} = sentence, %Translation{} = translation, _, _), do: Examples.create_or_find_example(translation, sentence)
 end

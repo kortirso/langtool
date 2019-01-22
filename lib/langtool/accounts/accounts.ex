@@ -61,7 +61,7 @@ defmodule Langtool.Accounts do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(user_params \\ %{}) when is_map(user_params) do
+  def create_user(user_params) when is_map(user_params) do
     %User{}
     |> User.create_changeset(user_params)
     |> Repo.insert()
