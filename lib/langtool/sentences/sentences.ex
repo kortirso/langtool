@@ -101,37 +101,52 @@ defmodule Langtool.Sentences do
       %Sentence{}
 
   """
-  def build_sentence(params) when is_map(params), do: Sentence.changeset(%Sentence{}, params)
+  def build_sentence(params) when is_map(params), do: Map.merge(%Sentence{}, params)
 
   @doc """
   Creates new sentence
 
   ## Examples
 
-      iex> create_sentence(sentence_params, translation_params)
+      iex> create_sentence(sentence_params)
       %Sentence{}
 
   """
-  def create_sentence(sentence_params, translation_params) when is_map(sentence_params) and is_map(translation_params) do
-    translation = translation_params |> Map.merge(%{source: "yandex"}) |> Translations.build_translation()
-
-    create_sentence(sentence_params, translation)
+  def create_sentence(params) when is_map(params) do
+    %Sentence{}
+    |> Sentence.changeset(params)
+    |> Repo.insert()
   end
 
   @doc """
-  Creates new sentence
+  Creates new sentence with translation
 
   ## Examples
 
-      iex> create_sentence(sentence_params, translation)
+      iex> create_sentence_with_translation(sentence_params, translation)
       %Sentence{}
 
   """
-  def create_sentence(params, %Translation{} = translation) when is_map(params) do
-    params
-    |> build_sentence()
+  def create_sentence_with_translation(params, %Translation{} = translation) when is_map(params) do
+    %Sentence{}
+    |> Sentence.changeset(params)
     |> Ecto.Changeset.put_assoc(:translations, [translation])
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates new sentence with translation
+
+  ## Examples
+
+      iex> create_sentence_with_translation(sentence_params, translation_params)
+      %Sentence{}
+
+  """
+  def create_sentence_with_translation(sentence_params, translation_params) when is_map(sentence_params) and is_map(translation_params) do
+    translation = translation_params |> Map.merge(%{source: "yandex"}) |> Translations.build_translation()
+
+    create_sentence_with_translation(sentence_params, translation)
   end
 
   @doc """
@@ -149,8 +164,8 @@ defmodule Langtool.Sentences do
     do_create_reverse_sentence(reverse_sentence, reverse_translation, %{locale: to, original: text}, %{locale: from, text: original})
   end
 
-  defp do_create_reverse_sentence(nil, nil, sentence_params, translation_params), do: create_sentence(sentence_params, translation_params)
-  defp do_create_reverse_sentence(nil, %Translation{} = translation, sentence_params, _), do: create_sentence(sentence_params, translation)
-  defp do_create_reverse_sentence(%Sentence{} = sentence, nil, _, translation_params), do: Translations.create_translation(translation_params, sentence)
-  defp do_create_reverse_sentence(%Sentence{} = sentence, %Translation{} = translation, _, _), do: Examples.create_or_find_example(translation, sentence)
+  defp do_create_reverse_sentence(nil, nil, sentence_params, translation_params), do: create_sentence_with_translation(sentence_params, translation_params)
+  defp do_create_reverse_sentence(nil, %Translation{} = translation, sentence_params, _), do: create_sentence_with_translation(sentence_params, translation)
+  defp do_create_reverse_sentence(%Sentence{} = sentence, nil, _, translation_params), do: Translations.create_translation_with_sentence(translation_params, sentence)
+  defp do_create_reverse_sentence(%Sentence{} = sentence, %Translation{} = translation, _, _), do: Examples.create_or_find_example_by(translation, sentence)
 end

@@ -4,7 +4,7 @@ defmodule Langtool.Translations do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Translations.Translation, Sentences.Sentence}
+  alias Langtool.{Repo, Translations.Translation, Sentences.Sentence, Sentences}
 
   @doc """
   Gets a single translation
@@ -43,22 +43,80 @@ defmodule Langtool.Translations do
       %Translation{}
 
   """
-  def build_translation(params) when is_map(params), do: Translation.changeset(%Translation{}, params)
+  def build_translation(params) when is_map(params), do: Map.merge(%Translation{}, params)
 
   @doc """
   Creates new translation
 
   ## Examples
 
-      iex> create_translation(translation_params, sentence)
-      %Translation{}
+      iex> create_translation(translation_params)
+      {:ok, %Translation{}}
+
+      iex> create_translation(translation_params)
+      {:error, _}
 
   """
-  def create_translation(params, %Sentence{} = sentence) when is_map(params) do
-    params
-    |> build_translation()
+  def create_translation(params) when is_map(params) do
+    %Translation{}
+    |> Translation.changeset(params)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Creates new translation with sentence
+
+  ## Examples
+
+      iex> create_translation_with_sentence(translation_params, sentence)
+      {:ok, %Translation{}}
+
+      iex> create_translation_with_sentence(translation_params, sentence)
+      {:error, _}
+
+  """
+  def create_translation_with_sentence(params, %Sentence{} = sentence) when is_map(params) do
+    %Translation{}
+    |> Translation.changeset(params)
     |> Ecto.Changeset.put_assoc(:sentences, [sentence])
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates new translation with sentence
+
+  ## Examples
+
+      iex> create_translation_with_sentence(translation_params, sentence_params)
+      {:ok, %Translation{}}
+
+      iex> create_translation_with_sentence(translation_params, sentence_params)
+      {:error, _}
+
+  """
+  def create_translation_with_sentence(translation_params, sentence_params) when is_map(translation_params) and is_map(sentence_params) do
+    sentence = sentence_params |> Sentences.build_sentence()
+
+    create_translation_with_sentence(translation_params, sentence)
+  end
+
+  @doc """
+  Creates new translation or find existed by params
+
+  ## Examples
+
+      iex> create_or_find_translation_by(translation_params)
+      %Translation{}
+
+      iex> create_or_find_translation_by(translation_params)
+      nil
+
+  """
+  def create_or_find_translation_by(params) when is_map(params) do
+    case create_translation(params) do
+      {:ok, translation} -> translation
+      {:error, _} -> get_translation_by(params)
+    end
   end
 
   @doc """

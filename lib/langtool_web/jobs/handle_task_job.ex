@@ -82,7 +82,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   defp create_sentence(task, original, iam_token) do
     text = translation_requets(task, original, iam_token)
     # create direct translation
-    {:ok, sentence} = Sentences.create_sentence(%{locale: task.from, original: original}, %{locale: task.to, text: text})
+    {:ok, sentence} = Sentences.create_sentence_with_translation(%{locale: task.from, original: original}, %{locale: task.to, text: text})
     {text, sentence}
   end
 
