@@ -8,6 +8,6 @@ defmodule LangtoolWeb.SentencesController do
   def index(conn, %{"from" => from, "to" => to}) do
     conn
     |> authorize(:translation, :index?, nil)
-    |> render("index.json", sentences: Sentences.list_sentences(from, to))
+    |> render("index.json", sentences: Sentences.list_sentences(from, to), locale: to)
   end
 end

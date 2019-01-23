@@ -27,6 +27,6 @@
     </div>
   </div>
   <div class="sentences">
-    <sentence v-for="sentence in sentences" :key="sentence.id" :sentence="sentence" />
+    <sentence v-for="sentence in sentences" :key="sentence.key" :sentence="sentence" />
   </div>
 </div>
