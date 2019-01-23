@@ -2,7 +2,8 @@ Vue.component('sentence', {
   props: ['sentence'],
   data: function () {
     return {
-      object: this.sentence
+      object: this.sentence,
+      translations: this.sentence.translations
     }
   },
   methods: {
@@ -15,7 +16,9 @@ Vue.component('sentence', {
       data.append('_csrf_token', $('#_csrf_token').val())
       const config = { header : { 'Content-Type' : 'application/json' } }
       this.$http.post('http://localhost:4000/dashboard/examples', data, config).then(function(data) {
-        this.object = data.body.sentence
+        let translations = this.translations
+        translations.push(data.body.translation)
+        this.translations = translations
       })
     }
   },
@@ -26,7 +29,7 @@ Vue.component('sentence', {
       </div>
       <div class="options">
         <div class="translations">
-          <translation v-for="translation in object.translations" :key="translation.id" :translation="translation" />
+          <translation v-for="translation in translations" :key="translation.id" :translation="translation" />
         </div>
         <new-translation v-on:send="sendText" />
       </div>

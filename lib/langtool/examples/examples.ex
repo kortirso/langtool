@@ -43,14 +43,14 @@ defmodule Langtool.Examples do
 
   ## Examples
 
-      iex> create_or_find_example_by(translation, sentence)
+      iex> create_or_find_example_by(params)
       %Example{}
 
-      iex> create_or_find_example_by(translation, sentence)
+      iex> create_or_find_example_by(params)
       nil
 
   """
-  def create_or_find_example_by(params) do
+  def create_or_find_example_by(params) when is_map(params) do
     case create_example(params) do
       {:ok, example} -> example
       {:error, _} -> get_example_by(params)
@@ -81,9 +81,15 @@ defmodule Langtool.Examples do
 
     case Translations.get_translation_by(%{text: text, locale: to}) do
       # translation does not exist
-      nil -> Translations.create_translation_with_sentence(%{source: "yandex", text: text, locale: to}, sentence)
+      nil ->
+        case Translations.create_translation_with_sentence(%{source: "yandex", text: text, locale: to}, sentence) do
+          {:ok, translation} -> {:ok, translation}
+          _ -> {:error, "Error"}
+        end
       # translation exists, create only example
-      translation -> create_or_find_example_by(%{translation_id: translation.id, sentence_id: sentence.id})
+      translation ->
+        create_or_find_example_by(%{translation_id: translation.id, sentence_id: sentence.id})
+        {:ok, translation}
     end    
   end
 end
