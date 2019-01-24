@@ -5,7 +5,7 @@ defmodule LangtoolWeb.DashboardController do
 
   def index(conn, _) do
     conn
-    |> authorize(:dashboard, :index?, nil)
+    |> authorize(:dashboard, :index?)
     |> render("index.html")
   end
 end

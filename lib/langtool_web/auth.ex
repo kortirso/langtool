@@ -30,7 +30,7 @@ defmodule LangtoolWeb.Auth do
         end
       end
 
-      defp authorize(conn, policy, action, object) do
+      defp authorize(conn, policy, action, object \\ nil) do
         current_user = conn.assigns.current_user
         if do_authorize(current_user, policy, action, object) do
           conn
@@ -49,7 +49,9 @@ defmodule LangtoolWeb.Auth do
       end
 
       defp define_policy_action(policy) do
-        :"Elixir.LangtoolWeb.#{String.capitalize(to_string(policy))}Policy"
+        policy_name = policy |> to_string() |> String.capitalize()
+
+        :"Elixir.LangtoolWeb.#{policy_name}Policy"
       end
     end
   end

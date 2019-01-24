@@ -7,13 +7,14 @@ defmodule LangtoolWeb.TranslationsController do
 
   def index(conn, _) do
     conn
-    |> authorize(:translation, :index?, nil)
+    |> authorize(:translation, :index?)
     |> render("index.html")
   end
 
   def update(conn, %{"id" => id, "translation" => translation_params}) do
     translation = Translations.get_translation(id)
     authorize(conn, :translation, :update?, translation)
+
     case Translations.update_translation(translation, translation_params) do
       {:ok, translation} -> render(conn, "update.json", translation: translation)
       {:error, _} -> json(conn, %{error: "Updating error"})
