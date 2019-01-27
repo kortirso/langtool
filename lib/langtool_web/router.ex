@@ -56,10 +56,11 @@ defmodule LangtoolWeb.Router do
     resources "/profile", ProfileController, only: [:index]
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", LangtoolWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", LangtoolWeb.Api.V1 do
+    pipe_through :api
+
+    resources "/tasks", TasksController, only: [:show]
+  end
 
   defp put_session_id(conn, _) do
     {conn, session_id} =

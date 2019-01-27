@@ -13,11 +13,11 @@ defmodule LangtoolWeb.TasksController do
   end
 
   def show(conn, %{"id" => id}) do
-    task = Tasks.get_task_with_positions(String.to_integer(id))
+    task = Tasks.get_task(String.to_integer(id))
     authorize(conn, :task, :show?, task)
 
     conn
-    # |> assign(:task, task)
+    |> assign(:task, task)
     |> render("show.html")
   end
 

@@ -1,8 +1,8 @@
-Vue.component('task-positions', {
-  props: ['task'],
+Vue.component('positions', {
+  props: ['positions'],
   data: function () {
     return {
-      positions: this.task.positions
+      positions: this.positions
     }
   },
   methods: {
