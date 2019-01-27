@@ -58,6 +58,8 @@ defmodule Langtool.Mixfile do
       {:bamboo, "~> 1.1.0"},
       {:bamboo_smtp, "~> 1.6.0"},
       {:premailex, "~> 0.3.0"},
+      {:joken, "~> 2.0"},
+      {:jason, "~> 1.1"},
       {:ex_machina, "~> 2.2", only: :test}
     ]
   end

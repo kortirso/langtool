@@ -18,3 +18,5 @@ config :langtool, Langtool.Repo,
   pool: Ecto.Adapters.SQL.Sandbox
 
 config :arc, storage: Arc.Storage.Local
+
+config :joken, default_signer: "secret"
