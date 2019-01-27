@@ -36,6 +36,25 @@ defmodule Langtool.Tasks do
   def get_task(id) when is_integer(id), do: Repo.get(Task, id)
 
   @doc """
+  Gets a single task with positions
+
+  ## Examples
+
+      iex> get_task_with_positions(123)
+      %Task{}
+
+      iex> get_task_with_positions(123)
+      nil
+
+  """
+  def get_task_with_positions(id) when is_integer(id) do
+    case get_task(id) do
+      nil -> nil
+      task -> Repo.preload(task, positions: :sentence)
+    end
+  end
+
+  @doc """
   Creates a task
 
   ## Examples

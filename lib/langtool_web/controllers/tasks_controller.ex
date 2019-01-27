@@ -3,13 +3,22 @@ defmodule LangtoolWeb.TasksController do
   alias Langtool.Tasks
   alias LangtoolWeb.RoomChannel
 
-  plug :check_auth when action in [:index, :delete]
-  plug :check_confirmation when action in [:index, :delete]
+  plug :check_auth when action in [:index, :show, :delete]
+  plug :check_confirmation when action in [:index, :show, :delete]
 
   def index(conn, _) do
     conn
     |> assign(:tasks, Tasks.get_tasks_for_user(conn.assigns.current_user))
     |> render("index.html")
+  end
+
+  def show(conn, %{"id" => id}) do
+    task = Tasks.get_task_with_positions(String.to_integer(id))
+    authorize(conn, :task, :show?, task)
+
+    conn
+    # |> assign(:task, task)
+    |> render("show.html")
   end
 
   def create(conn, %{"task" => task_params}) do

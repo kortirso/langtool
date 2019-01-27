@@ -26,7 +26,6 @@ defmodule Langtool.Sentences do
       join: translation in assoc(sentence, :translations),
       preload: [translations: ^translation_query],
       group_by: sentence.id
-      
 
     Repo.all(query)
   end

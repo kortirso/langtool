@@ -1,0 +1,5 @@
+<div id="task_positions">
+  <h2>Task positions</h2>
+  <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
+  <task-positions :task="" />
+</div>
