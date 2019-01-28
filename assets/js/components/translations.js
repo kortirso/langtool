@@ -12,7 +12,8 @@ if ($('#translations').length) {
     },
     methods: {
       createFilter: function() {
-        this.$http.get(`http://localhost:4000/dashboard/sentences?from=${this.from}&to=${this.to}`).then(function(data) {
+        const config = { headers : { 'Authorization' : $('#access_token').val() } }
+        this.$http.get(`http://localhost:4000/api/v1/sentences?from=${this.from}&to=${this.to}`, config).then(function(data) {
           this.sentences = data.body.sentences
         })
       }

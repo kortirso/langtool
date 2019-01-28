@@ -1,8 +1,9 @@
 defmodule Langtool.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  import Exgravatar
   alias Comeonin.Bcrypt
-  alias Langtool.{Sessions.Session, Translations.Translation}
+  alias Langtool.{Sessions.Session, Translations.Translation, Accounts.User}
 
   schema "users" do
     field :confirmation_token, :string
@@ -37,6 +38,8 @@ defmodule Langtool.Accounts.User do
     |> cast(attrs, [:confirmed_at, :role])
     |> validate_inclusion(:role, ["user", "editor", "admin"])
   end
+
+  def avatar(%User{} = user), do: gravatar_url(user.email, s: 256)
 
   defp random_string(length) do
     length

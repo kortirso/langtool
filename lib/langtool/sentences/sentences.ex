@@ -18,7 +18,8 @@ defmodule Langtool.Sentences do
   def list_sentences(from, to) do
     translation_query =
       from translation in Translation,
-      where: translation.locale == ^to
+      where: translation.locale == ^to,
+      preload: [:user]
 
     query =
       from sentence in Sentence,
@@ -42,7 +43,8 @@ defmodule Langtool.Sentences do
   def list_translations(sentence_id, to) do
     translation_query =
       from translation in Translation,
-      where: translation.locale == ^to
+      where: translation.locale == ^to,
+      preload: [:user]
 
     query =
       from sentence in Sentence,

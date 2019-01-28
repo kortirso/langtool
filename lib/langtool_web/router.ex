@@ -51,7 +51,6 @@ defmodule LangtoolWeb.Router do
     resources "/tasks", TasksController, only: [:index, :show, :delete]
     resources "/users", UsersController, only: [:index, :show, :edit, :update, :delete]
     resources "/translations", TranslationsController, only: [:index, :update]
-    resources "/sentences", SentencesController, only: [:index]
     resources "/profile", ProfileController, only: [:index]
   end
 
@@ -61,6 +60,7 @@ defmodule LangtoolWeb.Router do
 
     resources "/tasks", TasksController, only: [:show]
     resources "/examples", ExamplesController, only: [:create]
+    resources "/sentences", SentencesController, only: [:index]
     get "/sentences/:id/translations/:to", SentencesController, :translations
   end
 

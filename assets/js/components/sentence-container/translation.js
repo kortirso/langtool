@@ -1,6 +1,7 @@
 Vue.component('translation', {
   props: ['translation'],
   data: function () {
+    console.log(this.translation)
     return {
       initialValue: this.translation.text,
       currentValue: this.translation.text
@@ -28,7 +29,7 @@ Vue.component('translation', {
   },
   template: `
     <div class="translation">
-      <img src="/images/yandex.png" />
+      <img :src="translation.editor" />
       <input type="text" class="form-control" v-model="currentValue" />
       <div class="controls" :class="{ visible: changed }">
         <span class="accept" @click.prevent="accept()"></span>
