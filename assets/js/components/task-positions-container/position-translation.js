@@ -2,25 +2,23 @@ Vue.component('position-translation', {
   props: ['translation'],
   data: function () {
     return {
-      initialValue: this.translation.text,
-      currentValue: this.translation.text
     }
   },
   computed: {
-    changed: function() {
-      return this.initialValue !== this.currentValue
-    }
   },
   methods: {
+    accept: function() {
+      this.$emit('send', this.translation.text)
+    }
   },
   template: `
     <div class="translation">
       <img :src="translation.editor" />
-      <input type="text" class="form-control" v-model="currentValue" />
+      <span class="value">{{ translation.text }}</span>
       <div class="controls">
-        <span class="accept visible"></span>
-        <span class="plus" :class="{ visible: changed }"></span>
-        <span class="minus" :class="{ visible: changed }"></span>
+        <span class="accept" @click.prevent="accept"></span>
+        <span class="plus"></span>
+        <span class="minus"></span>
       </div>
     </div>
   `

@@ -35,6 +35,10 @@
             margin-right: 0.5rem;
           }
 
+          .value {
+            margin-right: 1rem;
+          }
+
           .controls {
             margin-left: 0.5rem;
             display: flex;
@@ -42,7 +46,6 @@
             align-items: center;
 
             span {
-              display: none;
               width: 30px;
               height: 30px;
               border-radius: 15px;
@@ -53,7 +56,7 @@
               }
 
               &.plus {
-                background: $blue-semi-dark;
+                background: $blue-dark;
               }
 
               &.minus {
@@ -63,13 +66,13 @@
               &:hover {
                 cursor: pointer;
               }
-
-              &.visible {
-                display: inline-block;
-              }
             }
           }
         }
+      }
+
+      button {
+        margin-top: 0.5rem;
       }
     }
   }

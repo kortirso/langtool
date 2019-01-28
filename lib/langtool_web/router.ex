@@ -60,6 +60,7 @@ defmodule LangtoolWeb.Router do
 
     resources "/tasks", TasksController, only: [:show]
     resources "/examples", ExamplesController, only: [:create]
+    resources "/positions", PositionsController, only: [:update]
     resources "/sentences", SentencesController, only: [:index]
     get "/sentences/:id/translations/:to", SentencesController, :translations
   end
