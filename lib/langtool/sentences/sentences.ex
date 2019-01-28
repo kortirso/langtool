@@ -31,6 +31,30 @@ defmodule Langtool.Sentences do
   end
 
   @doc """
+  Gets a sentences with translations from to
+
+  ## Examples
+
+      iex> list_translations(sentence_id, to)
+      [%Translation{}, ...]
+
+  """
+  def list_translations(sentence_id, to) do
+    translation_query =
+      from translation in Translation,
+      where: translation.locale == ^to
+
+    query =
+      from sentence in Sentence,
+      where: sentence.id == ^sentence_id,
+      join: translation in assoc(sentence, :translations),
+      preload: [translations: ^translation_query],
+      group_by: sentence.id
+
+    Repo.one(query).translations
+  end
+
+  @doc """
   Gets a single sentence
 
   ## Examples

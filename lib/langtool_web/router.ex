@@ -61,6 +61,7 @@ defmodule LangtoolWeb.Router do
     pipe_through :api
 
     resources "/tasks", TasksController, only: [:show]
+    get "/sentences/:id/translations/:to", SentencesController, :translations
   end
 
   defp put_session_id(conn, _) do
