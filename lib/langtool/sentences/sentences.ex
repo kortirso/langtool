@@ -185,11 +185,11 @@ defmodule Langtool.Sentences do
       iex> create_reverse_sentence(sentence, text, to)
 
   """
-  def create_reverse_sentence(%Sentence{original: original, locale: from}, text, to) do
+  def create_reverse_sentence(%Sentence{original: original, locale: from}, text, to, user_id) do
     reverse_translation = Translations.get_translation_by(%{text: original, locale: from})
     reverse_sentence = get_sentence_by(%{original: text, locale: to})
 
-    do_create_reverse_sentence(reverse_sentence, reverse_translation, %{locale: to, original: text}, %{locale: from, text: original})
+    do_create_reverse_sentence(reverse_sentence, reverse_translation, %{locale: to, original: text}, %{locale: from, text: original, user_id: user_id})
   end
 
   defp do_create_reverse_sentence(nil, nil, sentence_params, translation_params), do: create_sentence_with_translation(sentence_params, translation_params)

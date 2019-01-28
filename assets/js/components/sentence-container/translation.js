@@ -16,7 +16,7 @@ Vue.component('translation', {
       let data = new FormData()
       data.append('translation[text]', this.currentValue)
       data.append('_csrf_token', $('#_csrf_token').val())
-      const config = { header : { 'Content-Type' : 'application/json' } }
+      const config = { headers : { 'Content-Type' : 'application/json' } }
       this.$http.patch(`http://localhost:4000/dashboard/translations/${this.translation.id}`, data, config).then(function(data) {
         this.initialValue = data.body.text
         this.currentValue = data.body.text

@@ -75,14 +75,14 @@ defmodule Langtool.Examples do
       nil
 
   """
-  def create_example_for_sentence(sentence_id, text, to, reverse? \\ false) do
+  def create_example_for_sentence(sentence_id, text, to, reverse? \\ false, user_id \\ nil) do
     sentence = Sentences.get_sentence(sentence_id)
-    if reverse?, do: Sentences.create_reverse_sentence(sentence, text, to)
+    if reverse?, do: Sentences.create_reverse_sentence(sentence, text, to, user_id)
 
     case Translations.get_translation_by(%{text: text, locale: to}) do
       # translation does not exist
       nil ->
-        case Translations.create_translation_with_sentence(%{text: text, locale: to}, sentence) do
+        case Translations.create_translation_with_sentence(%{text: text, locale: to, user_id: user_id}, sentence) do
           {:ok, translation} -> {:ok, translation}
           _ -> {:error, "Error"}
         end

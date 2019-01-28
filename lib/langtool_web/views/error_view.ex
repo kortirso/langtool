@@ -17,4 +17,8 @@ defmodule LangtoolWeb.ErrorView do
   def render("401.json", %{message: message}) do
     %{error: %{message: message}}
   end
+
+  def render("409.json", %{message: message}) do
+    %{error: %{message: message}}
+  end
 end

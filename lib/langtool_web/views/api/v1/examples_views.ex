@@ -1,4 +1,4 @@
-defmodule LangtoolWeb.ExamplesView do
+defmodule LangtoolWeb.Api.V1.ExamplesView do
   use LangtoolWeb, :view
 
   def render("create.json", %{translation: translation}) do

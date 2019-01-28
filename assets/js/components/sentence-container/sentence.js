@@ -12,9 +12,8 @@ Vue.component('sentence', {
       data.append('example[text]', value)
       data.append('example[to]', $('#translation_language').val())
       data.append('reverse', reverse)
-      data.append('_csrf_token', $('#_csrf_token').val())
-      const config = { header : { 'Content-Type' : 'application/json' } }
-      this.$http.post('http://localhost:4000/dashboard/examples', data, config).then(function(data) {
+      const config = { headers : { 'Content-Type' : 'application/json', 'Authorization' : $('#access_token').val() } }
+      this.$http.post('http://localhost:4000/api/v1/examples', data, config).then(function(data) {
         let translations = this.translations
         translations.push(data.body.translation)
         this.translations = translations

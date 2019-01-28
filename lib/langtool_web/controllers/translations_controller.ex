@@ -8,6 +8,7 @@ defmodule LangtoolWeb.TranslationsController do
   def index(conn, _) do
     conn
     |> authorize(:translation, :index?)
+    |> assign(:access_token, Langtool.Token.encode(conn.assigns.current_user.id))
     |> render("index.html")
   end
 

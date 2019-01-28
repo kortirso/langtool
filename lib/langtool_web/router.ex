@@ -52,7 +52,6 @@ defmodule LangtoolWeb.Router do
     resources "/users", UsersController, only: [:index, :show, :edit, :update, :delete]
     resources "/translations", TranslationsController, only: [:index, :update]
     resources "/sentences", SentencesController, only: [:index]
-    resources "/examples", ExamplesController, only: [:create]
     resources "/profile", ProfileController, only: [:index]
   end
 
@@ -61,6 +60,7 @@ defmodule LangtoolWeb.Router do
     pipe_through :api
 
     resources "/tasks", TasksController, only: [:show]
+    resources "/examples", ExamplesController, only: [:create]
     get "/sentences/:id/translations/:to", SentencesController, :translations
   end
 
