@@ -60,6 +60,7 @@ defmodule Langtool.Mixfile do
       {:premailex, "~> 0.3.0"},
       {:joken, "~> 2.0"},
       {:jason, "~> 1.1"},
+      {:exgravatar, "2.0.1"},
       {:ex_machina, "~> 2.2", only: :test}
     ]
   end
