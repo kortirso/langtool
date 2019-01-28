@@ -39,7 +39,7 @@ defmodule Langtool.Accounts.User do
     |> validate_inclusion(:role, ["user", "editor", "admin"])
   end
 
-  def avatar(%User{} = user), do: gravatar_url(user.email, s: 256)
+  def avatar(%User{} = user), do: gravatar_url(user.email, s: 32)
 
   defp random_string(length) do
     length

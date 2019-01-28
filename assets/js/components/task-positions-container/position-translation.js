@@ -15,7 +15,7 @@ Vue.component('position-translation', {
   },
   template: `
     <div class="translation">
-      <img src="/images/yandex.png" />
+      <img :src="translation.editor" />
       <input type="text" class="form-control" v-model="currentValue" />
       <div class="controls">
         <span class="accept visible"></span>

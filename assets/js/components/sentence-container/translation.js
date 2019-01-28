@@ -1,7 +1,6 @@
 Vue.component('translation', {
   props: ['translation'],
   data: function () {
-    console.log(this.translation)
     return {
       initialValue: this.translation.text,
       currentValue: this.translation.text
