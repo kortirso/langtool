@@ -9,6 +9,6 @@ defmodule LangtoolWeb.Api.V1.TasksController do
     task = Tasks.get_task_with_positions(String.to_integer(id))
     authorize(conn, :task, :show?, task)
 
-    render(conn, "show.json", positions: task.positions)
+    render(conn, "show.json", task: task)
   end
 end

@@ -2,14 +2,13 @@ Vue.component('sentence', {
   props: ['sentence'],
   data: function () {
     return {
-      object: this.sentence,
       translations: this.sentence.translations
     }
   },
   methods: {
     sendText: function(value, reverse) {
       let data = new FormData()
-      data.append('example[sentence_id]', this.object.id)
+      data.append('example[sentence_id]', this.sentence.id)
       data.append('example[text]', value)
       data.append('example[to]', $('#translation_language').val())
       data.append('reverse', reverse)
@@ -25,7 +24,7 @@ Vue.component('sentence', {
   template: `
     <div class="sentence lt-card">
       <div class="original">
-        Source text - <span>{{ object.original }}</span>
+        Source text - <span>{{ sentence.original }}</span>
       </div>
       <div class="options">
         <div class="translations">

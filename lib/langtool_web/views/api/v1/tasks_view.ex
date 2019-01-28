@@ -1,9 +1,18 @@
 defmodule LangtoolWeb.Api.V1.TasksView do
   use LangtoolWeb, :view
 
-  def render("show.json", %{positions: positions}) do
+  def render("show.json", %{task: task}) do
     %{
-      positions: Enum.map(positions, &position_json/1)
+      task: task_json(task),
+      positions: Enum.map(task.positions, &position_json/1)
+    }
+  end
+
+  defp task_json(task) do
+    %{
+      id: task.id,
+      from: task.from,
+      to: task.to
     }
   end
 
