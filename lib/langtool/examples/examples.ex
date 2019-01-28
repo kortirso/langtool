@@ -82,7 +82,7 @@ defmodule Langtool.Examples do
     case Translations.get_translation_by(%{text: text, locale: to}) do
       # translation does not exist
       nil ->
-        case Translations.create_translation_with_sentence(%{source: "yandex", text: text, locale: to}, sentence) do
+        case Translations.create_translation_with_sentence(%{text: text, locale: to}, sentence) do
           {:ok, translation} -> {:ok, translation}
           _ -> {:error, "Error"}
         end

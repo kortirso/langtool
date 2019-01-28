@@ -5,7 +5,6 @@ defmodule Langtool.TranslationFactory do
     quote do
       def translation_factory do
         %Translation{
-          source: "yandex",
           text: "Hola",
           locale: "es"
         }

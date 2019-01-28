@@ -19,8 +19,7 @@ defmodule LangtoolWeb.SentencesView do
   defp translation_json(translation) do
     %{
       id: translation.id,
-      text: translation.text,
-      source: translation.source,
+      text: translation.text
     }
   end
 end

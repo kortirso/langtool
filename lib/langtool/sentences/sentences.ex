@@ -172,7 +172,7 @@ defmodule Langtool.Sentences do
 
   """
   def create_sentence_with_translation(sentence_params, translation_params) when is_map(sentence_params) and is_map(translation_params) do
-    translation = translation_params |> Map.merge(%{source: "yandex"}) |> Translations.build_translation()
+    translation = Translations.build_translation(translation_params)
 
     create_sentence_with_translation(sentence_params, translation)
   end

@@ -2,7 +2,7 @@ defmodule Langtool.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Comeonin.Bcrypt
-  alias Langtool.{Sessions.Session}
+  alias Langtool.{Sessions.Session, Translations.Translation}
 
   schema "users" do
     field :confirmation_token, :string
@@ -13,6 +13,7 @@ defmodule Langtool.Accounts.User do
 
     has_many :sessions, Session, on_delete: :delete_all
     has_many :tasks, through: [:sessions, :tasks]
+    has_many :translations, Translation, on_delete: :nilify_all
 
     timestamps()
   end
