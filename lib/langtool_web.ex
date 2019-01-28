@@ -25,6 +25,8 @@ defmodule LangtoolWeb do
       import LangtoolWeb.Gettext
       import LangtoolWeb.Errors
       use LangtoolWeb.Auth
+      use LangtoolWeb.ApiAuth
+      use LangtoolWeb.Authorize
     end
   end
 

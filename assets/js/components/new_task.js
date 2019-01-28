@@ -48,7 +48,7 @@ if ($('#page_index_components').length) {
         let data = new FormData()
         data.append('file', this.file)
         data.append('_csrf_token', $('#_csrf_token').val())
-        const config = { header : { 'Content-Type' : 'multipart/form-data' } }
+        const config = { headers : { 'Content-Type' : 'multipart/form-data' } }
         this.$http.post('http://localhost:4000/tasks/detection', data, config).then(function(data) {
           if (data.body.code !== undefined) {
             const locale = locales[data.body.code]
@@ -71,7 +71,7 @@ if ($('#page_index_components').length) {
         data.append('task[session_id]', $('#session_id').val())
         data.append('task[status]', 'created')
         data.append('_csrf_token', $('#_csrf_token').val())
-        const config = { header : { 'Content-Type' : 'multipart/form-data' } }
+        const config = { headers : { 'Content-Type' : 'multipart/form-data' } }
         this.$http.post('http://localhost:4000/tasks', data, config).then(function(data) {
           this.framework = ''
         })

@@ -18,6 +18,7 @@ defmodule LangtoolWeb.TasksController do
 
     conn
     |> assign(:task, task)
+    |> assign(:access_token, Langtool.Token.encode(conn.assigns.current_user.id))
     |> render("show.html")
   end
 

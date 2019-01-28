@@ -1,5 +1,6 @@
 <div id="task_positions">
   <h2>Task positions</h2>
-  <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
-  <input type="hidden" id="task_id" value="<%= @task.id %>">
+  <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>" />
+  <input type="hidden" id="task_id" value="<%= @task.id %>" />
+  <input type="hidden" id="access_token" value="<%= @access_token %>" />
 </div>

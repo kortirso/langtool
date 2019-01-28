@@ -56,6 +56,7 @@ defmodule LangtoolWeb.Router do
     resources "/profile", ProfileController, only: [:index]
   end
 
+  # api resources
   scope "/api/v1", LangtoolWeb.Api.V1 do
     pipe_through :api
 
@@ -67,18 +68,18 @@ defmodule LangtoolWeb.Router do
       conn
       |> get_session(:session_id)
       |> define_session_id(conn)
+
     assign(conn, :session_id, session_id)
   end
 
   defp define_session_id(nil, conn) do
     {:ok, session} = Sessions.create_session()
     conn = put_session(conn, :session_id, session.id)
+
     {conn, session.id}
   end
 
-  defp define_session_id(session_id, conn) do
-    {conn, session_id}
-  end
+  defp define_session_id(session_id, conn), do: {conn, session_id}
 
   defp put_user_token(conn, _) do
     if session_id = conn.assigns[:session_id] do

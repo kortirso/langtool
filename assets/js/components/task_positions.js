@@ -13,7 +13,8 @@ if ($('#task_positions').length) {
     },
     methods: {
       getPositions: function(taskId) {
-        this.$http.get(`http://localhost:4000/api/v1/tasks/${taskId}`).then(function(data) {
+        const config = { headers : { 'Authorization' : $('#access_token').val() } }
+        this.$http.get(`http://localhost:4000/api/v1/tasks/${taskId}`, config).then(function(data) {
           this.positions = data.body.positions
         })
       }
