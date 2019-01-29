@@ -155,4 +155,23 @@ defmodule Langtool.Translations do
       translation -> update_translation(translation, %{"total_rating" => translation.total_rating + rating.value})
     end
   end
+
+  @doc """
+  Find first translation from list, with locale and ordered by total_rating
+
+  ## Examples
+
+      iex> find_first_translation(translations, to)
+      %Translation{}
+
+      iex> find_first_translation(translations, to)
+      nil
+
+  """
+  def find_first_translation(translations, to) when is_list(translations) and is_binary(to) do
+    translations
+    |> Enum.filter(fn %Translation{locale: locale} -> locale == to end)
+    |> Enum.sort(&(&1.total_rating >= &2.total_rating))
+    |> Enum.at(0)
+  end
 end

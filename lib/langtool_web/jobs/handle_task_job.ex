@@ -4,7 +4,7 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Tasks, Tasks.Task, Sentences, Positions, Examples, Translations.Translation}
+  alias Langtool.{Tasks, Tasks.Task, Sentences, Positions, Examples, Translations}
   alias LangtoolWeb.RoomChannel
 
   @doc """
@@ -88,22 +88,14 @@ defmodule LangtoolWeb.Jobs.HandleTaskJob do
 
   # find translation for sentence
   defp find_translation(task, original, iam_token, sentence) do
-    available_translation = filter_translations(sentence, task.to)
+    available_translation = Translations.find_first_translation(sentence.translations, task.to)
+
     case available_translation do
       # create translation for existed sentence
       nil -> create_translation(task, original, iam_token, sentence)
       # return text from existed translation
       _ -> {available_translation.text, sentence}
     end
-  end
-
-  # find first available translation
-  defp filter_translations(sentence, to) do
-    sentence.translations
-    |> Enum.filter(fn %Translation{locale: locale} ->
-      locale == to
-    end)
-    |> Enum.at(0)
   end
 
   defp create_translation(task, original, iam_token, sentence) do
