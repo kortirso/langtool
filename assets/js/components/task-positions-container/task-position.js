@@ -40,7 +40,7 @@ Vue.component('task-position', {
         Current translation - <span>{{ object.result }}</span>
       </div>
       <div class="translation_options" :class="{ visible: isVisible }">
-        <position-translation v-for="translation in translations" v-on:send="changeTranslation" :translation="translation" :key="translation.id" />
+        <position-translation v-for="translation in translations" v-on:send="changeTranslation()" :translation="translation" :key="translation.id" />
       </div>
       <button class="btn btn-outline-primary btn-sm" @click.prevent="toggleOptions()">{{ buttonText }}</button>
     </div>

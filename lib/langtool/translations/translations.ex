@@ -4,7 +4,7 @@ defmodule Langtool.Translations do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Translations.Translation, Sentences.Sentence, Sentences}
+  alias Langtool.{Repo, Translations.Translation, Sentences.Sentence, Sentences, Ratings.Rating}
 
   @doc """
   Gets a single translation
@@ -135,5 +135,24 @@ defmodule Langtool.Translations do
     translation
     |> Translation.changeset(params)
     |> Repo.update()
+  end
+
+  @doc """
+  Updates a rating for translation
+
+  ## Examples
+
+      iex> update_rating(rating)
+      {:ok, %Translation{}}
+
+      iex> update_rating(rating)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_rating(%Rating{} = rating) do
+    case get_translation(rating.translation_id) do
+      nil -> {:error, "Translation is not found"}
+      translation -> update_translation(translation, %{"total_rating" => translation.total_rating + rating.value})
+    end
   end
 end

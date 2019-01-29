@@ -19,7 +19,7 @@ defmodule Langtool.Translations.Translation do
   @doc false
   def changeset(translation, attrs) do
     translation
-    |> cast(attrs, [:user_id, :text, :locale])
+    |> cast(attrs, [:user_id, :text, :locale, :total_rating])
     |> assoc_constraint(:user)
     |> validate_required([:text, :locale])
     |> unique_constraint(:text, name: :index_translations_uniqueness)
