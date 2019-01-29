@@ -4,7 +4,7 @@ defmodule Langtool.Sentences do
   """
 
   import Ecto.Query, warn: false
-  alias Langtool.{Repo, Sentences.Sentence, Translations, Translations.Translation, Examples}
+  alias Langtool.{Repo, Sentences.Sentence, Translations, Translations.Translation, Examples, Ratings.Rating}
 
   @doc """
   Gets a sentences with translations from to
@@ -36,15 +36,20 @@ defmodule Langtool.Sentences do
 
   ## Examples
 
-      iex> list_translations(sentence_id, to)
+      iex> list_translations(sentence_id, to, user_id)
       [%Translation{}, ...]
 
   """
-  def list_translations(sentence_id, to) do
+  def list_translations(sentence_id, to, user_id) do
+    rating_query =
+      from rating in Rating,
+      where: rating.user_id == ^user_id
+
     translation_query =
       from translation in Translation,
       where: translation.locale == ^to,
-      preload: [:user]
+      order_by: [desc: translation.total_rating],
+      preload: [:user, ratings: ^rating_query]
 
     query =
       from sentence in Sentence,

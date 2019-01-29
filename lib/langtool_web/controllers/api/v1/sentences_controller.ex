@@ -12,7 +12,7 @@ defmodule LangtoolWeb.Api.V1.SentencesController do
   end
 
   def translations(conn, %{"id" => sentence_id, "to" => to}) do
-    translations = Sentences.list_translations(sentence_id, to)
+    translations = Sentences.list_translations(sentence_id, to, conn.assigns.current_user.id)
 
     render(conn, "translations.json", translations: translations)
   end

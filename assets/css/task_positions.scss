@@ -62,17 +62,26 @@
 
               &.plus {
                 background: $blue-dark;
-                padding-bottom: 3px;
+                margin-left: 0.5rem;
               }
 
               &.minus {
                 background: $error;
+              }
+
+              &.plus, &.minus {
                 padding-bottom: 3px;
+
+                &.hidden {
+                  display: none;
+                }
               }
 
               &.rating {
-                width: 20px;
+                width: auto;
                 color: $dark;
+                font-size: 0.9rem;
+                font-weight: 500;
               }
 
               &.pushed {

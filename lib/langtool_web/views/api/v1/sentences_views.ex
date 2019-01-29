@@ -28,6 +28,7 @@ defmodule LangtoolWeb.Api.V1.SentencesView do
       id: translation.id,
       text: translation.text,
       total_rating: translation.total_rating,
+      rated: length(translation.ratings) != 0,
       editor: editor(translation.user)
     }
   end
