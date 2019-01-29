@@ -16,9 +16,10 @@ Vue.component('position-translation', {
       <img :src="translation.editor" />
       <span class="value">{{ translation.text }}</span>
       <div class="controls">
-        <span class="accept" @click.prevent="accept"></span>
-        <span class="plus"></span>
-        <span class="minus"></span>
+        <span class="pushed accept" @click.prevent="accept"></span>
+        <span class="pushed plus">+</span>
+        <span class="rating">{{ translation.total_rating }}</span>
+        <span class="pushed minus">-</span>
       </div>
     </div>
   `

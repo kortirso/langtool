@@ -46,25 +46,39 @@
             align-items: center;
 
             span {
+              display: flex;
+              justify-content: center;
+              align-items: center;
               width: 30px;
               height: 30px;
               border-radius: 15px;
               margin-right: 0.25rem;
+              color: $white;
 
               &.accept {
                 background: $blue-semi-dark;
+                margin-right: 0.5rem;
               }
 
               &.plus {
                 background: $blue-dark;
+                padding-bottom: 3px;
               }
 
               &.minus {
                 background: $error;
+                padding-bottom: 3px;
               }
 
-              &:hover {
-                cursor: pointer;
+              &.rating {
+                width: 20px;
+                color: $dark;
+              }
+
+              &.pushed {
+                &:hover {
+                  cursor: pointer;
+                }
               }
             }
           }
