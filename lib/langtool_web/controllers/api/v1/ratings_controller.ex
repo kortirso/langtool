@@ -6,8 +6,6 @@ defmodule LangtoolWeb.Api.V1.RatingsController do
   plug :api_check_confirmation when action in [:create]
 
   def create(conn, %{"rating" => rating_params}) do
-    # authorize(conn, :translation, :update?)
-
     rating_params
     |> Map.merge(%{"user_id" => conn.assigns.current_user.id})
     |> Ratings.create_rating()

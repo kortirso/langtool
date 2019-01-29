@@ -7,7 +7,7 @@ defmodule LangtoolWeb.Api.V1.PositionsController do
 
   def update(conn, %{"id" => id, "position" => position_params}) do
     position = Positions.get_position(String.to_integer(id))
-    # authorize(conn, :position, :update?, position)
+    authorize(conn, :position, :update?, position)
 
     case Positions.update_position(position, position_params) do
       {:ok, position} -> render(conn, "update.json", position: position)

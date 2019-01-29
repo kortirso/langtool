@@ -136,4 +136,14 @@ defmodule Langtool.Accounts do
       {:error, _} -> {:error, "Email confirmation error"}
     end
   end
+
+  @doc """
+  Preloads tasks for user
+
+  ## Examples
+
+      iex> get_user_with_tasks(user)
+
+  """
+  def get_user_with_tasks(%User{} = user), do: Repo.preload(user, :tasks)
 end
