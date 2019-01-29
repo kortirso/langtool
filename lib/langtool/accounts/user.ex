@@ -3,7 +3,7 @@ defmodule Langtool.Accounts.User do
   import Ecto.Changeset
   import Exgravatar
   alias Comeonin.Bcrypt
-  alias Langtool.{Sessions.Session, Translations.Translation, Accounts.User}
+  alias Langtool.{Sessions.Session, Translations.Translation, Accounts.User, Ratings.Rating}
 
   schema "users" do
     field :confirmation_token, :string
@@ -15,6 +15,7 @@ defmodule Langtool.Accounts.User do
     has_many :sessions, Session, on_delete: :delete_all
     has_many :tasks, through: [:sessions, :tasks]
     has_many :translations, Translation, on_delete: :nilify_all
+    has_many :ratings, Rating, on_delete: :delete_all
 
     timestamps()
   end

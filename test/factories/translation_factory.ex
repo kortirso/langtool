@@ -6,7 +6,8 @@ defmodule Langtool.TranslationFactory do
       def translation_factory do
         %Translation{
           text: "Hola",
-          locale: "es"
+          locale: "es",
+          total_rating: 0
         }
       end
     end

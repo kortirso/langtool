@@ -1,14 +1,16 @@
 defmodule Langtool.Translations.Translation do
   use Ecto.Schema
   import Ecto.Changeset
-  alias Langtool.{Sentences.Sentence, Examples.Example, Accounts.User}
+  alias Langtool.{Sentences.Sentence, Examples.Example, Accounts.User, Ratings.Rating}
 
   schema "translations" do
     field :text, :string
     field :locale, :string
+    field :total_rating, :integer, default: 0
 
     belongs_to :user, User
 
+    has_many :ratings, Rating, on_delete: :delete_all
     many_to_many :sentences, Sentence, join_through: Example, on_delete: :delete_all
 
     timestamps()

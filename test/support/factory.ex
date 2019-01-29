@@ -7,4 +7,5 @@ defmodule Langtool.Factory do
   use Langtool.SentenceFactory
   use Langtool.TranslationFactory
   use Langtool.ExampleFactory
+  use Langtool.RatingFactory
 end
