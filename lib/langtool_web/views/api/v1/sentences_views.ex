@@ -19,7 +19,15 @@ defmodule LangtoolWeb.Api.V1.SentencesView do
       id: sentence.id,
       original: sentence.original,
       key: "#{sentence.id}-#{locale}",
-      translations: Enum.map(sentence.translations, &translation_json/1)
+      translations: Enum.map(sentence.translations, &simple_translation_json/1)
+    }
+  end
+
+  defp simple_translation_json(translation) do
+    %{
+      id: translation.id,
+      text: translation.text,
+      editor: editor(translation.user)
     }
   end
 
